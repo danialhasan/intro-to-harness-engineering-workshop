@@ -28,6 +28,7 @@ proves general superiority.
 orient -> preflight -> H0 -> H1 -> H2 -> H3
        -> HUMAN H4 DECISION -> H4 -> adjacent comparisons
        -> HUMAN CLAIM DECISION -> experiment card
+       -> OPTIONAL trace analysis or another public Taskset
 ```
 
 ## Credentials and cost
@@ -67,6 +68,11 @@ Open the cloned `workshop/` folder in Codex. Paste the prompt from
 contract, [TASK.md](candidates/retry-http/TASK.md), and the
 [API contract](candidates/retry-http/docs/api-contract.md), then works from
 `runner/`.
+
+After it creates the experiment card, Codex reads
+[prompts/README.md](prompts/README.md) and shows an optional continuation menu.
+This keeps private trace analysis and follow-on Tasksets outside the controlled
+H0-H4 ladder.
 
 Codex runs:
 
@@ -201,6 +207,17 @@ controls to force a pass.
 
 ## Continue the pattern
 
-Keep the completed card. For a new iteration, choose a public deterministic
-Taskset, freeze controls, add one cumulative mechanism, run fresh samples, and
-state only what the traces, rewards, and metrics support.
+Keep the completed card. If you do not know which failure deserves an
+evaluation, use the [private trace failure-analysis
+prompt](prompts/TRACE_FAILURE_ANALYSIS.md) in a separate task that owns your
+trace data. It samples approved traces, clusters observed failures, preserves a
+random discovery sample, and requires you to approve the taxonomy.
+
+When you are ready for another public experiment, use the
+[failure-mode Taskset library](tasksets/) and its privacy-safe chooser. The
+library contains three prebuilt synthetic Tasksets. Do not substitute one
+inside the completed `retry-http-v1` ladder.
+
+For every new iteration, choose a deterministic Taskset, freeze controls, add
+one cumulative mechanism, run fresh samples, and state only what the traces,
+rewards, and metrics support.

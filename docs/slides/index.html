@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#090d12" />
     <title>Intro to Harness Engineering</title>
-    <script type="module" crossorigin src="./assets/index-DsVn1pMY.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-DxVSigdo.css">
+    <script type="module" crossorigin src="./assets/index-ITg-eVIk.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-BSa1zj-l.css">
   </head>
   <body>
     <div class="reveal">
@@ -39,93 +39,34 @@
           </aside>
         </section>
 
-        <section class="slide slide--concept-map" data-slide-id="HE-01">
-          <header class="concept-map__header">
-            <p class="eyebrow">The conceptual map</p>
-            <h2>Four ideas.<br /><span>One system.</span></h2>
-          </header>
-
-          <ol class="concept-map__sequence">
-            <li>
-              <span class="concept-map__number">01</span>
-              <div>
-                <strong>Capability</strong>
-                <p>What the model could do.</p>
-              </div>
-            </li>
-            <li>
-              <span class="concept-map__number">02</span>
-              <div>
-                <strong>Trajectories</strong>
-                <p>The path the agent takes.</p>
-              </div>
-            </li>
-            <li>
-              <span class="concept-map__number">03</span>
-              <div>
-                <strong>Observation + uncertainty</strong>
-                <p>What it can see before it acts.</p>
-              </div>
-            </li>
-            <li>
-              <span class="concept-map__number">04</span>
-              <div>
-                <strong>Feedback + verification</strong>
-                <p>What moves—or stops—the path.</p>
-              </div>
-            </li>
-          </ol>
-
-          <p class="concept-map__footer">Together: how the system around a model shapes the work it does.</p>
-          <aside class="notes">
-            This is the map, not the lecture. Name the four ideas without unpacking the implementation details yet. The audience should recognize the same ideas later in the visual, formal, code, and trace views.
-            [Sources] Editorial direction from the Danial–ChatGPT opening-sequence conversation; research/TRANSCRIPT_WORKSHOP_EVIDENCE.md sections 1–3.
-          </aside>
-        </section>
-
         <section class="slide slide--four-views" data-slide-id="HE-02">
           <header class="four-views__header">
-            <h2>One object.<br /><span>Four views.</span></h2>
-            <p>We’re going to view each concept from four different angles.</p>
+            <h2>One object.<br /><span>Three views.</span></h2>
+            <p>We’re going to view each concept from three different angles.</p>
           </header>
 
-          <div class="four-views__line" aria-label="Four views of the same system">
+          <div class="four-views__line" aria-label="Three views of the same system">
             <div>
               <span>01</span>
-              <strong>Math</strong>
-              <p>State relationships precisely.</p>
-            </div>
-            <div>
-              <span>02</span>
               <strong>Visual</strong>
               <p>Build intuition.</p>
             </div>
             <div>
-              <span>03</span>
+              <span>02</span>
               <strong>Code</strong>
               <p>Expose the mechanism.</p>
             </div>
             <div>
-              <span>04</span>
+              <span>03</span>
               <strong>Trace</strong>
               <p>Inspect what happened.</p>
             </div>
           </div>
 
-          <p class="four-views__footer">Same system. Four representations.</p>
+          <p class="four-views__footer">Same system. Three representations.</p>
           <aside class="notes">
-            These are not four separate explanations. Math removes implementation detail and states the relationships precisely. Visuals build intuition. Code shows the mechanism. Traces show what the mechanism did in an actual run.
+            These are not three separate explanations. Visuals build intuition. Code shows the mechanism. Traces show what the mechanism did in an actual run.
             [Sources] Editorial direction from the Danial–ChatGPT opening-sequence conversation; research/TRANSCRIPT_WORKSHOP_EVIDENCE.md section 3.
-          </aside>
-        </section>
-
-        <section class="slide slide--why" data-slide-id="HE-04">
-          <div class="why__statement">
-            <p>We analyzed your<br /><span>signup data.</span></p>
-          </div>
-          <aside class="notes">
-            This is the pivot. The concepts were not selected because they form a fashionable taxonomy. They map to the failures and interests reported in the signup form.
-            [Sources] research/AUDIENCE_EVIDENCE.md.
           </aside>
         </section>
 
@@ -156,29 +97,1002 @@
           </aside>
         </section>
 
-        <section class="slide slide--harness-definition" data-slide-id="HE-06">
-          <header class="harness-definition__header">
-            <h2>What is<br /><span>harness engineering?</span></h2>
+        <section class="slide slide--zoom-map" data-slide-id="HE-06B">
+          <header class="zoom-map__header">
+            <h2>We’ll move down the<br /><span>abstraction ladder.</span></h2>
+            <p>At each zoom, we make the same system more concrete.</p>
           </header>
 
-          <div class="harness-definition__body">
-            <p class="harness-definition__statement">
-              The practice of designing the system around a model so it can pursue a specific outcome reliably.
-            </p>
+          <ol class="zoom-map__ladder" aria-label="Seven levels of abstraction">
+            <li>
+              <span>ZOOM 0</span>
+              <strong>EXPERIMENT</strong>
+              <p>Where are we in the experiment?</p>
+            </li>
+            <li>
+              <span>ZOOM 1</span>
+              <strong>SURFACES</strong>
+              <p>What aspect of the harness are we controlling?</p>
+            </li>
+            <li>
+              <span>ZOOM 2</span>
+              <strong>POLICIES</strong>
+              <p>How should that surface behave?</p>
+            </li>
+            <li>
+              <span>ZOOM 3</span>
+              <strong>KNOBS + VALUES</strong>
+              <p>What can we vary, and which alternative are we testing?</p>
+            </li>
+            <li>
+              <span>ZOOM 4</span>
+              <strong>PROJECTION</strong>
+              <p>Where should the policy become machinery?</p>
+            </li>
+            <li>
+              <span>ZOOM 5</span>
+              <strong>CODE</strong>
+              <p>What executable mechanism implements it?</p>
+            </li>
+            <li>
+              <span>ZOOM 6</span>
+              <strong>TRACE</strong>
+              <p>What behavior did that mechanism induce?</p>
+            </li>
+          </ol>
 
-            <div class="harness-definition__controls" aria-label="Harness control surfaces">
-              <p><strong>What it sees</strong><span>Context and observations</span></p>
-              <p><strong>What it can do</strong><span>Tools and authority</span></p>
-              <p><strong>What persists</strong><span>State</span></p>
-              <p><strong>What evidence returns</strong><span>Feedback and verification</span></p>
-              <p><strong>When stopping is justified</strong><span>Completion rules</span></p>
+          <p class="zoom-map__footer">Same system. Different levels of abstraction.</p>
+          <aside class="notes">
+            This is the map for the next part of the lecture. We will begin with the experiment, then open the harness into five surfaces. After that, we will make one idea more concrete at each step: policy, experimental knob and value, projection boundary, executable mechanism, and observed trace. The labels will return as a breadcrumb so the room always knows its current level.
+            [Sources] Editorial structure from the Danial–ChatGPT abstraction-ladder conversation; research/FORMAL_FOUNDATIONS.md.
+          </aside>
+        </section>
+
+        <section class="slide slide--verifiers-domains" data-slide-id="HE-06">
+          <header class="verifiers-domains__header">
+            <div>
+              <div class="abstraction-breadcrumb" aria-label="Current abstraction level">
+                <strong>EXPERIMENT</strong><i>→</i><span>SURFACES</span><i>→</i><span>POLICIES</span><i>→</i><span>KNOBS</span><i>→</i><span>PROJECTION</span><i>→</i><span>CODE</span><i>→</i><span>TRACE</span>
+              </div>
+              <h2>First, locate<br /><span>the experiment.</span></h2>
+            </div>
+            <p>A taskset defines the work. A harness solves it in a runtime. The trace records what happened so we can evaluate the harness.</p>
+          </header>
+
+          <div class="verifiers-domains__environment">
+            <span class="verifiers-domains__label">PRIME INTELLECT · VERIFIERS V1</span>
+
+            <div class="verifiers-domains__flow" aria-label="Taskset, harness, runtime, and trace">
+              <article>
+                <small>WHAT</small>
+                <strong>TASKSET</strong>
+                <p>What problem are we asking it to solve?</p>
+              </article>
+
+              <i aria-hidden="true">→</i>
+
+              <article class="is-harness">
+                <small>HOW</small>
+                <strong>HARNESS</strong>
+                <p>How are we making the agent operate?</p>
+              </article>
+
+              <i aria-hidden="true">→</i>
+
+              <article>
+                <small>WHERE</small>
+                <strong>RUNTIME</strong>
+                <p>What world or computer is it operating inside?</p>
+              </article>
+
+              <i aria-hidden="true">→</i>
+
+              <article class="is-trace">
+                <small>RECORD</small>
+                <strong>TRACE</strong>
+                <p>What actually happened during the run?</p>
+              </article>
             </div>
           </div>
 
-          <p class="harness-definition__footer">The model is one component of the agent system.</p>
+          <p class="verifiers-domains__footer">Scoring reads the trace. The candidate harness does not define its own exam.</p>
           <aside class="notes">
-            A model provides capability. The harness turns that capability into an operating system for a task. It assembles context, exposes tools and authority, carries state, returns observations and feedback, invokes verification, and decides whether to continue, stop, or escalate. These controls can change the trajectory, but a harness change does not automatically improve the outcome.
-            [Sources] research/FORMAL_FOUNDATIONS.md; research/HARNESS_CODE_PROVENANCE.md.
+            Verifiers v1 gives us a useful coordinate system. The taskset defines the tasks and scoring. The harness is the rollout program that calls the model and tools. The runtime is where that program executes. The trace is the saved record that scoring reads. We will use these four domains to separate the system we change from the evidence we use to judge it.
+            [Sources] https://github.com/PrimeIntellect-ai/verifiers/blob/main/docs/overview.md; https://github.com/PrimeIntellect-ai/verifiers/blob/main/docs/v1/tasksets.md; https://github.com/PrimeIntellect-ai/lab-cookbook/blob/main/guides/01-environments-and-evals/README.md.
+          </aside>
+        </section>
+
+        <section class="slide slide--harness-expanded" data-slide-id="HE-06A">
+          <header class="harness-expanded__header">
+            <div>
+              <div class="abstraction-breadcrumb" aria-label="Current abstraction level">
+                <span>EXPERIMENT</span><i>→</i><strong>SURFACES</strong><i>→</i><span>POLICIES</span><i>→</i><span>KNOBS</span><i>→</i><span>PROJECTION</span><i>→</i><span>CODE</span><i>→</i><span>TRACE</span>
+              </div>
+              <h2>Open the harness.</h2>
+              <strong>Five surfaces help us reason about how it operates.</strong>
+            </div>
+            <p>Tools, prompts, memory, permissions, hooks, and verifiers belong to different surfaces of the system around the model.</p>
+          </header>
+
+          <div class="harness-expanded__frame">
+            <div class="harness-expanded__frame-labels">
+              <span class="harness-expanded__label">INSIDE THE HARNESS</span>
+              <strong>TRUST BOUNDARY <em>permissions · verification · evidence · stopping</em></strong>
+            </div>
+
+            <div class="harness-surfaces__top" aria-label="Intelligence, information, and capabilities">
+              <article>
+                <strong>INTELLIGENCE</strong>
+                <p>What cognition do we invoke?</p>
+                <span>model · reasoning · routing</span>
+              </article>
+              <article>
+                <strong>INFORMATION</strong>
+                <p>What does the agent know now?</p>
+                <span>prompt · context · memory</span>
+              </article>
+              <article>
+                <strong>CAPABILITIES</strong>
+                <p>What can the agent do?</p>
+                <span>tools · skills · MCP</span>
+              </article>
+            </div>
+
+            <div class="harness-surfaces__merge" aria-hidden="true"><span>↓</span></div>
+
+            <article class="harness-surfaces__control">
+              <strong>CONTROL</strong>
+              <p>How does the loop behave?</p>
+              <span>controller · hooks · state · delegation · lifecycle</span>
+            </article>
+          </div>
+
+          <p class="harness-expanded__footer">Control coordinates the system over time. Trust constrains and judges it.</p>
+          <aside class="notes">
+            This is the highlighted harness box from the prior slide, opened up. These five surfaces are a teaching decomposition, not a universal law. Intelligence selects the cognition we invoke. Information determines what the agent knows now. Capabilities define what it can do. Control coordinates those surfaces over time. Trust surrounds the system: it constrains actions, challenges claims, demands evidence, and decides what is sufficient to stop.
+            [Sources] Editorial structure from the Danial–ChatGPT harness-surface proposal; research/FORMAL_FOUNDATIONS.md; research/HARNESS_CODE_PROVENANCE.md.
+          </aside>
+        </section>
+
+        <section class="slide slide--pi-surfaces" data-slide-id="HE-06A1">
+          <div class="abstraction-breadcrumb" aria-label="Current abstraction level">
+            <span>EXPERIMENT</span><i>→</i><strong>SURFACES</strong><i>→</i><span>POLICIES</span><i>→</i><span>KNOBS</span><i>→</i><span>PROJECTION</span><i>→</i><span>CODE</span><i>→</i><span>TRACE</span>
+          </div>
+
+          <header class="pi-surfaces__header">
+            <h2>Pi makes the<br /><span>five surfaces concrete.</span></h2>
+            <p>One production harness coordinates every surface. The model is only one part of the system.</p>
+          </header>
+
+          <div class="pi-surfaces__system" aria-label="Pi mapped to the five harness surfaces">
+            <div class="pi-surfaces__name">
+              <span>REAL HARNESS</span>
+              <strong>PI CODING AGENT</strong>
+              <p>Agent state and extension seams coordinate the model, context, tools, loop, and execution boundaries.</p>
+            </div>
+
+            <div class="pi-surfaces__grid">
+              <article>
+                <small>01 · INTELLIGENCE</small>
+                <strong>Model + thinking level</strong>
+                <p>Agent state selects the model and how much thinking the provider should request.</p>
+                <code>AgentState</code>
+              </article>
+              <article>
+                <small>02 · INFORMATION</small>
+                <strong>Prompt + transformed context</strong>
+                <p>The system prompt, messages, and a context transform shape what the model sees next.</p>
+                <code>transformContext</code>
+              </article>
+              <article>
+                <small>03 · CAPABILITIES</small>
+                <strong>Registered + active tools</strong>
+                <p>The registry can contain more tools than the active set sent to the model.</p>
+                <code>setActiveToolsByName</code>
+              </article>
+              <article>
+                <small>04 · CONTROL</small>
+                <strong>Loop + steering + follow-up</strong>
+                <p>Tool calls and queued messages determine whether the agent continues.</p>
+                <code>runLoop</code>
+              </article>
+              <article class="is-trust">
+                <small>05 · TRUST</small>
+                <strong>Tool interception</strong>
+                <p>Extensions can block a call before execution and inspect or rewrite its result.</p>
+                <code>wrapToolWithExtensions</code>
+              </article>
+            </div>
+          </div>
+
+          <p class="pi-surfaces__footer">The surfaces are teaching categories. Pi implements them through state, loop, session, and extension APIs.</p>
+          <aside class="notes">
+            Use Pi as one concrete TypeScript harness. Intelligence is the selected model and thinking level. Information is the system prompt, messages, and optional context transform. Capabilities are registered, then an active subset is selected. Control is the nested loop over tool calls, steering, and follow-up messages. Trust is represented here by extension interception that can block calls and inspect results. These labels are our teaching decomposition; the Pi source does not use this exact five-part taxonomy.
+            [Sources] https://github.com/badlogic/pi-mono/tree/34878e7cc8074f42edff6c2cdcc9828aa9b6afde; https://github.com/badlogic/pi-mono/blob/34878e7cc8074f42edff6c2cdcc9828aa9b6afde/packages/agent/src/agent.ts#L90-L129; https://github.com/badlogic/pi-mono/blob/34878e7cc8074f42edff6c2cdcc9828aa9b6afde/packages/agent/src/agent-loop.ts#L104-L198; https://github.com/badlogic/pi-mono/blob/34878e7cc8074f42edff6c2cdcc9828aa9b6afde/packages/agent/src/agent-loop.ts#L205-L238; https://github.com/badlogic/pi-mono/blob/34878e7cc8074f42edff6c2cdcc9828aa9b6afde/packages/coding-agent/src/core/agent-session.ts#L549-L639; https://github.com/badlogic/pi-mono/blob/34878e7cc8074f42edff6c2cdcc9828aa9b6afde/packages/coding-agent/src/core/extensions/wrapper.ts#L33-L110.
+          </aside>
+        </section>
+
+        <section class="slide slide--pi-source" data-slide-id="HE-06A2">
+          <div class="abstraction-breadcrumb" aria-label="Current abstraction level">
+            <span>EXPERIMENT</span><i>→</i><strong>SURFACES</strong><i>→</i><span>POLICIES</span><i>→</i><span>KNOBS</span><i>→</i><span>PROJECTION</span><i>→</i><span>CODE</span><i>→</i><span>TRACE</span>
+          </div>
+
+          <header class="pi-source__header">
+            <h2>The surfaces are<br /><span>visible in code.</span></h2>
+            <p>Choose a surface. Each view condenses a pinned TypeScript source slice from Pi.</p>
+          </header>
+
+          <div class="source-explorer" data-switcher>
+            <div class="source-explorer__tabs" role="tablist" aria-label="Pi harness surfaces">
+              <button type="button" role="tab" aria-selected="true" aria-controls="pi-intelligence" data-switch-target="pi-intelligence"><span>01</span>Intelligence</button>
+              <button type="button" role="tab" aria-selected="false" aria-controls="pi-information" data-switch-target="pi-information" tabindex="-1"><span>02</span>Information</button>
+              <button type="button" role="tab" aria-selected="false" aria-controls="pi-capabilities" data-switch-target="pi-capabilities" tabindex="-1"><span>03</span>Capabilities</button>
+              <button type="button" role="tab" aria-selected="false" aria-controls="pi-control" data-switch-target="pi-control" tabindex="-1"><span>04</span>Control</button>
+              <button type="button" role="tab" aria-selected="false" aria-controls="pi-trust" data-switch-target="pi-trust" tabindex="-1"><span>05</span>Trust</button>
+            </div>
+
+            <div class="source-explorer__panels">
+              <article id="pi-intelligence" role="tabpanel" class="source-panel">
+                <div class="source-panel__heading"><div><small>INTELLIGENCE</small><strong>Agent cognition</strong></div><code>agent.ts</code></div>
+                <pre><code>private _state: AgentState = {
+    systemPrompt: "",
+    model: getModel("google", "gemini-2.5-flash-lite-preview-06-17"),
+    thinkingLevel: "off",
+    tools: [],
+    messages: [],
+}</code></pre>
+                <p>Pi keeps the selected model and thinking level in agent state beside tools and messages.</p>
+                <a data-code-link href="https://github.com/badlogic/pi-mono/blob/34878e7cc8074f42edff6c2cdcc9828aa9b6afde/packages/agent/src/agent.ts#L90-L129" target="_blank" rel="noreferrer">Open pinned source ↗</a>
+              </article>
+
+              <article id="pi-information" role="tabpanel" class="source-panel" hidden>
+                <div class="source-panel__heading"><div><small>INFORMATION</small><strong>Context before inference</strong></div><code>agent-loop.ts</code></div>
+                <pre><code>let messages = context.messages;
+if (config.transformContext) {
+    messages = await config.transformContext(messages, signal);
+}
+const llmContext = {
+    systemPrompt: context.systemPrompt,
+    messages: await config.convertToLlm(messages),
+    tools: context.tools,
+};</code></pre>
+                <p>Pi can transform context before it builds the next model request.</p>
+                <a data-code-link href="https://github.com/badlogic/pi-mono/blob/34878e7cc8074f42edff6c2cdcc9828aa9b6afde/packages/agent/src/agent-loop.ts#L205-L238" target="_blank" rel="noreferrer">Open pinned source ↗</a>
+              </article>
+
+              <article id="pi-capabilities" role="tabpanel" class="source-panel" hidden>
+                <div class="source-panel__heading"><div><small>CAPABILITIES</small><strong>Registered versus active</strong></div><code>agent-session.ts</code></div>
+                <pre><code>setActiveToolsByName(toolNames: string[]): void {
+    const tools = toolNames
+        .map((name) =&gt; this._toolRegistry.get(name))
+        .filter(Boolean);
+    this.agent.setTools(tools);
+    this.agent.setSystemPrompt(this._rebuildSystemPrompt(toolNames));
+}</code></pre>
+                <p>Pi can change callable tools and rebuild prompt context for the next turn.</p>
+                <a data-code-link href="https://github.com/badlogic/pi-mono/blob/34878e7cc8074f42edff6c2cdcc9828aa9b6afde/packages/coding-agent/src/core/agent-session.ts#L549-L570" target="_blank" rel="noreferrer">Open pinned source ↗</a>
+              </article>
+
+              <article id="pi-control" role="tabpanel" class="source-panel" hidden>
+                <div class="source-panel__heading"><div><small>CONTROL</small><strong>Continue or stop</strong></div><code>agent-loop.ts</code></div>
+                <pre><code>while (true) {
+    while (hasMoreToolCalls || pendingMessages.length &gt; 0) {
+        const message = await streamAssistantResponse(...);
+        const toolCalls = message.content.filter(isToolCall);
+        hasMoreToolCalls = toolCalls.length &gt; 0;
+    }
+}</code></pre>
+                <p>The controller continues while tools or queued messages require another model turn.</p>
+                <a data-code-link href="https://github.com/badlogic/pi-mono/blob/34878e7cc8074f42edff6c2cdcc9828aa9b6afde/packages/agent/src/agent-loop.ts#L104-L198" target="_blank" rel="noreferrer">Open pinned source ↗</a>
+              </article>
+
+              <article id="pi-trust" role="tabpanel" class="source-panel" hidden>
+                <div class="source-panel__heading"><div><small>TRUST</small><strong>Intercept before execution</strong></div><code>extensions/wrapper.ts</code></div>
+                <pre><code>const callResult = await runner.emitToolCall({
+    type: "tool_call",
+    toolName: tool.name,
+    input: params,
+});
+if (callResult?.block) throw new Error(callResult.reason);</code></pre>
+                <p>Pi extensions can enforce a boundary before the underlying tool runs.</p>
+                <a data-code-link href="https://github.com/badlogic/pi-mono/blob/34878e7cc8074f42edff6c2cdcc9828aa9b6afde/packages/coding-agent/src/core/extensions/wrapper.ts#L33-L71" target="_blank" rel="noreferrer">Open pinned source ↗</a>
+              </article>
+            </div>
+          </div>
+
+          <p class="pi-source__footer">Condensed for teaching. Open the pinned source for the full implementation.</p>
+          <aside class="notes">
+            Click through the five tabs. The snippets are deliberately small. They show evidence of the mechanism, not the complete subsystem. Point out that the same surface often spans several files, and one file may contribute to several surfaces. This is why the taxonomy is useful for reasoning but should not be mistaken for the repository architecture.
+            [Sources] https://github.com/badlogic/pi-mono/tree/34878e7cc8074f42edff6c2cdcc9828aa9b6afde; linked pinned TypeScript source slices on the slide.
+          </aside>
+        </section>
+
+        <section class="slide slide--policy" data-slide-id="HE-06C">
+          <div class="abstraction-breadcrumb" aria-label="Current abstraction level">
+            <span>EXPERIMENT</span><i>→</i><span>SURFACES</span><i>→</i><strong>POLICIES</strong><i>→</i><span>KNOBS</span><i>→</i><span>PROJECTION</span><i>→</i><span>CODE</span><i>→</i><span>TRACE</span>
+          </div>
+
+          <header class="policy__header">
+            <h2>A harness is a<br /><span>system of policies.</span></h2>
+            <p>A policy is a rule for how the harness must operate. Policies keep the agent's behavior consistent across tools, context, permissions, and stopping.</p>
+          </header>
+
+          <div class="example-browser" data-switcher>
+            <div class="example-browser__tabs" role="tablist" aria-label="Public harness policy systems">
+              <button type="button" role="tab" aria-selected="true" aria-controls="harness-policies-pi" data-switch-target="harness-policies-pi">Pi</button>
+              <button type="button" role="tab" aria-selected="false" aria-controls="harness-policies-deepseek" data-switch-target="harness-policies-deepseek" tabindex="-1">DeepSeek Harness</button>
+              <button type="button" role="tab" aria-selected="false" aria-controls="harness-policies-opencode" data-switch-target="harness-policies-opencode" tabindex="-1">OpenCode</button>
+            </div>
+
+            <div class="example-browser__panels">
+              <article id="harness-policies-pi" role="tabpanel" class="harness-policy-panel">
+                <header><strong>PI</strong><span>Three policy boundaries visible in pinned TypeScript source.</span></header>
+                <div class="harness-policy-row">
+                  <small>CAPABILITIES</small>
+                  <strong>Only the active tools should appear in the next request.</strong>
+                  <span>Active tool selection + prompt rebuild</span>
+                  <a data-code-link href="https://github.com/badlogic/pi-mono/blob/34878e7cc8074f42edff6c2cdcc9828aa9b6afde/packages/coding-agent/src/core/agent-session.ts#L549-L639" target="_blank" rel="noreferrer">Open code ↗</a>
+                </div>
+                <div class="harness-policy-row">
+                  <small>INFORMATION</small>
+                  <strong>Each model call should receive the context selected for that turn.</strong>
+                  <span>Context transform before request assembly</span>
+                  <a data-code-link href="https://github.com/badlogic/pi-mono/blob/34878e7cc8074f42edff6c2cdcc9828aa9b6afde/packages/agent/src/agent-loop.ts#L211-L237" target="_blank" rel="noreferrer">Open code ↗</a>
+                </div>
+                <div class="harness-policy-row">
+                  <small>TRUST</small>
+                  <strong>Protected tool calls must pass extension checks before execution.</strong>
+                  <span>Pre-call blocking + post-result inspection</span>
+                  <a data-code-link href="https://github.com/badlogic/pi-mono/blob/34878e7cc8074f42edff6c2cdcc9828aa9b6afde/packages/coding-agent/src/core/extensions/wrapper.ts#L33-L110" target="_blank" rel="noreferrer">Open code ↗</a>
+                </div>
+              </article>
+
+              <article id="harness-policies-deepseek" role="tabpanel" class="harness-policy-panel" hidden>
+                <header><strong>DEEPSEEK HARNESS</strong><span>Three policy boundaries visible in pinned TypeScript source.</span></header>
+                <div class="harness-policy-row">
+                  <small>RECOVERY</small>
+                  <strong>Retry only when the request-error hook approves recovery.</strong>
+                  <span>Hook-controlled retry decision</span>
+                  <a data-code-link href="https://github.com/deepseek-ai/deepseek-harness/blob/141eb6fef83422698aef7a981029e843e8161534/packages/core/agent-loop/src/agent.ts#L332-L418" target="_blank" rel="noreferrer">Open code ↗</a>
+                </div>
+                <div class="harness-policy-row">
+                  <small>EVIDENCE</small>
+                  <strong>Tool results should remain ordered and linked to their calls.</strong>
+                  <span>Parallel execution + ordered commit</span>
+                  <a data-code-link href="https://github.com/deepseek-ai/deepseek-harness/blob/141eb6fef83422698aef7a981029e843e8161534/packages/core/agent-loop/src/tool-calls.ts#L261-L288" target="_blank" rel="noreferrer">Open code ↗</a>
+                </div>
+                <div class="harness-policy-row">
+                  <small>DELEGATION</small>
+                  <strong>Delegated work must stay within depth and execution bounds.</strong>
+                  <span>Depth cap + foreground or background mode</span>
+                  <a data-code-link href="https://github.com/deepseek-ai/deepseek-harness/blob/141eb6fef83422698aef7a981029e843e8161534/packages/subagent/tool-subagent/src/index.ts#L59-L78" target="_blank" rel="noreferrer">Open code ↗</a>
+                </div>
+              </article>
+
+              <article id="harness-policies-opencode" role="tabpanel" class="harness-policy-panel" hidden>
+                <header><strong>OPENCODE</strong><span>Three policy boundaries visible in pinned TypeScript source.</span></header>
+                <div class="harness-policy-row">
+                  <small>AUTHORITY</small>
+                  <strong>Every protected action must resolve to allow, ask, or deny.</strong>
+                  <span>Ordered wildcard permission rules</span>
+                  <a data-code-link href="https://github.com/anomalyco/opencode/blob/e49772a8b4db867f638ffad9f7d188ccbbe05b58/packages/opencode/src/permission/index.ts#L28-L95" target="_blank" rel="noreferrer">Open code ↗</a>
+                </div>
+                <div class="harness-policy-row">
+                  <small>DELEGATION</small>
+                  <strong>Child work must respect recursive depth boundaries.</strong>
+                  <span>Depth check before child-session creation</span>
+                  <a data-code-link href="https://github.com/anomalyco/opencode/blob/e49772a8b4db867f638ffad9f7d188ccbbe05b58/packages/opencode/src/tool/task.ts#L104-L146" target="_blank" rel="noreferrer">Open code ↗</a>
+                </div>
+                <div class="harness-policy-row">
+                  <small>CHILD AUTHORITY</small>
+                  <strong>Delegated sessions should receive derived, constrained permissions.</strong>
+                  <span>Permission derivation + child-session lineage</span>
+                  <a data-code-link href="https://github.com/anomalyco/opencode/blob/e49772a8b4db867f638ffad9f7d188ccbbe05b58/packages/opencode/src/tool/task.ts#L147-L214" target="_blank" rel="noreferrer">Open code ↗</a>
+                </div>
+              </article>
+            </div>
+          </div>
+
+          <div class="policy__not-prompt">
+            <strong>HARNESS = COORDINATED POLICY SYSTEM</strong>
+            <p>Each source link shows one public projection, not the complete harness.</p>
+          </div>
+
+          <aside class="notes">
+            Select a harness first. Then read several policy boundaries within that one system. Pi coordinates capability exposure, context selection, and tool interception. DeepSeek Harness coordinates recovery, ordered evidence, and delegation bounds. OpenCode coordinates execution authority, recursive depth, and derived child permissions. The policy statements are teaching interpretations of the cited mechanisms. The source links show one public projection for each rule. They do not prove that the projection is unique or that it improves outcomes.
+            [Sources] https://github.com/badlogic/pi-mono/blob/34878e7cc8074f42edff6c2cdcc9828aa9b6afde/packages/coding-agent/src/core/agent-session.ts#L549-L639; https://github.com/badlogic/pi-mono/blob/34878e7cc8074f42edff6c2cdcc9828aa9b6afde/packages/agent/src/agent-loop.ts#L211-L237; https://github.com/badlogic/pi-mono/blob/34878e7cc8074f42edff6c2cdcc9828aa9b6afde/packages/coding-agent/src/core/extensions/wrapper.ts#L33-L110; https://github.com/deepseek-ai/deepseek-harness/blob/141eb6fef83422698aef7a981029e843e8161534/packages/core/agent-loop/src/agent.ts#L332-L418; https://github.com/deepseek-ai/deepseek-harness/blob/141eb6fef83422698aef7a981029e843e8161534/packages/core/agent-loop/src/tool-calls.ts#L261-L288; https://github.com/deepseek-ai/deepseek-harness/blob/141eb6fef83422698aef7a981029e843e8161534/packages/subagent/tool-subagent/src/index.ts#L59-L78; https://github.com/anomalyco/opencode/blob/e49772a8b4db867f638ffad9f7d188ccbbe05b58/packages/opencode/src/permission/index.ts#L28-L95; https://github.com/anomalyco/opencode/blob/e49772a8b4db867f638ffad9f7d188ccbbe05b58/packages/opencode/src/tool/task.ts#L104-L214.
+          </aside>
+        </section>
+
+        <section class="slide slide--knobs" data-slide-id="HE-06D">
+          <div class="abstraction-breadcrumb" aria-label="Current abstraction level">
+            <span>EXPERIMENT</span><i>→</i><span>SURFACES</span><i>→</i><span>POLICIES</span><i>→</i><strong>KNOBS</strong><i>→</i><span>PROJECTION</span><i>→</i><span>CODE</span><i>→</i><span>TRACE</span>
+          </div>
+
+          <header class="knobs__header">
+            <h2>Knobs expose choices<br /><span>inside a policy.</span></h2>
+            <p>A knob is a choice inside a policy. Knobs let us change one part of the harness without changing the goal of the policy.</p>
+          </header>
+
+          <div class="knob-browser" data-switcher>
+            <div class="knob-browser__tabs" role="tablist" aria-label="Knobs exposed by different policy families">
+              <button type="button" role="tab" aria-selected="true" aria-controls="knob-capabilities" data-switch-target="knob-capabilities">Capabilities</button>
+              <button type="button" role="tab" aria-selected="false" aria-controls="knob-authority" data-switch-target="knob-authority" tabindex="-1">Authority</button>
+              <button type="button" role="tab" aria-selected="false" aria-controls="knob-recovery" data-switch-target="knob-recovery" tabindex="-1">Recovery</button>
+              <button type="button" role="tab" aria-selected="false" aria-controls="knob-delegation" data-switch-target="knob-delegation" tabindex="-1">Delegation</button>
+            </div>
+
+            <div class="knob-browser__panels">
+              <article id="knob-capabilities" role="tabpanel" class="knob-family">
+                <div class="knob-family__policy"><small>POLICY</small><strong>Expose only capabilities relevant to the current work.</strong><span>Pi specimen</span></div>
+                <div class="knob-family__choices">
+                  <div><small>DISCLOSURE TIMING</small><strong>eager · progressive · phase · search-driven (show tools that a search finds)</strong></div>
+                  <div><small>DISCLOSURE BREADTH</small><strong>all · broad · narrow · minimum</strong></div>
+                  <div><small>SELECTION MECHANISM</small><strong>static · retrieval · model · state</strong></div>
+                </div>
+                <div class="knob-family__source"><p>Pi keeps a registry, activates tools by name, and rebuilds prompt context for the selected set. An extension can change that set between turns.</p><a data-code-link href="https://github.com/badlogic/pi-mono/blob/34878e7cc8074f42edff6c2cdcc9828aa9b6afde/packages/coding-agent/src/core/agent-session.ts#L549-L639" target="_blank" rel="noreferrer">Open tool-selection code ↗</a><a data-code-link href="https://github.com/badlogic/pi-mono/blob/34878e7cc8074f42edff6c2cdcc9828aa9b6afde/packages/coding-agent/src/core/extensions/types.ts#L960-L991" target="_blank" rel="noreferrer">Open extension API ↗</a></div>
+              </article>
+
+              <article id="knob-authority" role="tabpanel" class="knob-family" hidden>
+                <div class="knob-family__policy"><small>POLICY</small><strong>Protected actions must resolve through an explicit permission rule.</strong><span>OpenCode specimen</span></div>
+                <div class="knob-family__choices">
+                  <div><small>RULE ACTION</small><strong>allow · ask · deny</strong></div>
+                  <div><small>MATCH SCOPE</small><strong>tool · path · wildcard pattern</strong></div>
+                  <div><small>RULE PRECEDENCE</small><strong>defaults · agent · session approval</strong></div>
+                </div>
+                <div class="knob-family__source"><p>OpenCode combines ordered rulesets, wildcard patterns, and remembered approvals before it allows, asks, or denies.</p><a data-code-link href="https://github.com/anomalyco/opencode/blob/e49772a8b4db867f638ffad9f7d188ccbbe05b58/packages/opencode/src/permission/index.ts#L28-L95" target="_blank" rel="noreferrer">Open authority code ↗</a></div>
+              </article>
+
+              <article id="knob-recovery" role="tabpanel" class="knob-family" hidden>
+                <div class="knob-family__policy"><small>POLICY</small><strong>Retry only recoverable failures within a bounded budget.</strong><span>Pi + DeepSeek specimens</span></div>
+                <div class="knob-family__choices">
+                  <div><small>RETRY TRIGGER</small><strong>provider error · classifier · hook</strong></div>
+                  <div><small>RETRY BUDGET</small><strong>none · fixed · adaptive</strong></div>
+                  <div><small>BACKOFF</small><strong>none · fixed · exponential</strong></div>
+                </div>
+                <div class="knob-family__source"><p>Pi classifies provider failures for bounded backoff. DeepSeek delegates the retry decision to a hook.</p><a data-code-link href="https://github.com/badlogic/pi-mono/blob/34878e7cc8074f42edff6c2cdcc9828aa9b6afde/packages/coding-agent/src/core/agent-session.ts#L2028-L2118" target="_blank" rel="noreferrer">Open Pi code ↗</a><a data-code-link href="https://github.com/deepseek-ai/deepseek-harness/blob/141eb6fef83422698aef7a981029e843e8161534/packages/core/agent-loop/src/agent.ts#L332-L418" target="_blank" rel="noreferrer">Open DeepSeek code ↗</a></div>
+              </article>
+
+              <article id="knob-delegation" role="tabpanel" class="knob-family" hidden>
+                <div class="knob-family__policy"><small>POLICY</small><strong>Delegated work must remain bounded and inspectable.</strong><span>DeepSeek + OpenCode specimens</span></div>
+                <div class="knob-family__choices">
+                  <div><small>DEPTH CAP</small><strong>disabled · one level · bounded N</strong></div>
+                  <div><small>CHILD TOOLS</small><strong>inherit · filter · explicit set</strong></div>
+                  <div><small>EXECUTION MODE</small><strong>foreground · background · parallel</strong></div>
+                </div>
+                <div class="knob-family__source"><p>Both harnesses make delegation a policy surface with depth, permission, and execution choices.</p><a data-code-link href="https://github.com/deepseek-ai/deepseek-harness/blob/141eb6fef83422698aef7a981029e843e8161534/packages/subagent/tool-subagent/src/index.ts#L59-L78" target="_blank" rel="noreferrer">Open DeepSeek code ↗</a><a data-code-link href="https://github.com/anomalyco/opencode/blob/e49772a8b4db867f638ffad9f7d188ccbbe05b58/packages/opencode/src/tool/task.ts#L104-L214" target="_blank" rel="noreferrer">Open OpenCode code ↗</a></div>
+              </article>
+            </div>
+          </div>
+
+          <p class="knobs__footer">Knobs can be strategies, algorithms, limits, thresholds, or structures—not only settings.</p>
+
+          <aside class="notes">
+            Click through the policy families. One policy can expose several knobs, and each knob can take several values. The values can be strategies, algorithms, limits, or structures. The code links are implementation specimens. They do not establish a universal list of knobs, and they do not show that one value is best. For the next slides, return to the capabilities example and choose progressive disclosure as one coordinate to lower into code.
+            [Sources] https://github.com/badlogic/pi-mono/blob/34878e7cc8074f42edff6c2cdcc9828aa9b6afde/packages/coding-agent/src/core/agent-session.ts#L549-L639; https://github.com/anomalyco/opencode/blob/e49772a8b4db867f638ffad9f7d188ccbbe05b58/packages/opencode/src/permission/index.ts#L28-L95; https://github.com/badlogic/pi-mono/blob/34878e7cc8074f42edff6c2cdcc9828aa9b6afde/packages/coding-agent/src/core/agent-session.ts#L2028-L2118; https://github.com/deepseek-ai/deepseek-harness/blob/141eb6fef83422698aef7a981029e843e8161534/packages/subagent/tool-subagent/src/index.ts#L59-L78; https://github.com/anomalyco/opencode/blob/e49772a8b4db867f638ffad9f7d188ccbbe05b58/packages/opencode/src/tool/task.ts#L104-L214.
+          </aside>
+        </section>
+
+        <section class="slide slide--projection" data-slide-id="HE-06E">
+          <div class="abstraction-breadcrumb" aria-label="Current abstraction level">
+            <span>EXPERIMENT</span><i>→</i><span>SURFACES</span><i>→</i><span>POLICIES</span><i>→</i><span>KNOBS</span><i>→</i><strong>PROJECTION</strong><i>→</i><span>CODE</span><i>→</i><span>TRACE</span>
+          </div>
+
+          <header class="projection__header">
+            <h2>Projections make policies<br /><span>executable.</span></h2>
+            <p>A projection maps a policy to the parts of the harness that enforce it. We need projections because a policy has no effect until the system applies it.</p>
+          </header>
+
+          <div class="projection-families" aria-label="Two policies projected through several mechanisms">
+            <article class="projection-family is-running-example">
+              <div class="projection-family__head"><small>RUNNING EXAMPLE · CAPABILITIES</small><strong>Expose only relevant capabilities.</strong></div>
+              <div class="projection-family__choice"><span>KNOB</span><strong>Disclosure timing = progressive</strong></div>
+              <div class="projection-family__mechanisms">
+                <span>PROMPT</span>
+                <span class="is-selected">TOOL SURFACE</span>
+                <span class="is-selected">CONTROLLER</span>
+                <span>PERMISSIONS</span>
+              </div>
+              <p>Several mechanisms can work together. We will follow the selected pair into code.</p>
+            </article>
+
+            <article class="projection-family">
+              <div class="projection-family__head"><small>SECOND EXAMPLE · VERIFICATION</small><strong>Material claims require evidence.</strong></div>
+              <div class="projection-family__choice"><span>KNOB</span><strong>Completion gate = evidence-complete</strong></div>
+              <div class="projection-family__mechanisms">
+                <span class="is-selected">VERIFIER</span>
+                <span class="is-selected">STATE</span>
+                <span class="is-selected">STOP HOOK</span>
+                <span class="is-selected">TRACE</span>
+              </div>
+              <p>The same semantic rule can require mechanisms across several harness surfaces.</p>
+            </article>
+          </div>
+
+          <p class="projection__footer"><strong>POLICIES ↔ KNOBS ↔ PROJECTIONS</strong><span>The mapping is many-to-many. That is why the design space becomes combinatorial.</span></p>
+          <aside class="notes">
+            Projection is not a single box where a policy goes. It is the set of executable mechanisms that collectively make a semantic rule true. Progressive capability disclosure can combine prompt context, tool filtering, controller state, and permissions. Evidence-based completion can combine a verifier, state, a stop hook, and trace persistence. The mapping is many-to-many. For continuity, the next two slides follow one coordinate: capability relevance, progressive disclosure, and a tool-surface plus controller projection.
+            [Sources] Editorial structure from the Danial–ChatGPT policy-knob-projection discussion; research/FORMAL_FOUNDATIONS.md; https://github.com/badlogic/pi-mono/blob/34878e7cc8074f42edff6c2cdcc9828aa9b6afde/packages/coding-agent/src/core/agent-session.ts#L549-L639.
+          </aside>
+        </section>
+
+        <section class="slide slide--code-mechanism" data-slide-id="HE-06F">
+          <div class="abstraction-breadcrumb" aria-label="Current abstraction level">
+            <span>EXPERIMENT</span><i>→</i><span>SURFACES</span><i>→</i><span>POLICIES</span><i>→</i><span>KNOBS</span><i>→</i><span>PROJECTION</span><i>→</i><strong>CODE</strong><i>→</i><span>TRACE</span>
+          </div>
+
+          <header class="code-mechanism__header">
+            <h2>Now it becomes<br /><span>code.</span></h2>
+            <p>Pi can start with a loader tool, then add matched tools before the next model request.</p>
+          </header>
+
+          <div class="code-mechanism__body">
+            <div class="code-mechanism__lineage">
+              <p><small>POLICY</small><strong>Expose only relevant capabilities.</strong></p>
+              <p><small>KNOB</small><strong>Tool disclosure strategy</strong></p>
+              <p><small>VALUE</small><strong>Progressive</strong></p>
+              <p><small>PROJECTION</small><strong>Controller + active tool surface</strong></p>
+            </div>
+
+            <div class="code-mechanism__code">
+              <span>PI EXTENSION API · DEFERRED-TOOL EXAMPLE</span>
+              <pre><code>pi.on("session_start", () =&gt; {
+  pi.setActiveTools(["tool_search"]);
+});
+
+const active = pi.getActiveTools();
+const added = matches.filter(
+  (name) =&gt; !active.includes(name)
+);
+
+pi.setActiveTools([
+  ...new Set([...active, ...added])
+]);</code></pre>
+            </div>
+          </div>
+
+          <p class="code-mechanism__footer">The first call limits the initial surface. The second expands it after a match.</p>
+          <aside class="notes">
+            This is a condensed excerpt of Pi's documented deferred-tool example. At session start, only the loader is active. The loader searches the registered catalog, identifies matching tools, and adds them to the active set. Pi applies that change before the next model request. The API is not the policy by itself. It is one concrete implementation of the selected projection boundary.
+            [Sources] runner/node_modules/@earendil-works/pi-coding-agent/docs/extensions.md sections Dynamic Tool Loading and Search tool example; runner/node_modules/@earendil-works/pi-coding-agent/examples/extensions/kimi-deferred-tools.ts.
+          </aside>
+        </section>
+
+        <section class="slide slide--mechanism-trace slide--public-traces" data-slide-id="HE-06G">
+          <div class="abstraction-breadcrumb" aria-label="Current abstraction level">
+            <span>EXPERIMENT</span><i>→</i><span>SURFACES</span><i>→</i><span>POLICIES</span><i>→</i><span>KNOBS</span><i>→</i><span>PROJECTION</span><i>→</i><span>CODE</span><i>→</i><strong>TRACE</strong>
+          </div>
+
+          <header class="mechanism-trace__header public-traces__header">
+            <h2>Read actual <span>public traces.</span></h2>
+            <div class="public-traces__objective">
+              <p><strong>Task:</strong> Fix <code>xarray.polyval</code> so <code>timedelta64</code> coordinates produce correct results.</p>
+              <span>Same task · same GPT-5 label · different harnesses</span>
+            </div>
+          </header>
+
+          <div class="public-traces__pair" aria-label="Selected raw events from two public trajectories on xarray 6599">
+            <article class="public-trace">
+              <header>
+                <div><small>MINI-SWE-AGENT · GPT-5</small><strong>20 model calls</strong></div>
+                <span class="is-failure">UNRESOLVED</span>
+              </header>
+              <ol>
+                <li><span>01</span><code>grep -RIn "polyval"</code><p>Find the implementation and nearby tests.</p></li>
+                <li><span>02</span><code>applypatch</code><p>Command not found. Switch to a Python edit.</p></li>
+                <li><span>03</span><code>run MVCE</code><p>The output is still near 1e30. Continue exploring.</p></li>
+                <li><span>04</span><code>manual Horner check</code><p>The local computation produces expected values.</p></li>
+                <li><span>05</span><code>rerun MVCE → submit</code><p>No target pytest command appears before submission.</p></li>
+              </ol>
+              <footer>
+                <p><strong>Evaluator:</strong> target timedelta test still failed.</p>
+                <div><a data-code-link href="https://huggingface.co/datasets/NJU-LINK/CodeTraceBench/resolve/aa213b84ffb6690fc37ca15766d6ca174ec36d4d/swe_raw/mini_swe_agent__verified/pydata__xarray-6599/pydata__xarray-6599.traj.json" target="_blank" rel="noreferrer">Raw trace ↗</a><a data-code-link href="https://huggingface.co/datasets/NJU-LINK/CodeTraceBench/resolve/aa213b84ffb6690fc37ca15766d6ca174ec36d4d/swe_raw/mini_swe_agent__verified/pydata__xarray-6599/report.json" target="_blank" rel="noreferrer">Report ↗</a></div>
+              </footer>
+            </article>
+
+            <article class="public-trace">
+              <header>
+                <div><small>OPENHANDS · GPT-5</small><strong>About 30 recorded steps</strong></div>
+                <span class="is-success">RESOLVED</span>
+              </header>
+              <ol>
+                <li><span>01</span><code>task_tracker.plan</code><p>Create an eight-phase task plan.</p></li>
+                <li><span>02</span><code>pytest -q</code><p>Collection fails for an unrelated dependency issue.</p></li>
+                <li><span>03</span><code>str_replace_editor</code><p>Edit the numeric-conversion path.</p></li>
+                <li><span>04</span><code>run MVCE</code><p>The output now matches the expected values.</p></li>
+                <li><span>05</span><code>pytest test_computation.py</code><p>Focused tests pass. Commit and finish.</p></li>
+              </ol>
+              <footer>
+                <p><strong>Evaluator:</strong> target and listed regression tests passed.</p>
+                <div><a data-code-link href="https://huggingface.co/api/datasets/NJU-LINK/CodeTraceBench/tree/aa213b84ffb6690fc37ca15766d6ca174ec36d4d/swe_raw/openhands__verified/pydata__xarray-6599?expand=true" target="_blank" rel="noreferrer">Event stream ↗</a><a data-code-link href="https://huggingface.co/datasets/NJU-LINK/CodeTraceBench/resolve/aa213b84ffb6690fc37ca15766d6ca174ec36d4d/swe_raw/openhands__verified/pydata__xarray-6599/report.json" target="_blank" rel="noreferrer">Report ↗</a></div>
+              </footer>
+            </article>
+          </div>
+
+          <div class="mechanism-trace__footer">
+            <strong>COMPARATIVE ANATOMY ≠ CAUSAL PROOF</strong>
+            <p>The pair changes prompts, tools, state, and runtime details. Use it to read trajectories—not to rank harnesses.</p>
+          </div>
+          <aside class="notes">
+            These are selected raw events from two public CodeTraceBench trajectories for SWE-bench Verified task pydata xarray 6599. Both records carry a GPT-5 model label. The mini-SWE-agent trace searches, edits, runs the supplied reproducer, continues after negative feedback, and submits. Its official evaluator report remains unresolved because the target timedelta test fails. The OpenHands stream plans, reproduces, edits, reruns the reproducer, runs a focused computation test file, commits, and finishes. Its official report is resolved. This is comparative anatomy only. The systems also differ in prompt, tools, state, runtime, and other harness mechanisms, so this pair does not prove that OpenHands caused the pass.
+            [Sources] https://huggingface.co/datasets/NJU-LINK/CodeTraceBench/resolve/aa213b84ffb6690fc37ca15766d6ca174ec36d4d/swe_raw/mini_swe_agent__verified/pydata__xarray-6599/pydata__xarray-6599.traj.json; https://huggingface.co/datasets/NJU-LINK/CodeTraceBench/resolve/aa213b84ffb6690fc37ca15766d6ca174ec36d4d/swe_raw/mini_swe_agent__verified/pydata__xarray-6599/report.json; https://huggingface.co/api/datasets/NJU-LINK/CodeTraceBench/tree/aa213b84ffb6690fc37ca15766d6ca174ec36d4d/swe_raw/openhands__verified/pydata__xarray-6599?expand=true; https://huggingface.co/datasets/NJU-LINK/CodeTraceBench/resolve/aa213b84ffb6690fc37ca15766d6ca174ec36d4d/swe_raw/openhands__verified/pydata__xarray-6599/report.json; research/TRAJECTORY_COMPARISONS.md.
+          </aside>
+        </section>
+
+        <section class="slide slide--trajectory-math" data-slide-id="HE-07A">
+          <header class="trajectory-math__header">
+            <h2>A trace records<br /><span>one trajectory.</span></h2>
+            <p>Same xarray task. Same GPT-5 label. Two different recorded paths and outcomes.</p>
+          </header>
+
+          <div class="trajectory-math__body trajectory-math__body--videos">
+            <div class="trajectory-video-pair" aria-label="Two animated public trajectories for the same xarray task">
+              <video
+                data-slide-video
+                autoplay
+                muted
+                loop
+                playsinline
+                preload="auto"
+                aria-label="Animated selected events from the unresolved mini-SWE-agent trajectory"
+              >
+                <source src="./assets/mini-swe-agent-xarray-6599-Ct9Zeayt.webm" type="video/webm" />
+                <source src="./assets/mini-swe-agent-xarray-6599-BFW0Qaoj.mp4" type="video/mp4" />
+              </video>
+              <video
+                data-slide-video
+                autoplay
+                muted
+                loop
+                playsinline
+                preload="auto"
+                aria-label="Animated selected events from the resolved OpenHands trajectory"
+              >
+                <source src="./assets/openhands-xarray-6599-DCYfWeUO.webm" type="video/webm" />
+                <source src="./assets/openhands-xarray-6599-VgQf1-56.mp4" type="video/mp4" />
+              </video>
+            </div>
+
+            <div class="trajectory-math__definitions trajectory-math__definitions--inline">
+              <article>
+                <span>TRAJECTORY</span>
+                <strong>The process that unfolded</strong>
+              </article>
+              <article>
+                <span>TRACE</span>
+                <strong>The record the runtime captured</strong>
+              </article>
+            </div>
+          </div>
+
+          <p class="trajectory-math__footer">One run shows what happened once. Repeated runs help estimate what tends to happen.</p>
+          <aside class="notes">
+            A trajectory is the process that unfolded. A trace is the observable record saved by the runtime. The trace can omit hidden model reasoning and unrecorded environment state. These animations use selected public events from the same xarray 6599 records shown on the prior slide. The mini-SWE-agent path ends with the target test failing. The OpenHands path includes a focused test pass and completes. This remains comparative anatomy, not causal proof.
+            [Sources] research/FORMAL_FOUNDATIONS.md sections 2, 3, and 13; research/TRAJECTORY_COMPARISONS.md; visuals/manim/public_trace_trajectories.py; pinned CodeTraceBench sources on slide HE-06G.
+          </aside>
+        </section>
+
+        <section class="slide slide--failure-callback slide--failure-analysis" data-slide-id="HE-07B-01">
+          <header class="failure-callback__header">
+            <h2>Failure mode 01.<br /><span>Supervision + stopping.</span></h2>
+            <p>10 mentions. The agent needs repeated correction or stops before the task is proven complete.</p>
+          </header>
+
+          <div class="failure-analysis__body">
+            <div class="failure-analysis__grid">
+              <aside class="failure-analysis__frequency">
+                <span>MENTIONS</span><strong>10</strong><p>of 24 optional responses</p><small>themes overlap</small>
+              </aside>
+              <ol class="failure-analysis__steps">
+                <li><span>OBSERVE</span><strong>Completion needs another human prompt.</strong><p>The agent reports progress or completion, then a person must make it continue or gather more evidence.</p></li>
+                <li><span>FIRST FAILURE TO CODE</span><strong>Declared completion before required evidence.</strong></li>
+                <li><span>CLUSTER WITH</span><p>Stopped after a narrow check · needed a continue prompt · skipped completion evidence</p></li>
+                <li><span>DIAGNOSE</span><strong>Control + trust</strong><p>The loop and verifier do not agree on when enough evidence exists.</p></li>
+              </ol>
+              <aside class="failure-analysis__eval">
+                <span>CANDIDATE EVAL</span><strong>Evidence before stopping</strong><p>Pass only when every named check and required artifact exists before completion.</p><code>checks → evidence gate → stop</code>
+              </aside>
+            </div>
+            <div class="failure-analysis__prompt">
+              <p><strong>Apply this method to your traces.</strong><span>Open-code the first failure. Cluster the notes. Approve the taxonomy.</span></p>
+              <a data-code-link href="https://github.com/danialhasan/intro-to-harness-engineering-workshop/blob/main/workshop/prompts/TRACE_FAILURE_ANALYSIS.md" target="_blank" rel="noreferrer">Open the trace clustering prompt ↗</a>
+            </div>
+          </div>
+
+          <p class="failure-callback__footer">Aggregate registration evidence · trace signals are hypotheses to test, not claims about every response</p>
+          <aside class="notes">
+            Ten of 24 optional responses mentioned ongoing supervision, autonomy, or stopping. The slide demonstrates a failure-analysis hypothesis: look for the first observable point where the agent declared completion without the required evidence, then cluster similar open codes. The suggested control and trust diagnosis is not a causal conclusion. The linked prompt applies the method to the participant's private traces with a human approval gate.
+            [Sources] research/AUDIENCE_RESPONSE_SEGMENTATION.md; research/AUDIENCE_EVIDENCE.md; research/FORMAL_FOUNDATIONS.md; workshop/prompts/TRACE_FAILURE_ANALYSIS.md; Hamel Husain and Shreya Shankar, LLM Evals FAQ.
+          </aside>
+        </section>
+
+        <section class="slide slide--failure-callback slide--failure-analysis" data-slide-id="HE-07B-02">
+          <header class="failure-callback__header">
+            <h2>Failure mode 02.<br /><span>Integration + dependencies.</span></h2>
+            <p>8 mentions. The local change looks correct while a connected system, dependency, or toolchain still breaks.</p>
+          </header>
+
+          <div class="failure-analysis__body">
+            <div class="failure-analysis__grid">
+              <aside class="failure-analysis__frequency">
+                <span>MENTIONS</span><strong>8</strong><p>of 24 optional responses</p><small>themes overlap</small>
+              </aside>
+              <ol class="failure-analysis__steps">
+                <li><span>OBSERVE</span><strong>The edit succeeds inside a narrow boundary.</strong><p>The agent misses a caller, existing behavior, dependency rule, or integration check outside that boundary.</p></li>
+                <li><span>FIRST FAILURE TO CODE</span><strong>Changed a component before tracing its dependencies.</strong></li>
+                <li><span>CLUSTER WITH</span><p>Missed a caller · ignored existing behavior · tested only the local slice</p></li>
+                <li><span>DIAGNOSE</span><strong>Information + control</strong><p>Context acquisition and dependency traversal stop too early.</p></li>
+              </ol>
+              <aside class="failure-analysis__eval">
+                <span>CANDIDATE EVAL</span><strong>Dependency contract</strong><p>Pass only when dependencies exist, order is valid, and the connected checks pass.</p><code>discover → order → integrate</code>
+              </aside>
+            </div>
+            <div class="failure-analysis__prompt">
+              <p><strong>Apply this method to your traces.</strong><span>Open-code the first failure. Cluster the notes. Approve the taxonomy.</span></p>
+              <a data-code-link href="https://github.com/danialhasan/intro-to-harness-engineering-workshop/blob/main/workshop/prompts/TRACE_FAILURE_ANALYSIS.md" target="_blank" rel="noreferrer">Open the trace clustering prompt ↗</a>
+            </div>
+          </div>
+
+          <p class="failure-callback__footer">Aggregate registration evidence · trace signals are hypotheses to test, not claims about every response</p>
+          <aside class="notes">
+            Eight of 24 optional responses mentioned integration, dependencies, or toolchain complexity. The first failure to inspect is often earlier than the broken build: the agent changed a component before it traced the connected system. Cluster open codes before mapping the pattern to information and control. A dependency-contract evaluator is one candidate, not the automatic answer for every case.
+            [Sources] research/AUDIENCE_RESPONSE_SEGMENTATION.md; research/AUDIENCE_EVIDENCE.md; research/FORMAL_FOUNDATIONS.md; workshop/prompts/TRACE_FAILURE_ANALYSIS.md; Hamel Husain and Shreya Shankar, LLM Evals FAQ.
+          </aside>
+        </section>
+
+        <section class="slide slide--failure-callback slide--failure-analysis" data-slide-id="HE-07B-03">
+          <header class="failure-callback__header">
+            <h2>Failure mode 03.<br /><span>Incorrect or poor-fit output.</span></h2>
+            <p>7 mentions. The output looks plausible but does not satisfy the actual task or system contract.</p>
+          </header>
+
+          <div class="failure-analysis__body">
+            <div class="failure-analysis__grid">
+              <aside class="failure-analysis__frequency">
+                <span>MENTIONS</span><strong>7</strong><p>of 24 optional responses</p><small>themes overlap</small>
+              </aside>
+              <ol class="failure-analysis__steps">
+                <li><span>OBSERVE</span><strong>Plausibility substitutes for acceptance evidence.</strong><p>The agent produces a reasonable result but checks the wrong target, ignores a failed gate, or never tests the real contract.</p></li>
+                <li><span>FIRST FAILURE TO CODE</span><strong>Accepted output without verifying the target contract.</strong></li>
+                <li><span>CLUSTER WITH</span><p>Wrong API shape · unsuitable implementation · failed acceptance check ignored</p></li>
+                <li><span>DIAGNOSE</span><strong>Trust</strong><p>The completion rule accepts a plausible artifact instead of verified task evidence.</p></li>
+              </ol>
+              <aside class="failure-analysis__eval">
+                <span>CANDIDATE EVAL</span><strong>Contract conformance</strong><p>Use separate binary gates for the specific behavior and evidence the task requires.</p><code>contract → gates → accept</code>
+              </aside>
+            </div>
+            <div class="failure-analysis__prompt">
+              <p><strong>Apply this method to your traces.</strong><span>Open-code the first failure. Cluster the notes. Approve the taxonomy.</span></p>
+              <a data-code-link href="https://github.com/danialhasan/intro-to-harness-engineering-workshop/blob/main/workshop/prompts/TRACE_FAILURE_ANALYSIS.md" target="_blank" rel="noreferrer">Open the trace clustering prompt ↗</a>
+            </div>
+          </div>
+
+          <p class="failure-callback__footer">Aggregate registration evidence · trace signals are hypotheses to test, not claims about every response</p>
+          <aside class="notes">
+            Seven of 24 optional responses described incorrect or poor-fit output. Failure analysis should identify the first observable moment when the agent accepted plausibility without checking the actual contract. Similar open codes can then become a human-approved category. A contract-conformance evaluator should use specific binary gates instead of one vague quality score.
+            [Sources] research/AUDIENCE_RESPONSE_SEGMENTATION.md; research/AUDIENCE_EVIDENCE.md; research/FORMAL_FOUNDATIONS.md; workshop/prompts/TRACE_FAILURE_ANALYSIS.md; Hamel Husain and Shreya Shankar, LLM Evals FAQ.
+          </aside>
+        </section>
+
+        <section class="slide slide--design-space" data-slide-id="HE-07C">
+          <header class="design-space__header">
+            <h2>A harness is one point<br /><span>in a design space.</span></h2>
+            <p>Policies become knobs, values, projections, and code. Together, those choices define a harness.</p>
+          </header>
+
+          <div class="design-space__body">
+            <div class="design-space__chain" aria-label="Policies become a concrete harness through a series of choices">
+              <div><span>01</span><strong>Policies</strong><p>Desired behavior</p></div><i>→</i>
+              <div><span>02</span><strong>Knobs</strong><p>What can vary</p></div><i>→</i>
+              <div><span>03</span><strong>Values</strong><p>Chosen alternatives</p></div><i>→</i>
+              <div><span>04</span><strong>Projections</strong><p>Where rules execute</p></div><i>→</i>
+              <div><span>05</span><strong>Code</strong><p>The mechanism</p></div><i>→</i>
+              <div class="is-harness"><span>06</span><strong>Harness</strong><p>One design</p></div>
+            </div>
+
+            <div class="design-space__comparison">
+              <article><span>BASELINE</span><strong>Current harness</strong><p>progressive disclosure · existing completion rule · existing projection</p></article>
+              <i>→</i>
+              <article class="is-changed"><span>CHANGED</span><strong>One choice changed</strong><p>the same harness, with one selected value changed</p></article>
+            </div>
+          </div>
+
+          <p class="design-space__footer">The engineering question: which harness choices help the agent satisfy the task contract?</p>
+          <aside class="notes">
+            The earlier slides moved downward from policy to code. This slide recomposes those levels into one harness design. A baseline harness is one design among many possible designs. A changed harness should differ by one deliberate choice. This is why policy, knob, value, projection, and code must remain distinct.
+            [Sources] research/FORMAL_FOUNDATIONS.md sections 5, 6, 10, and 11; editorial policy-knob-projection discussion.
+          </aside>
+        </section>
+
+        <section class="slide slide--design-space slide--generated-visual" data-slide-id="HE-07C-VISUAL">
+          <header class="design-space__header">
+            <h2>A harness is one point<br /><span>in a design space.</span></h2>
+            <p>Policies become knobs, values, projections, and code. Together, those choices define a harness.</p>
+          </header>
+
+          <figure class="generated-visual__body">
+            <img
+              src="./assets/harness-design-space-DB3P0Ptt.png"
+              alt="Five modular choices assemble into one harness. Two resulting harnesses differ by one highlighted component."
+            />
+          </figure>
+
+          <p class="design-space__footer">The engineering question: which harness choices help the agent satisfy the task contract?</p>
+          <aside class="notes">
+            Use the image to make the design-space idea concrete. A harness is assembled from multiple choices. The lower pair differs in one highlighted component, which prepares the audience for the controlled intervention on the next slide.
+            [Sources] Generated workshop visual based on research/FORMAL_FOUNDATIONS.md sections 5, 6, 10, and 11.
+          </aside>
+        </section>
+
+        <section class="slide slide--controlled-intervention" data-slide-id="HE-07D">
+          <header class="controlled-intervention__header">
+            <h2>Change the harness. Hold the<br /><span>experiment fixed.</span></h2>
+            <p>This is the Prime Intellect-style evaluation discipline we will use in the workshop.</p>
+          </header>
+
+          <div class="controlled-intervention__contract">
+            <div class="controlled-intervention__fixed"><span>HOLD FIXED</span><strong>task · model · runtime · authority · evaluator · budget</strong></div>
+            <div class="controlled-intervention__change"><span>CHANGE</span><strong>one harness mechanism</strong></div>
+          </div>
+
+          <div class="controlled-intervention__pair" aria-label="Compare baseline and changed harness runs under one evaluator">
+            <div><span>BASELINE</span><strong>harness</strong></div><i>→</i><div><span>BASELINE</span><strong>run record</strong></div><i>→</i><div class="is-verifier"><span>SHARED</span><strong>evaluator</strong></div><i>→</i><div><span>BASELINE</span><strong>result</strong></div>
+            <div class="is-changed"><span>CHANGED</span><strong>harness</strong></div><i>→</i><div class="is-changed"><span>CHANGED</span><strong>run record</strong></div><i>→</i><div class="is-verifier"><span>SHARED</span><strong>evaluator</strong></div><i>→</i><div class="is-changed"><span>CHANGED</span><strong>result</strong></div>
+          </div>
+
+          <div class="controlled-intervention__evidence">
+            <p><strong>One pair</strong><span>Mechanism illustration</span></p>
+            <p><strong>Repeated pairs</strong><span>Evidence about expected effect</span></p>
+            <p><strong>Many tasks</strong><span>Evidence about generalization</span></p>
+          </div>
+
+          <p class="controlled-intervention__footer">Harness optimization automates parts of this outer experimental loop. It does not remove the need for a valid experiment.</p>
+          <aside class="notes">
+            This is the causal discipline. Hold the task, model, runtime, authority, evaluator, and budget fixed. Change one harness mechanism. Compare the traces, artifacts, and evaluator results. One pair can illustrate a mechanism. Repeated pairs support a claim about expected effect. More tasks are needed for a claim about generalization. The live workshop uses a local deterministic evaluator with the same separation of concerns.
+            [Sources] research/EVALUATION_DESIGN_OPTIONS.md; research/EVALUATION_SOURCES.md; research/REPEATED_RUN_PROTOCOL.md; research/CONTROLLED_RUN_RESULTS.md.
+          </aside>
+        </section>
+
+        <section class="slide slide--controlled-intervention slide--generated-visual" data-slide-id="HE-07D-VISUAL">
+          <header class="controlled-intervention__header">
+            <h2>Change the harness. Hold the<br /><span>experiment fixed.</span></h2>
+            <p>This is the Prime Intellect-style evaluation discipline we will use in the workshop.</p>
+          </header>
+
+          <figure class="generated-visual__body">
+            <img
+              src="./assets/controlled-harness-experiment-C20tHwNv.png"
+              alt="Two parallel experiment lanes use the same checkpoints and evaluator. Only one component in the second harness is highlighted as changed."
+            />
+          </figure>
+
+          <p class="controlled-intervention__footer">Harness optimization automates parts of this outer experimental loop. It does not remove the need for a valid experiment.</p>
+          <aside class="notes">
+            Read the two rows as a controlled pair. The task, runtime, checkpoints, and evaluator remain the same. The turquoise component in the lower harness is the only deliberate change. Different result cards are observations, not proof of general improvement.
+            [Sources] Generated workshop visual based on research/EVALUATION_DESIGN_OPTIONS.md; research/REPEATED_RUN_PROTOCOL.md; research/CONTROLLED_RUN_RESULTS.md.
+          </aside>
+        </section>
+
+        <section class="slide slide--workshop-handoff" data-slide-id="HE-08">
+          <header class="workshop-handoff__header">
+            <h2>Now you change<br /><span>the harness.</span></h2>
+            <p>You will run one bounded experiment on a real Pi harness and inspect the evidence yourself.</p>
+          </header>
+
+          <ol class="workshop-handoff__steps" aria-label="Workshop sequence">
+            <li><span>01</span><strong>Run</strong><p>baseline</p></li>
+            <li><span>02</span><strong>Inspect</strong><p>the trace</p></li>
+            <li><span>03</span><strong>Diagnose</strong><p>one decision</p></li>
+            <li><span>04</span><strong>Predict</strong><p>the effect</p></li>
+            <li class="is-change"><span>05</span><strong>Change</strong><p>one harness rule</p></li>
+            <li><span>06</span><strong>Rerun</strong><p>fresh episode</p></li>
+            <li><span>07</span><strong>Compare</strong><p>trace + result</p></li>
+          </ol>
+
+          <div class="workshop-handoff__contract">
+            <p><span>FIXED</span>task · model · runtime · evaluator</p>
+            <p><span>ONE EDIT</span><code>runner/policies/participant.md</code></p>
+          </div>
+
+          <p class="workshop-handoff__footer">The goal is not to prove your change is better. The goal is to make a prediction, run a valid comparison, and explain what the evidence supports.</p>
+          <aside class="notes">
+            This is the handoff into the lab. Codex runs the baseline and shows a sanitized trace summary. The participant diagnoses one observable weakness, selects one policy mechanism, reviews the bounded edit, and interprets the controlled comparison. Keep the evidence limit explicit. One observed pair does not prove that the changed harness is generally better.
+            [Sources] https://github.com/danialhasan/intro-to-harness-engineering-workshop/blob/afb78f2ce122d7076c3ee59536963c3283f8d243/workshop/README.md; https://github.com/danialhasan/intro-to-harness-engineering-workshop/blob/afb78f2ce122d7076c3ee59536963c3283f8d243/workshop/WORKSHOP_AGENT.md.
+          </aside>
+        </section>
+
+        <section class="slide slide--workshop-roles" data-slide-id="HE-09">
+          <header class="workshop-roles__header">
+            <h2>You make the decisions.<br /><span>The agents run the machinery.</span></h2>
+            <p>I’ll keep time and help with recovery. I won’t choose your mechanism or conclusion.</p>
+          </header>
+
+          <div class="workshop-roles__system" aria-label="Participant, Codex, and Pi roles in the workshop">
+            <article class="is-participant">
+              <span>YOU</span>
+              <strong>Engineer the harness</strong>
+              <p>Choose one rule to test. Decide what the evidence supports.</p>
+            </article>
+            <i aria-hidden="true">→</i>
+            <article>
+              <span>CODEX</span>
+              <strong>Operate the experiment</strong>
+              <p>Run commands, preserve state, and summarize safe evidence.</p>
+            </article>
+            <i aria-hidden="true">→</i>
+            <article>
+              <span>PI INSIDE PRIME</span>
+              <strong>Attempt the task</strong>
+              <p>Work in a fresh runtime and produce the recorded episode.</p>
+            </article>
+          </div>
+
+          <p class="workshop-roles__footer">Codex does not replace Pi. You do not outsource the two decisions that make this harness engineering.</p>
+          <aside class="notes">
+            Separate the roles before anyone opens the repository. The participant owns the hypothesis and the conclusion. Codex is the operator agent: it runs the mechanical workflow and stops at both decision gates. Pi is the evaluation agent inside Prime: it attempts the fixed coding task and produces the native trace, rewards, and metrics. I remain outside each participant's controlled pair as the facilitator.
+            [Sources] https://github.com/danialhasan/intro-to-harness-engineering-workshop/blob/afb78f2ce122d7076c3ee59536963c3283f8d243/workshop/README.md; https://github.com/danialhasan/intro-to-harness-engineering-workshop/blob/afb78f2ce122d7076c3ee59536963c3283f8d243/workshop/WORKSHOP_AGENT.md.
+          </aside>
+        </section>
+
+        <section class="slide slide--workshop-open" data-slide-id="HE-10">
+          <header class="workshop-open__header">
+            <h2>Open the<br /><span>public workshop.</span></h2>
+            <p>Use the synthetic repository. Do not open a private work repository for this exercise.</p>
+          </header>
+
+          <div class="workshop-open__body">
+            <a class="workshop-open__qr" href="https://github.com/danialhasan/intro-to-harness-engineering-workshop" target="_blank" rel="noreferrer" aria-label="Open the public workshop repository">
+              <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAAAAIAAQMAAADOtka5AAAABlBMVEX///8AAABVwtN+AAAACXBIWXMAAA7EAAAOxAGVKw4bAAACt0lEQVR4nO3cMW7DMAyFYQYdOvYIOUqPZh8tR/ERMnYIwiYURVFOC7QAU3T435LEsb6NkC3KFiGEEELmaMpJ5EXP96P+ccj/riKv+TcAAEAxcPEv8nYDbsfP8q63g2/trA/JedWtf10AAADqATv3YsCtjr1SjbtaAa/3qt5kuRqwaPsFAADwVEBbOXfnYOXcRwIAAPwh0Ov4kstZ73PssV3qAgAAPBPwpJFjjr1n0VzVcRAAAKAYSBl1nMp5mybXFAAAgFrgywzAEjeePw4AAMDvgV6cfsXrVd0+/MZTojdiV7yHfuELAABQDXhTRNr6T2pYWjkf1T/WaJE0DgAAoBawc9+jKeJcig/xyfUYVS0AAAC1gA2RKOAW40bB+hw79S0FAACgGohZ1Ua+jIblqY30yo061t0OHwAAgEogPmTfsNxf6urgAAAAagFp8+i8DNSrep5OfRN6cAAAAKXAqGNpd5zn3UEZ23cs67T7HAAAoAzoaRe3fVadssaeuo9pqgUAAPh3wLyc+7iqZOeOHsvBb2ABAACKAV8ySg9zqXau7f9ZNK/q5sUlAACAWuDbHktfR1LVPrla5mtlAACAGkDTw1yj1ZmesIzl3F7cj+tIAAAAJYAXcLQ6z0PV6xj57aUuAABAFeALuL4MpJp6LF7AEstA96z7fesAAABlgE+naRmo9z/TjeexvaDHs4kAAADUA8npv1okvZlnpKsAAAC1wBz9qkVi2frzzov/AgAAKAbySafoW/pmdi9n/zveWrd/pgsAAKAEmDasj76l/TcN0amcBQAAoB6Ifesn8Tr24s4tki1V9WOPBQAA4AlAbLST6W3nllTVAgAA8EdADJG445we7VoBAADqAU+MPHXVDh+706da3+8KAABQDaREOcv+XSDWIvFZdb99AAAA4J8AhBBCSM8nh6eZ2MwOV1sAAAAASUVORK5CYII=" alt="QR code for the public Intro to Harness Engineering workshop repository" />
+            </a>
+
+            <div class="workshop-open__instructions">
+              <a href="https://github.com/danialhasan/intro-to-harness-engineering-workshop" target="_blank" rel="noreferrer">github.com/danialhasan/<br />intro-to-harness-engineering-workshop ↗</a>
+              <ol>
+                <li><span>01</span><p><strong>Use your prepared clone.</strong> Git, Node 22.19+, <code>uv</code>, and packages should already be ready.</p></li>
+                <li><span>02</span><p><strong>Open <code>workshop/</code> in Codex.</strong> Codex will operate the experiment from there.</p></li>
+                <li><span>03</span><p><strong>Open <code>WORKSHOP_AGENT.md</code>.</strong> Copy the start prompt on the next slide.</p></li>
+              </ol>
+            </div>
+          </div>
+
+          <div class="workshop-open__states" aria-label="Workshop recovery states">
+            <p><span>READY</span>run your own pair</p>
+            <p><span>PAIR</span>join a ready machine</p>
+            <p><span>EXAMPLE</span>review the packaged evidence</p>
+          </div>
+          <aside class="notes">
+            Leave this slide up while the room opens the public repository. Setup should already be complete. Do not troubleshoot package installation or interactive login for more than two minutes during the hands-on block. Move a blocked participant to a ready pair or the labeled example-review path. If Pi authentication is required, the participant takes the keyboard and completes login privately. Do not screen-share the interactive login.
+            [Sources] https://github.com/danialhasan/intro-to-harness-engineering-workshop/blob/afb78f2ce122d7076c3ee59536963c3283f8d243/workshop/README.md; https://github.com/danialhasan/intro-to-harness-engineering-workshop/blob/afb78f2ce122d7076c3ee59536963c3283f8d243/workshop/EXPECTED_OUTPUT.md.
+          </aside>
+        </section>
+
+        <section class="slide slide--workshop-start" data-slide-id="HE-11">
+          <header class="workshop-start__header">
+            <h2>Paste one prompt.<br /><span>Then make two decisions.</span></h2>
+            <p>Codex handles the mechanics. It must stop when your judgment is required.</p>
+          </header>
+
+          <blockquote class="workshop-start__prompt">
+            Start the hands-on harness engineering workshop. Follow WORKSHOP_AGENT.md and AGENTS.md. Act as my operator, explain evidence in plain language, and stop for my decision at every HUMAN DECISION gate.
+          </blockquote>
+
+          <div class="workshop-start__decisions">
+            <article>
+              <span>DECISION 01 · AFTER THE BASELINE</span>
+              <strong>Which harness rule should we test?</strong>
+              <p>Choose one mechanism grounded in the observable trace.</p>
+            </article>
+            <article>
+              <span>DECISION 02 · AFTER THE COMPARISON</span>
+              <strong>What does this pair support?</strong>
+              <p>Approve a limited claim and name what remains uncertain.</p>
+            </article>
+          </div>
+
+          <p class="workshop-start__footer">When the experiment card opens, keep it. That is your record of the task, policy change, traces, evaluator results, and evidence limit.</p>
+          <aside class="notes">
+            This is the final slide before I switch to the live workshop. Participants paste this exact prompt after opening the workshop folder in Codex. Codex runs preflight and the baseline, then stops. The first participant decision selects the mechanism. After the changed run and fixed-control comparison, Codex stops again. The second participant decision approves only what the one observed pair supports. The conductor then writes HARNESS_EXPERIMENT_CARD.md.
+            [Sources] https://github.com/danialhasan/intro-to-harness-engineering-workshop/blob/afb78f2ce122d7076c3ee59536963c3283f8d243/workshop/WORKSHOP_AGENT.md; https://github.com/danialhasan/intro-to-harness-engineering-workshop/blob/afb78f2ce122d7076c3ee59536963c3283f8d243/workshop/README.md.
           </aside>
         </section>
       </div>

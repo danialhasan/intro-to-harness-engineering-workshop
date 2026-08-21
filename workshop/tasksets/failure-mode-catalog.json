@@ -1,0 +1,40 @@
+{
+  "schema_version": "workshop-failure-mode-catalog/v1",
+  "source_question": "Tell us about one task you tried to give a coding agent where it struggled, failed, or needed too much supervision.",
+  "registration_records": 47,
+  "optional_responses": 24,
+  "coding_method": "Manual multi-label theme coding. Counts are overlapping mentions, not mutually exclusive people.",
+  "privacy": "Aggregate themes only. No response text, quotations, anonymous respondent IDs, names, employers, contact details, or private traces are included.",
+  "themes": [
+    {
+      "id": "supervision-stopping",
+      "label": "Ongoing supervision, autonomy, or stopping",
+      "mentions": 10,
+      "prebuilt_tasksets": ["verification-stopping/v1"]
+    },
+    {
+      "id": "integration-dependencies",
+      "label": "Integration, dependencies, or toolchain complexity",
+      "mentions": 8,
+      "prebuilt_tasksets": ["dependency-integration/v1"]
+    },
+    {
+      "id": "incorrect-poor-fit-output",
+      "label": "Incorrect or poor-fit output",
+      "mentions": 7,
+      "prebuilt_tasksets": ["context-contract/v1", "verification-stopping/v1"]
+    },
+    {
+      "id": "missing-context-grounding",
+      "label": "Missing context, requirements, or codebase grounding",
+      "mentions": 6,
+      "prebuilt_tasksets": ["context-contract/v1"]
+    },
+    {
+      "id": "architecture-scalability",
+      "label": "Architecture, design, or scalability quality",
+      "mentions": 5,
+      "prebuilt_tasksets": ["dependency-integration/v1"]
+    }
+  ]
+}

@@ -27,6 +27,8 @@ maintenance run must label decisions with `--decision-source author-simulation`.
 6. Run H4 and compare every adjacent pair.
 7. Stop for the attendee to approve a limited claim and uncertainty.
 8. Finish and show `HARNESS_LADDER_EXPERIMENT_CARD.md`.
+9. Read `prompts/README.md` and show its optional continuation menu once. Do
+   not start a continuation until the attendee chooses it.
 
 Do not edit H0-H3, configs, runner code, task fixture, tests, evaluator, package
 locks, or documentation during an attendee run.
@@ -43,3 +45,18 @@ locks, or documentation during an attendee run.
 
 If a command fails, preserve the evidence, run `npm run workshop:status`, and
 follow the recovery section in `README.md`. Do not change controls to force a pass.
+
+## Post-workshop discovery
+
+After the experiment card, present the three choices in `prompts/README.md`:
+analyze private traces, choose a prebuilt public Taskset, or stop. Every
+continuation is optional. Do not select for the attendee.
+
+If the attendee chooses private trace analysis, show
+`prompts/TRACE_FAILURE_ANALYSIS.md`. Do not read or analyze private traces from
+this public clone. That work belongs in a separate task and repository with
+attendee-approved trace roots.
+
+If the attendee chooses another public failure pattern, use
+`tasksets/CHOOSE_A_TASKSET.md`, `tasksets/README.md`, and one prebuilt synthetic
+Taskset. Do not substitute it inside the completed `retry-http-v1` ladder.

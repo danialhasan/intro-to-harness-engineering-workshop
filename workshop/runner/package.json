@@ -27,6 +27,7 @@
     "test:workshop-state": "tsx src/workshop-state-fixture-test.ts",
     "test:workshop-cli": "tsx src/workshop-cli-fixture-test.ts",
     "test:ladder-policy": "tsx src/ladder-policy-fixture-test.ts",
+    "test:prompt-routing": "tsx src/workshop-prompt-routing-fixture-test.ts",
     "reset:h4": "tsx src/reset-policy.ts",
     "reset:policy": "npm run reset:h4",
     "run": "tsx src/cli.ts",
