@@ -35,7 +35,13 @@ export function summarizeCommand(input: unknown): string {
 function argumentsOf(call: JsonObject): JsonObject {
 	if (call.arguments && typeof call.arguments === "object") return call.arguments;
 	if (typeof call.arguments === "string") {
-		try { return JSON.parse(call.arguments) as JsonObject; } catch { return {}; }
+		try {
+			const parsed = JSON.parse(call.arguments) as unknown;
+			if (parsed && typeof parsed === "object" && !Array.isArray(parsed)) return parsed as JsonObject;
+		} catch {
+			throw new Error("Prime trace contains malformed tool arguments; keep the run and report this error.");
+		}
+		throw new Error("Prime trace contains non-object tool arguments; keep the run and report this error.");
 	}
 	return {};
 }
