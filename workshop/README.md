@@ -51,11 +51,12 @@ Expected final lines include:
 trace fixture tests passed
 resource isolation integration test passed
 compare fixture test passed
-run complete: ...
 retry integration smoke passed: ...
 ```
 
-The `...` text contains a generated local path or identifier.
+`npm run smoke` prints a JSON object with a generated `runId`, `runDir`, `runnerError`, and `evaluation`. The `...` text in the retry line contains a generated local path.
+
+The current lock file installs with zero npm audit findings. If `npm ci` reports an audit finding, confirm that you cloned the current `main` branch and that the lock file is unchanged. Do not run `npm audit fix` during the workshop because it changes the fixed runtime. Stop and use the pairing or example-review recovery path if the current unchanged lock still reports a finding.
 
 ## 2. Sign in to Pi with subscription compute
 

@@ -14,12 +14,12 @@
     "reset:harness": "tsx src/reset-harness.ts"
   },
   "dependencies": {
-    "@earendil-works/pi-ai": "0.83.0",
-    "@earendil-works/pi-coding-agent": "0.83.0"
+    "@earendil-works/pi-ai": "0.84.2",
+    "@earendil-works/pi-coding-agent": "0.84.2"
   },
   "devDependencies": {
     "@types/node": "22.10.10",
-    "tsx": "4.19.2",
+    "tsx": "4.23.12",
     "typescript": "5.7.2"
   }
 }

@@ -195,7 +195,7 @@ async function main(): Promise<void> {
 		evaluator_config: evaluatorConfig.path,
 		evaluator_config_sha256: evaluatorConfig.sha256,
 		package_lock_sha256: await hashOrUnknown(join(worktree, "package-lock.json")),
-		runtime_version: { node: process.version, pi_coding_agent: "0.83.0" },
+		runtime_version: { node: process.version, pi_coding_agent: "0.84.2" },
 		model_timeout_ms: options.timeoutMs,
 		allowed_path_boundary: { path: worktree, enforcement: "SYSTEM_RULE_ONLY" },
 		network_policy: { declared: "No external services", enforcement: "NOT_ENFORCED_BY_RUNTIME", caveat: "Pi bash can invoke network commands." },

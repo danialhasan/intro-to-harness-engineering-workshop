@@ -15,7 +15,7 @@ const sharedManifest = {
 	task_prompt_sha256: "task-prompt",
 	mode: "pi",
 	model: { provider: "openai-codex", id: "gpt-5.5", thinking_level: "medium" },
-	runtime_version: { node: "v26", pi_coding_agent: "0.83.0" },
+	runtime_version: { node: "v26", pi_coding_agent: "0.84.2" },
 	evaluator_version: "retry-http-evaluator/2.0.0",
 	evaluator_report_schema: "workshop-eval/v1",
 	evaluator_source_sha256: "eval-source",

@@ -10,11 +10,12 @@ The no-model checks end with text similar to:
 trace fixture tests passed
 resource isolation integration test passed
 compare fixture test passed
-run complete: ...
 retry integration smoke passed: ...
 ```
 
 The retry smoke intentionally evaluates the starter as `FAILED`. The smoke command itself succeeds after it confirms that this evaluator result and the trace files exist.
+
+The basic smoke command prints a JSON object with `runId`, `runDir`, `runnerError`, and `evaluation`. It does not print a fixed completion sentence.
 
 ## Model run
 
