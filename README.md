@@ -2,23 +2,26 @@
 
 Public materials for the 75-minute Intro to Harness Engineering lecture and workshop.
 
-This repository will contain the evidence used in the lecture and the runnable materials used in the workshop. It starts with two clear areas:
+## Start the hands-on workshop
 
-- [`lecture/`](lecture/) — slides, diagrams, public sources, and curated trajectory examples.
-- [`workshop/`](workshop/) — participant setup, the coding task, harness configuration, evaluation, and public-safe example traces.
+Go to the [complete participant workshop](workshop/README.md). It contains the prerequisites, subscription-based Pi sign-in, fixed task, commands, editable boundary, expected results, recovery steps, privacy rules, and continuation path.
 
-## Workshop shape
+Allow 10 to 15 minutes before the event for setup. The controlled participant loop is designed for the 45-minute hands-on period.
+
+## Event shape
 
 - 20 minutes: build a shared mental model of a coding-agent harness.
-- 45 minutes: inspect and change one real harness configuration.
-- 10 minutes: compare trajectories, discuss evidence limits, and close.
+- 45 minutes: run a baseline, change one harness configuration, run again, and compare.
+- 10 minutes: interpret the observed trajectories, state the evidence limit, and close.
 
-## Evidence boundary
+The separate [`lecture/`](lecture/) area is maintained by the lecture owner.
 
-Trajectory comparisons can show how harnesses shape the actions an agent can take and the paths that we observe. A single comparison does not prove that one harness is generally better.
+## Evidence and privacy boundary
 
-This public repository will not include attendee information, private transcripts, credentials, local machine paths, or internal research receipts.
+A trajectory is the recorded sequence of observable agent actions. A comparison can show that a harness change coincided with a different recorded path in one controlled pair. It does not prove that one harness is generally better.
+
+This repository does not include attendee information, private transcripts, credentials, private research notes, local machine paths, internal receipts, or raw saved telemetry.
 
 ## Status
 
-The repository structure is ready. Lecture and workshop materials will be added as they pass public review.
+The hands-on workshop is runnable from this public repository. The lecture materials follow their own release path.

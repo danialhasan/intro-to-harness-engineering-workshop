@@ -1,0 +1,25 @@
+{
+  "name": "intro-harness-engineering-runner",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check:types": "tsc --noEmit",
+    "run": "tsx src/cli.ts",
+    "smoke": "tsx src/cli.ts --mode fixture --fixture fixtures/hello-task --task hello-task --candidate baseline --run-root .smoke-runs",
+    "smoke:retry": "tsx src/integration-smoke-retry.ts",
+    "test:trace": "tsx src/trace-fixture-test.ts",
+    "test:isolation": "tsx src/isolation-fixture-test.ts",
+    "test:compare": "tsx src/compare-fixture-test.ts",
+    "compare": "tsx src/compare.ts",
+    "reset:harness": "tsx src/reset-harness.ts"
+  },
+  "dependencies": {
+    "@earendil-works/pi-ai": "0.83.0",
+    "@earendil-works/pi-coding-agent": "0.83.0"
+  },
+  "devDependencies": {
+    "@types/node": "22.10.10",
+    "tsx": "4.19.2",
+    "typescript": "5.7.2"
+  }
+}
