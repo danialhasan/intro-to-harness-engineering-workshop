@@ -1,59 +1,45 @@
 # Codex operator contract
 
-This directory is a public, synthetic harness-engineering workshop. When the
-participant asks to start the workshop, act as the **operator agent** described
-in `WORKSHOP_AGENT.md`.
+This is a public, synthetic harness-engineering workshop. When an attendee asks
+to start, act as the operator defined in `WORKSHOP_AGENT.md`.
 
-The workshop facilitator or repository author is not automatically the
-participant. During maintenance, use `--decision-source author-simulation` for
-an explicitly labeled validation run. Never attribute that choice to a person
-who did not make it.
+The facilitator or repository author is not automatically the participant. A
+maintenance run must label decisions with `--decision-source author-simulation`.
 
-## Roles
+## Roles and fixed controls
 
-- The participant owns the hypothesis, the selected mechanism, and the final
-  interpretation.
-- You own the mechanical workflow: preflight, commands, safe summaries, run
-  discovery, comparison, recovery, and the experiment card.
-- The Pi agent inside Prime is the fixed **evaluation agent**. Do not replace
-  it with yourself and do not change its model, Runtime, Taskset, or scorer.
+- The attendee owns the H4 hypothesis, selected mechanism, and final claim.
+- Codex owns setup, commands, safe summaries, recovery, and the experiment card.
+- Pi inside Prime is the fixed evaluation agent. Do not replace it with Codex.
+- Keep the model, Taskset, Runtime, scorer, tools, limits, locks, and compute
+  route fixed across H0 through H4.
 
-## Allowed actions
+## Required operator path
 
-- Work only in this public clone.
-- Run the documented `npm run workshop:*` commands from `runner/`.
-- Read `candidates/retry-http/TASK.md`, its public API contract, the participant
-  policy, sanitized trace summaries, the fixed-control ledger, and the final
-  experiment card.
-- After the participant selects a mechanism, edit only the text between the
-  two participant markers in `runner/policies/participant.md`.
+1. Read `README.md`, `WORKSHOP_AGENT.md`, the fixed task, and its API contract.
+2. Work from `runner/`. Start and run doctor.
+3. Run the pre-populated H0-H3 ladder. It resumes without repeating a completed
+   model call.
+4. Show the reference table and safe summaries. Stop for the attendee to select
+   one additional H4 mechanism.
+5. Record the decision. Edit only text between the markers in
+   `runner/policies/h4.md`. Run `npm run check:h4`.
+6. Run H4 and compare every adjacent pair.
+7. Stop for the attendee to approve a limited claim and uncertainty.
+8. Finish and show `HARNESS_LADDER_EXPERIMENT_CARD.md`.
 
-Do not edit the baseline policy, Prime configs, runner code, task fixture,
-tests, evaluator, package locks, or documentation during a participant run.
-
-## Required human gates
-
-Stop and wait for the participant at these points:
-
-1. Private OpenAI sign-in, if the safe OAuth check is not ready.
-2. After the baseline summary. Present two or three evidence-linked mechanism
-   options. The participant must select or write the mechanism.
-3. After the comparison. Challenge any claim that exceeds one controlled pair.
-   The participant must approve the limited claim and remaining uncertainty.
-
-Do not select or silently rewrite these decisions for the participant.
+Do not edit H0-H3, configs, runner code, task fixture, tests, evaluator, package
+locks, or documentation during an attendee run.
 
 ## Privacy and evidence
 
-- Never ask for, print, copy, paste, or store an OAuth token or API key.
-- Do not read or publish raw `traces.jsonl` content. Use the generated
-  `safe-trace-summary.txt` files.
-- Do not add names, email addresses, client data, private repository content,
-  credentials, or absolute local paths to commands or experiment records.
+- Never ask for, print, copy, paste, or store a token or API key.
+- Do not read or publish raw `traces.jsonl`. Use generated safe summaries.
+- Do not put names, emails, URLs, private data, credentials, or absolute paths
+  in decisions or experiment records.
 - Prime upload must remain disabled.
-- Treat observed trajectory differences as evidence for this pair only. They
-  do not prove that one harness, policy, agent, or model is generally better.
+- A trajectory difference, progression, regression, or unchanged score is valid
+  evidence for this ladder only. It is not general proof that a harness is better.
 
 If a command fails, preserve the evidence, run `npm run workshop:status`, and
-use the recovery section in `README.md`. Do not change fixed controls to force
-a pass.
+follow the recovery section in `README.md`. Do not change controls to force a pass.

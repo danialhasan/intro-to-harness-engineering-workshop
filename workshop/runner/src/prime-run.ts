@@ -5,7 +5,8 @@ import { join, relative, resolve } from "node:path";
 import { startOAuthProxy } from "./oauth-proxy.js";
 import { validateParticipantPolicy } from "./validate-policy.js";
 
-type Candidate = "baseline" | "changed";
+export const VARIANTS = ["h0", "h1", "h2", "h3", "h4"] as const;
+export type Variant = (typeof VARIANTS)[number];
 
 function option(name: string): string | undefined {
 	const index = process.argv.indexOf(`--${name}`);
@@ -53,10 +54,10 @@ async function run(command: string, args: string[], env: NodeJS.ProcessEnv): Pro
 }
 
 async function main(): Promise<void> {
-	const candidate = process.argv[2] as Candidate;
-	if (candidate !== "baseline" && candidate !== "changed") throw new Error("first argument must be baseline or changed");
+	const candidate = process.argv[2] as Variant;
+	if (!VARIANTS.includes(candidate)) throw new Error("first argument must be h0, h1, h2, h3, or h4");
 	const comparisonId = safe(option("comparison") ?? `pair-${new Date().toISOString().replace(/[:.]/g, "-")}`, "comparison id");
-	if (candidate === "changed") await validateParticipantPolicy(true);
+	if (candidate === "h4") await validateParticipantPolicy(true);
 	const runId = `${comparisonId}-${candidate}-${randomUUID().slice(0, 8)}`;
 	const outputDir = resolve("runs", comparisonId, candidate);
 	const runDir = resolve(outputDir, runId);
@@ -74,7 +75,7 @@ async function main(): Promise<void> {
 	}
 	await mkdir(runDir, { recursive: true });
 	await writeFile(resolve(runDir, "prime-eval.log"), primeLog);
-	const policy = candidate === "baseline" ? "policies/baseline.md" : "policies/participant.md";
+	const policy = `policies/${candidate}.md`;
 	if (exitCode !== 0) throw new Error(`Prime eval failed with exit code ${exitCode}. Inspect ${runDir} and the terminal output.`);
 	const lines = (await readFile(resolve(runDir, "traces.jsonl"), "utf8")).trim().split("\n").filter(Boolean);
 	const episode = JSON.parse(lines.at(-1) ?? "{}") as { traces?: Array<Record<string, any>> };
@@ -109,7 +110,7 @@ async function main(): Promise<void> {
 		prime_push: config.push,
 	};
 	await writeFile(resolve(runDir, "evaluation-report.json"), `${JSON.stringify(evaluation, null, 2)}\n`);
-	await writeFile(resolve(runDir, "workshop-run.json"), `${JSON.stringify({ schema_version: "prime-workshop-run/v1", comparison_id: comparisonId, candidate, run_id: runId, policy_sha256: await sha256(resolve(policy)), fixed_controls: fixedControls, prime_exit_code: exitCode, trace_id: trace.id ?? null, reward: trace.rewards ?? null, metrics: trace.metrics ?? null, completion_status: evaluation?.completion_status ?? "UNKNOWN" }, null, 2)}\n`);
+	await writeFile(resolve(runDir, "workshop-run.json"), `${JSON.stringify({ schema_version: "prime-workshop-run/v2", comparison_id: comparisonId, variant: candidate, run_id: runId, policy_sha256: await sha256(resolve(policy)), fixed_controls: fixedControls, prime_exit_code: exitCode, trace_id: trace.id ?? null, reward: trace.rewards ?? null, metrics: trace.metrics ?? null, completion_status: evaluation?.completion_status ?? "UNKNOWN" }, null, 2)}\n`);
 	await new Promise<void>((done) => process.stdout.write(`${JSON.stringify({ runId, runDir, candidate, completionStatus: evaluation?.completion_status ?? "UNKNOWN", primeExitCode: exitCode }, null, 2)}\n`, () => done()));
 	// ModelRuntime can retain a non-workshop Node handle after the final response.
 	// All artifacts and stdout are complete here, so end this command explicitly.

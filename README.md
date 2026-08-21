@@ -8,14 +8,14 @@ Open the [live slide deck](https://danialhasan.github.io/intro-to-harness-engine
 
 ## Start the hands-on workshop
 
-Go to the [complete participant workshop](workshop/README.md). OpenAI Codex acts as the participant's operator while Prime and Pi run the fixed evaluation agent through subscription-based OAuth. The guide contains the fixed task, two human decision gates, one bounded policy edit, deterministic comparison, resumable recovery, a public-safe experiment card, privacy rules, and a continuation path. No Prime Intellect account or OpenAI API key is required.
+Go to the [complete participant workshop](workshop/README.md). OpenAI Codex self-drives a cumulative H0-H4 harness ladder while Prime and Pi run the fixed evaluation agent through subscription-based OAuth. H0-H3 are pre-populated; the attendee adds one mechanism in H4. The path includes two human decisions, adjacent fixed-control comparisons, resumable recovery, and a public-safe experiment card. No Prime Intellect account or OpenAI API key is required.
 
 Allow 10 to 15 minutes before the event for setup. The controlled participant loop is designed for the 45-minute hands-on period.
 
 ## Event shape
 
 - 20 minutes: build a shared mental model of a coding-agent harness.
-- 45 minutes: use Codex to conduct a Prime baseline, choose and test one harness policy mechanism, compare native traces and deterministic scores, and produce an experiment card.
+- 45 minutes: use Codex to run H0-H3, create H4, compare native trajectories and deterministic scores, and produce an experiment card.
 - 10 minutes: interpret the observed trajectories, state the evidence limit, and close.
 
 The separate [`lecture/`](lecture/) area documents the lecture release.

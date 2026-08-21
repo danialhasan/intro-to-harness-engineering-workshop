@@ -1,6 +1,7 @@
 import { readFile, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { pathToFileURL } from "node:url";
+import { VARIANTS, type Variant } from "./workshop-state.js";
 
 function value(name: string): string {
 	const index = process.argv.indexOf(`--${name}`);
@@ -14,48 +15,38 @@ function safe(input: string): string {
 	return input;
 }
 
+function variant(input: string): Variant {
+	if (!VARIANTS.includes(input as Variant)) throw new Error("variant must be h0, h1, h2, h3, or h4");
+	return input as Variant;
+}
+
 async function json(path: string): Promise<Record<string, any>> { return JSON.parse(await readFile(path, "utf8")); }
 
-function actions(episode: Record<string, any>): string[] {
-	const trace = episode.traces?.[0] ?? episode;
-	const result: string[] = [];
-	for (const node of trace.nodes ?? []) {
-		for (const call of node.message?.tool_calls ?? []) result.push(String(call.name ?? call.function?.name ?? "tool"));
-	}
-	return result;
+export function buildFixedControlLedger(left: Record<string, any>, right: Record<string, any>): Array<{ control: string; left: unknown; right: unknown; status: "MATCH" | "MISMATCH" }> {
+	const keys = Array.from(new Set([...Object.keys(left), ...Object.keys(right)])).sort();
+	return keys.map((key) => ({ control: key, left: left[key] ?? null, right: right[key] ?? null, status: JSON.stringify(left[key]) === JSON.stringify(right[key]) ? "MATCH" : "MISMATCH" }));
 }
 
-async function lastEpisode(path: string): Promise<Record<string, any>> {
-	const lines = (await readFile(path, "utf8")).trim().split("\n").filter(Boolean);
-	return JSON.parse(lines.at(-1) ?? "{}");
-}
-
-export function buildFixedControlLedger(baseline: Record<string, any>, changed: Record<string, any>): Array<{ control: string; baseline: unknown; changed: unknown; status: "MATCH" | "MISMATCH" }> {
-	const keys = Array.from(new Set([...Object.keys(baseline), ...Object.keys(changed)])).sort();
-	return keys.map((key) => ({ control: key, baseline: baseline[key] ?? null, changed: changed[key] ?? null, status: JSON.stringify(baseline[key]) === JSON.stringify(changed[key]) ? "MATCH" : "MISMATCH" }));
+export async function compareAdjacent(ladderId: string, leftVariant: Variant, leftRunId: string, rightVariant: Variant, rightRunId: string): Promise<{ valid: boolean; fixedControlCount: number; policyDifferent: boolean }> {
+	const root = resolve("runs", ladderId);
+	const left = await json(resolve(root, leftVariant, leftRunId, "workshop-run.json"));
+	const right = await json(resolve(root, rightVariant, rightRunId, "workshop-run.json"));
+	if (left.comparison_id !== ladderId || right.comparison_id !== ladderId || left.variant !== leftVariant || right.variant !== rightVariant) throw new Error("run identity does not match the requested ladder");
+	const rows = buildFixedControlLedger(left.fixed_controls ?? {}, right.fixed_controls ?? {});
+	const policyDifferent = left.policy_sha256 !== right.policy_sha256;
+	const valid = rows.every((row) => row.status === "MATCH") && policyDifferent;
+	const file = resolve(root, `fixed-controls-${leftVariant}-to-${rightVariant}.json`);
+	await writeFile(file, `${JSON.stringify({ schema_version: "prime-adjacent-controls/v2", ladder_id: ladderId, left: leftVariant, right: rightVariant, valid, policy_controlled_difference: policyDifferent ? "DIFFERENT" : "SAME", rows }, null, 2)}\n`);
+	return { valid, fixedControlCount: rows.length, policyDifferent };
 }
 
 async function main(): Promise<void> {
-	const comparison = safe(value("comparison"));
-	const baselineId = safe(value("baseline-run-id"));
-	const changedId = safe(value("changed-run-id"));
-	const root = resolve("runs", comparison);
-	const baselineDir = resolve(root, "baseline", baselineId);
-	const changedDir = resolve(root, "changed", changedId);
-	const baseline = await json(resolve(baselineDir, "workshop-run.json"));
-	const changed = await json(resolve(changedDir, "workshop-run.json"));
-	if (baseline.comparison_id !== comparison || changed.comparison_id !== comparison || baseline.candidate !== "baseline" || changed.candidate !== "changed") throw new Error("run identity does not match the requested pair");
-	const ledger = buildFixedControlLedger(baseline.fixed_controls ?? {}, changed.fixed_controls ?? {});
-	const valid = ledger.every((row) => row.status === "MATCH") && baseline.policy_sha256 !== changed.policy_sha256;
-	await writeFile(resolve(root, "fixed-control-ledger.json"), `${JSON.stringify({ schema_version: "prime-fixed-controls/v1", comparison_id: comparison, valid, policy_controlled_difference: baseline.policy_sha256 !== changed.policy_sha256 ? "DIFFERENT" : "SAME", rows: ledger }, null, 2)}\n`);
-	const baselineEpisode = await lastEpisode(resolve(baselineDir, "traces.jsonl"));
-	const changedEpisode = await lastEpisode(resolve(changedDir, "traces.jsonl"));
-	const baselineActions = actions(baselineEpisode);
-	const changedActions = actions(changedEpisode);
-	const summary = `# Prime workshop comparison\n\n- Pair: \`${comparison}\`\n- Fixed controls: **${valid ? "MATCH" : "INVALID"}**\n- Baseline evaluator: **${baseline.completion_status}**\n- Changed evaluator: **${changed.completion_status}**\n- Baseline observable tool sequence: \`${baselineActions.join(" -> ") || "none recorded"}\`\n- Changed observable tool sequence: \`${changedActions.join(" -> ") || "none recorded"}\`\n\nThe policy file was the declared controlled difference. This pair shows observed trajectory and scorer outcomes only. It does not prove that either harness is generally better.\n`;
-	await writeFile(resolve(root, "comparison-summary.md"), summary);
-	console.log(JSON.stringify({ comparison, valid, fixedControls: ledger.length, baselineStatus: baseline.completion_status, changedStatus: changed.completion_status }, null, 2));
-	if (!valid) process.exitCode = 1;
+	const ladderId = safe(value("ladder"));
+	const leftVariant = variant(value("left"));
+	const rightVariant = variant(value("right"));
+	const result = await compareAdjacent(ladderId, leftVariant, safe(value("left-run-id")), rightVariant, safe(value("right-run-id")));
+	console.log(JSON.stringify({ ladderId, leftVariant, rightVariant, ...result }, null, 2));
+	if (!result.valid) process.exitCode = 1;
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) void main();

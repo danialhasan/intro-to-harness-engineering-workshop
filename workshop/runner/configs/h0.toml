@@ -1,0 +1,38 @@
+model = "openai-codex/gpt-5.5"
+num_tasks = 1
+num_rollouts = 1
+max_concurrent = 1
+push = false
+rich = false
+
+[client]
+type = "eval"
+base_url = "http://127.0.0.1:8787/v1"
+api_key_var = "WORKSHOP_PROXY_KEY"
+
+[sampling]
+reasoning_effort = "medium"
+max_tokens = 8192
+
+[env.taskset]
+id = "retry-http-v1"
+system_prompt = "policies/h0.md"
+
+[env.agent]
+max_turns = 24
+max_output_tokens = 32000
+
+[env.agent.timeout]
+setup = 120
+rollout = 420
+finalize = 60
+scoring = 60
+
+[env.agent.harness]
+id = "retry-http-v1"
+version = "0.84.2"
+transport = "chat_completions"
+disabled_tools = ["question"]
+
+[env.agent.runtime]
+type = "subprocess"

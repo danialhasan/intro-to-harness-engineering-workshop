@@ -1,79 +1,34 @@
-# Sanitized agent-native workshop example
+# Sanitized H0-H4 example
 
-This is an example-review fallback. It is not a fresh participant experiment.
-
-## Conductor stages
-
-```text
-Workshop pair: pair-example
-Stage: baseline_complete
-Baseline: COMPLETE
-Next: Review the safe baseline summary. Ask the participant to choose one
-evidence-linked mechanism, then record it.
-```
-
-After the participant decision and changed run:
+This is a fallback example, not a fresh participant experiment. Actual results
+can progress, regress, or remain unchanged.
 
 ```text
-{
-  "comparison": "pair-example",
-  "valid": true,
-  "fixedControls": 24,
-  "baselineStatus": "COMPLETE",
-  "changedStatus": "COMPLETE"
-}
+| Variant | Contract first | Test before edit | Verify after edit | Status | Actions | Turns |
+| H0      | no             | no               | YES               | COMPLETE | 21    | 11    |
+| H1      | YES            | no               | YES               | COMPLETE | 19    | 10    |
+| H2      | YES            | YES              | YES               | COMPLETE | 23    | 12    |
+| H3      | YES            | YES              | YES               | COMPLETE | 20    | 10    |
+| H4      | YES            | YES              | YES               | COMPLETE | 18    | 9     |
 ```
 
-Every fixed-control row reports `MATCH`, and the policy difference reports
-`DIFFERENT`.
+The numbers are illustrative. A declared instruction can fail to appear in the
+trace, and a stronger policy can use more actions or receive a lower score.
 
-## Sanitized trace summaries
-
-Each summary contains:
-
-- task ID;
-- evaluator completion state;
-- stop condition;
-- rewards and metrics;
-- an ordered list of observable tool calls with safe repository paths or
-  command categories.
-
-It omits raw messages, tool results, command output, credentials, and absolute
-paths.
-
-## Deterministic scorer
+Every adjacent check must report:
 
 ```text
-PASS safe GET retries with bounded backoff
-PASS unsafe POST does not duplicate a committed job
-PASS trace records physical attempt outcomes
-PASS safe HTTP 500 is surfaced without retry
-RESULT PASS target=participant
+VALID; 24 fixed controls MATCH; policy DIFFERENT
 ```
 
-## Participant decision
+Each live summary includes only task ID, evaluation state, stop condition,
+rewards, metrics, and sanitized ordered tool actions. It excludes raw content,
+tool results, command output, credentials, and absolute paths.
 
-Example classification: `missing-context`.
-
-Example mechanism:
+Example limited interpretation:
 
 ```text
-Require the evaluation agent to read TASK.md and docs/api-contract.md before
-its first implementation edit.
+In this ladder, all adjacent controls matched and the policies produced the
+reported action sequences and scores. One run per policy does not establish
+causality or general benefit.
 ```
-
-The participant, not Codex, selects this mechanism after reading the sanitized
-baseline evidence.
-
-## Example experiment-card interpretation
-
-```text
-In this pair, all fixed controls matched. We added one required pre-edit read.
-The Prime traces showed different observable tool sequences. Both scorers
-reported COMPLETE. The experiment does not establish whether this mechanism
-helps other tasks, models, or runs.
-```
-
-The final `HARNESS_EXPERIMENT_CARD.md` also includes the participant's remaining
-uncertainty and the fixed evidence boundary. It does not include raw traces or
-private local paths.

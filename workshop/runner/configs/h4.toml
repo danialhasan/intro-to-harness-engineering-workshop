@@ -16,7 +16,7 @@ max_tokens = 8192
 
 [env.taskset]
 id = "retry-http-v1"
-system_prompt = "policies/participant.md"
+system_prompt = "policies/h4.md"
 
 [env.agent]
 max_turns = 24
