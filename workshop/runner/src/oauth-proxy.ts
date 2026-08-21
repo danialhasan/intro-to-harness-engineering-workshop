@@ -102,8 +102,18 @@ export async function startOAuthProxy(expectedKey: string, port = 8787): Promise
 			const finishReason = message.tool_calls ? "tool_calls" : result.stopReason === "length" ? "length" : "stop";
 			if (body.stream === true) {
 				response.writeHead(200, { "content-type": "text/event-stream", "cache-control": "no-cache", connection: "keep-alive" });
-				const chunk = { id, object: "chat.completion.chunk", created, model: "gpt-5.5", choices: [{ index: 0, delta: message, finish_reason: finishReason }], usage: usage(result) };
-				response.write(`data: ${JSON.stringify(chunk)}\n\n`);
+				const delta: JsonObject = { role: "assistant" };
+				if (typeof message.content === "string" && message.content) delta.content = message.content;
+				if (Array.isArray(message.tool_calls)) {
+					delta.tool_calls = message.tool_calls.map((call: JsonObject, index: number) => ({
+						index,
+						id: call.id,
+						type: "function",
+						function: call.function,
+					}));
+				}
+				response.write(`data: ${JSON.stringify({ id, object: "chat.completion.chunk", created, model: "gpt-5.5", choices: [{ index: 0, delta, finish_reason: null }] })}\n\n`);
+				response.write(`data: ${JSON.stringify({ id, object: "chat.completion.chunk", created, model: "gpt-5.5", choices: [{ index: 0, delta: {}, finish_reason: finishReason }], usage: usage(result) })}\n\n`);
 				response.end("data: [DONE]\n\n");
 				return;
 			}

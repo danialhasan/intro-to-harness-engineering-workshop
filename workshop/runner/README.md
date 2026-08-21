@@ -9,6 +9,7 @@ This folder contains:
 - `policies/`: the baseline policy and bounded participant policy;
 - `src/oauth-proxy.ts`: the localhost Pi OAuth subscription adapter;
 - `src/prime-run.ts`: the baseline and changed run wrapper;
+- `src/prime-inspect.ts`: the sanitized native-trace summary;
 - `src/prime-compare.ts`: the fixed-control comparator;
 - `runs/`: local private Prime traces, ignored by Git.
 

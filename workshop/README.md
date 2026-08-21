@@ -145,10 +145,10 @@ The command prints `runId`, `runDir`, `completionStatus`, and `primeExitCode`. C
 export BASELINE_RUN_ID="<baseline runId>"
 export BASELINE_RUN="<baseline runDir>"
 cat "$BASELINE_RUN/evaluation-report.json"
-rg '"name"|"finish_reason"|"completion_status"' "$BASELINE_RUN/traces.jsonl"
+npm run prime:inspect -- --run-dir "$BASELINE_RUN"
 ```
 
-`traces.jsonl` is the native Prime trace. `evaluation-report.json` is a convenient copy of its deterministic scorer result.
+`traces.jsonl` is the native Prime trace. `evaluation-report.json` is a convenient copy of its deterministic scorer result. The inspection command lists ordered tool calls, rewards, metrics, and the stop condition. It omits tool results, raw message content, and absolute paths.
 
 ## 15 to 23 minutes: classify one observable weakness
 
@@ -186,7 +186,7 @@ The command rejects an unchanged policy or an edit outside the marked boundary. 
 export CHANGED_RUN_ID="<changed runId>"
 export CHANGED_RUN="<changed runDir>"
 cat "$CHANGED_RUN/evaluation-report.json"
-rg '"name"|"finish_reason"|"completion_status"' "$CHANGED_RUN/traces.jsonl"
+npm run prime:inspect -- --run-dir "$CHANGED_RUN"
 ```
 
 ## 41 to 45 minutes: compare and interpret

@@ -34,6 +34,10 @@ Each native Prime trace recorded:
 - metric `evaluator_complete = 1.0`;
 - stop condition `agent_completed`.
 
+`npm run prime:inspect -- --run-dir "<runDir>"` prints the ordered tool calls,
+rewards, metrics, and stop condition. It omits tool results, raw message
+content, and absolute paths.
+
 ## Deterministic scorer
 
 ```text
