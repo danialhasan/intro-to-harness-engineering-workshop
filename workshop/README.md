@@ -71,9 +71,11 @@ At the Pi prompt, enter:
 /login
 ```
 
-Select `ChatGPT Plus/Pro (Codex)` and complete the browser sign-in. When Pi confirms the login, exit Pi. This stores Pi's normal local OAuth state for your account.
+Select `OpenAI Codex`, which is the pinned Pi label for the ChatGPT Plus or Pro Codex subscription route. Complete the browser sign-in. If Pi already marks that route as stored, you can keep the existing login. When Pi confirms the login, exit Pi. This stores Pi's normal local OAuth state for your account.
 
 Do not copy, paste, print, send, or save a bearer token. Do not run a token-printing command. Do not create an API key for this workshop.
+
+The standalone Pi login screen can show your current directory and the names of user-level Pi resources before the isolated workshop runner starts. Complete login without screen sharing. The later workshop runner disables inherited context files, skills, extensions, prompts, and themes for the model run.
 
 ## Fixed experiment contract
 
