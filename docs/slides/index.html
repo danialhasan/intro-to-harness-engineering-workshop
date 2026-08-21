@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#090d12" />
     <title>Intro to Harness Engineering</title>
-    <script type="module" crossorigin src="./assets/index-ITg-eVIk.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-BSa1zj-l.css">
+    <script type="module" crossorigin src="./assets/index-DM8AuclT.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-DibIpZXX.css">
   </head>
   <body>
     <div class="reveal">
@@ -975,29 +975,27 @@ pi.setActiveTools([
 
         <section class="slide slide--workshop-handoff" data-slide-id="HE-08">
           <header class="workshop-handoff__header">
-            <h2>Now you change<br /><span>the harness.</span></h2>
-            <p>You will run one bounded experiment on a real Pi harness and inspect the evidence yourself.</p>
+            <h2>Build a five-step<br /><span>harness ladder.</span></h2>
+            <p>H0–H3 add one cumulative rule at a time. You inspect those runs, then choose the rule for H4.</p>
           </header>
 
-          <ol class="workshop-handoff__steps" aria-label="Workshop sequence">
-            <li><span>01</span><strong>Run</strong><p>baseline</p></li>
-            <li><span>02</span><strong>Inspect</strong><p>the trace</p></li>
-            <li><span>03</span><strong>Diagnose</strong><p>one decision</p></li>
-            <li><span>04</span><strong>Predict</strong><p>the effect</p></li>
-            <li class="is-change"><span>05</span><strong>Change</strong><p>one harness rule</p></li>
-            <li><span>06</span><strong>Rerun</strong><p>fresh episode</p></li>
-            <li><span>07</span><strong>Compare</strong><p>trace + result</p></li>
+          <ol class="workshop-handoff__steps" aria-label="Cumulative H0 through H4 harness ladder">
+            <li><span>H0</span><strong>Minimal</strong><p>fixed policy</p></li>
+            <li><span>H1</span><strong>Read</strong><p>task + contract first</p></li>
+            <li><span>H2</span><strong>Test</strong><p>before the first edit</p></li>
+            <li><span>H3</span><strong>Verify</strong><p>full checks after editing</p></li>
+            <li class="is-change"><span>H4</span><strong>You choose</strong><p>one added mechanism</p></li>
           </ol>
 
           <div class="workshop-handoff__contract">
-            <p><span>FIXED</span>task · model · runtime · evaluator</p>
-            <p><span>ONE EDIT</span><code>runner/policies/participant.md</code></p>
+            <p><span>FIXED</span>taskset · model · runtime · scorer · tools · limits</p>
+            <p><span>ONE EDIT</span><code>runner/policies/h4.md</code></p>
           </div>
 
-          <p class="workshop-handoff__footer">The goal is not to prove your change is better. The goal is to make a prediction, run a valid comparison, and explain what the evidence supports.</p>
+          <p class="workshop-handoff__footer">The ladder shows how added rules change one sequence of actions. It does not prove that a later policy is generally better.</p>
           <aside class="notes">
-            This is the handoff into the lab. Codex runs the baseline and shows a sanitized trace summary. The participant diagnoses one observable weakness, selects one policy mechanism, reviews the bounded edit, and interprets the controlled comparison. Keep the evidence limit explicit. One observed pair does not prove that the changed harness is generally better.
-            [Sources] https://github.com/danialhasan/intro-to-harness-engineering-workshop/blob/afb78f2ce122d7076c3ee59536963c3283f8d243/workshop/README.md; https://github.com/danialhasan/intro-to-harness-engineering-workshop/blob/afb78f2ce122d7076c3ee59536963c3283f8d243/workshop/WORKSHOP_AGENT.md.
+            This is the handoff into the lab. Codex runs the pre-populated H0-H3 ladder and shows a safe reference table. Each policy adds one rule to the prior policy. The participant studies the actual action order and results, then selects one additional H4 mechanism. Codex edits only the marked H4 policy block and compares every adjacent pair. One rollout per policy is an anatomy lesson, not proof that a later policy is generally better.
+            [Sources] https://github.com/danialhasan/intro-to-harness-engineering-workshop/blob/main/workshop/README.md; https://github.com/danialhasan/intro-to-harness-engineering-workshop/blob/main/workshop/WORKSHOP_AGENT.md.
           </aside>
         </section>
 
@@ -1010,27 +1008,27 @@ pi.setActiveTools([
           <div class="workshop-roles__system" aria-label="Participant, Codex, and Pi roles in the workshop">
             <article class="is-participant">
               <span>YOU</span>
-              <strong>Engineer the harness</strong>
-              <p>Choose one rule to test. Decide what the evidence supports.</p>
+              <strong>Engineer H4</strong>
+              <p>Choose one added rule. Decide what the five runs support.</p>
             </article>
             <i aria-hidden="true">→</i>
             <article>
               <span>CODEX</span>
-              <strong>Operate the experiment</strong>
-              <p>Run commands, preserve state, and summarize safe evidence.</p>
+              <strong>Operate the ladder</strong>
+              <p>Run H0–H4, preserve state, and summarize safe evidence.</p>
             </article>
             <i aria-hidden="true">→</i>
             <article>
               <span>PI INSIDE PRIME</span>
               <strong>Attempt the task</strong>
-              <p>Work in a fresh runtime and produce the recorded episode.</p>
+              <p>Work in a fresh runtime and produce each recorded episode.</p>
             </article>
           </div>
 
-          <p class="workshop-roles__footer">Codex does not replace Pi. You do not outsource the two decisions that make this harness engineering.</p>
+          <p class="workshop-roles__footer">Codex does not replace Pi. You still own the H4 mechanism and the final evidence-limited claim.</p>
           <aside class="notes">
-            Separate the roles before anyone opens the repository. The participant owns the hypothesis and the conclusion. Codex is the operator agent: it runs the mechanical workflow and stops at both decision gates. Pi is the evaluation agent inside Prime: it attempts the fixed coding task and produces the native trace, rewards, and metrics. I remain outside each participant's controlled pair as the facilitator.
-            [Sources] https://github.com/danialhasan/intro-to-harness-engineering-workshop/blob/afb78f2ce122d7076c3ee59536963c3283f8d243/workshop/README.md; https://github.com/danialhasan/intro-to-harness-engineering-workshop/blob/afb78f2ce122d7076c3ee59536963c3283f8d243/workshop/WORKSHOP_AGENT.md.
+            Separate the roles before anyone opens the repository. The participant owns the H4 hypothesis and final interpretation. Codex is the operator agent: it runs the mechanical workflow and stops at both decision gates. Pi is the evaluation agent inside Prime: it attempts the same fixed coding task in a fresh disposable runtime for each policy. I remain outside each participant's ladder as the facilitator.
+            [Sources] https://github.com/danialhasan/intro-to-harness-engineering-workshop/blob/main/workshop/README.md; https://github.com/danialhasan/intro-to-harness-engineering-workshop/blob/main/workshop/WORKSHOP_AGENT.md.
           </aside>
         </section>
 
@@ -1056,13 +1054,13 @@ pi.setActiveTools([
           </div>
 
           <div class="workshop-open__states" aria-label="Workshop recovery states">
-            <p><span>READY</span>run your own pair</p>
+            <p><span>READY</span>run your own ladder</p>
             <p><span>PAIR</span>join a ready machine</p>
             <p><span>EXAMPLE</span>review the packaged evidence</p>
           </div>
           <aside class="notes">
             Leave this slide up while the room opens the public repository. Setup should already be complete. Do not troubleshoot package installation or interactive login for more than two minutes during the hands-on block. Move a blocked participant to a ready pair or the labeled example-review path. If Pi authentication is required, the participant takes the keyboard and completes login privately. Do not screen-share the interactive login.
-            [Sources] https://github.com/danialhasan/intro-to-harness-engineering-workshop/blob/afb78f2ce122d7076c3ee59536963c3283f8d243/workshop/README.md; https://github.com/danialhasan/intro-to-harness-engineering-workshop/blob/afb78f2ce122d7076c3ee59536963c3283f8d243/workshop/EXPECTED_OUTPUT.md.
+            [Sources] https://github.com/danialhasan/intro-to-harness-engineering-workshop/blob/main/workshop/README.md; https://github.com/danialhasan/intro-to-harness-engineering-workshop/blob/main/workshop/EXPECTED_OUTPUT.md.
           </aside>
         </section>
 
@@ -1073,26 +1071,26 @@ pi.setActiveTools([
           </header>
 
           <blockquote class="workshop-start__prompt">
-            Start the hands-on harness engineering workshop. Follow WORKSHOP_AGENT.md and AGENTS.md. Act as my operator, explain evidence in plain language, and stop for my decision at every HUMAN DECISION gate.
+            Start the hands-on H0-H4 harness engineering workshop. Follow AGENTS.md and WORKSHOP_AGENT.md. Act as my operator. Run the pre-populated H0-H3 ladder, explain the safe evidence in plain language, and stop for my H4 mechanism and my final limited claim. Never read raw traces or expose credentials. After the experiment card, show me the optional continuation menu in prompts/README.md.
           </blockquote>
 
           <div class="workshop-start__decisions">
             <article>
-              <span>DECISION 01 · AFTER THE BASELINE</span>
-              <strong>Which harness rule should we test?</strong>
-              <p>Choose one mechanism grounded in the observable trace.</p>
+              <span>DECISION 01 · AFTER H0–H3</span>
+              <strong>What should H4 add?</strong>
+              <p>Choose one mechanism grounded in the safe trajectory evidence.</p>
             </article>
             <article>
-              <span>DECISION 02 · AFTER THE COMPARISON</span>
-              <strong>What does this pair support?</strong>
+              <span>DECISION 02 · AFTER H4</span>
+              <strong>What does this ladder support?</strong>
               <p>Approve a limited claim and name what remains uncertain.</p>
             </article>
           </div>
 
-          <p class="workshop-start__footer">When the experiment card opens, keep it. That is your record of the task, policy change, traces, evaluator results, and evidence limit.</p>
+          <p class="workshop-start__footer">Keep <code>HARNESS_LADDER_EXPERIMENT_CARD.md</code>. Afterward, Codex can show the optional trace-analysis and Taskset prompts.</p>
           <aside class="notes">
-            This is the final slide before I switch to the live workshop. Participants paste this exact prompt after opening the workshop folder in Codex. Codex runs preflight and the baseline, then stops. The first participant decision selects the mechanism. After the changed run and fixed-control comparison, Codex stops again. The second participant decision approves only what the one observed pair supports. The conductor then writes HARNESS_EXPERIMENT_CARD.md.
-            [Sources] https://github.com/danialhasan/intro-to-harness-engineering-workshop/blob/afb78f2ce122d7076c3ee59536963c3283f8d243/workshop/WORKSHOP_AGENT.md; https://github.com/danialhasan/intro-to-harness-engineering-workshop/blob/afb78f2ce122d7076c3ee59536963c3283f8d243/workshop/README.md.
+            This is the final slide before I switch to the live workshop. Participants paste this prompt after opening the workshop folder in Codex. Codex runs preflight and the pre-populated H0-H3 ladder, then stops. The first participant decision adds one H4 mechanism. After H4 and the adjacent fixed-control comparisons, Codex stops again. The second participant decision approves only what these five observed runs support. The conductor writes HARNESS_LADDER_EXPERIMENT_CARD.md and then offers the optional continuation menu.
+            [Sources] https://github.com/danialhasan/intro-to-harness-engineering-workshop/blob/main/workshop/WORKSHOP_AGENT.md; https://github.com/danialhasan/intro-to-harness-engineering-workshop/blob/main/workshop/README.md.
           </aside>
         </section>
       </div>
