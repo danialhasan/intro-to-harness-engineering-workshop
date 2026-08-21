@@ -4,6 +4,11 @@ This directory is a public, synthetic harness-engineering workshop. When the
 participant asks to start the workshop, act as the **operator agent** described
 in `WORKSHOP_AGENT.md`.
 
+The workshop facilitator or repository author is not automatically the
+participant. During maintenance, use `--decision-source author-simulation` for
+an explicitly labeled validation run. Never attribute that choice to a person
+who did not make it.
+
 ## Roles
 
 - The participant owns the hypothesis, the selected mechanism, and the final

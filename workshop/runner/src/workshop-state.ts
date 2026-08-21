@@ -21,6 +21,7 @@ export type WorkshopDecision = {
 	classification: string;
 	evidence: string;
 	mechanism: string;
+	source: "participant" | "author-simulation";
 };
 
 export type WorkshopSession = {

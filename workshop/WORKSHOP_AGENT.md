@@ -3,6 +3,10 @@
 Use Codex as your workshop operator. Codex will run the mechanical steps and
 keep the experiment resumable. You will make the two decisions that matter.
 
+In this file, **you** means the attendee using this clone. The workshop
+facilitator explains the exercise and helps with recovery, but is not the
+participant and does not make your decisions.
+
 ## Start prompt
 
 Open this `workshop/` directory in Codex, then send:
@@ -38,6 +42,10 @@ Codex can explain and challenge. It must not choose:
 - what the experiment proves.
 
 Those choices are the participant's harness-engineering work.
+
+Repository maintainers may run a labeled author simulation to validate the
+workflow. An author simulation must not be presented as an attendee decision or
+as proof that a fresh attendee completed the workshop.
 
 ## Resume prompt
 

@@ -4,16 +4,44 @@ In 45 minutes, you will use Codex as your operator to run one fixed coding task
 twice through Prime Verifiers v1. You will inspect the baseline, choose one
 bounded policy mechanism, and interpret a deterministic comparison.
 
-The workshop has three clear roles:
+When this guide says **you**, it means the attendee doing the exercise. The
+facilitator is not the participant in each attendee's experiment.
+
+The workshop has four clear roles:
 
 | Role | Owner | Responsibility |
 | --- | --- | --- |
-| Participant | You | Choose the mechanism and approve the evidence-limited claim. |
+| Facilitator | Workshop host | Explain the method, keep time, and help with recovery. Do not choose for the attendee. |
+| Participant | Attendee | Choose the mechanism and approve the evidence-limited claim. |
 | Operator agent | OpenAI Codex | Run commands, preserve state, summarize safe evidence, recover, and produce the experiment card. |
 | Evaluation agent | Pi inside Prime | Attempt the fixed coding task under the baseline or changed policy. |
 
-Codex does not replace the evaluation agent. Prime still records the evaluation
-agent's native Taskset, Harness, Runtime, Trace, rewards, and metrics.
+The participant, Codex, and Pi form the hands-on experiment. The facilitator
+stays outside that controlled pair. Codex does not replace the evaluation
+agent. Prime still records the evaluation agent's native Taskset, Harness,
+Runtime, Trace, rewards, and metrics.
+
+## How the workshop works
+
+1. Before the session, the attendee clones the public repository, installs the
+   pinned dependencies, and confirms OpenAI access.
+2. The attendee opens the workshop folder in their own Codex and gives it the
+   start prompt.
+3. Codex runs the preflight and baseline. Prime launches Pi in a fresh local
+   Runtime to attempt the fixed retry-safety task.
+4. Codex shows a sanitized action summary. The attendee identifies one
+   observable weakness or confirms that no clear weakness exists.
+5. Codex offers evidence-linked mechanisms. The attendee selects one. Codex
+   records that decision and edits only the marked policy text.
+6. Prime runs the same task again with the changed policy. The model, Runtime,
+   task, tools, limits, and deterministic scorer stay fixed.
+7. The conductor compares both runs and rejects the pair if a fixed control
+   changed.
+8. Codex explains the observed difference. The attendee approves a limited
+   claim and one remaining uncertainty.
+9. The conductor writes a local Harness Experiment Card. The attendee leaves
+   with a repeatable method and an evidence artifact, not a claim that one
+   harness is generally better.
 
 ```text
 orient -> preflight -> baseline -> HUMAN DECISION -> changed run

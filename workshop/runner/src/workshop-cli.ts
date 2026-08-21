@@ -77,7 +77,10 @@ function printStatus(session: WorkshopSession): void {
 	if (session.baseline) console.log(`Baseline: ${session.baseline.completionStatus}`);
 	if (session.changed) console.log(`Changed: ${session.changed.completionStatus}`);
 	if (session.cardFile) console.log(`Experiment card: ${session.cardFile}`);
-	console.log(`Next: ${nextAction(session.stage)}`);
+	const next = session.stage === "comparison_ready" && session.decision?.source === "author-simulation"
+		? "Write a limited author-validation claim and uncertainty, then run npm run workshop:finish. Do not attribute the decision to an attendee."
+		: nextAction(session.stage);
+	console.log(`Next: ${next}`);
 }
 
 async function run(command: string, args: string[], label: string): Promise<string> {
@@ -203,9 +206,14 @@ async function recordDecision(): Promise<void> {
 	if (!CLASSIFICATIONS.has(classification)) throw new Error(`--classification must be one of: ${[...CLASSIFICATIONS].join(", ")}`);
 	const evidence = publicText(required("evidence"), "Evidence");
 	const mechanism = publicText(required("mechanism"), "Mechanism");
-	session.decision = { classification, evidence, mechanism };
+	const source = option("decision-source") ?? "participant";
+	if (source !== "participant" && source !== "author-simulation") throw new Error("--decision-source must be participant or author-simulation");
+	session.decision = { classification, evidence, mechanism, source };
 	const decisionFile = resolve("runs", session.pairId, "decision.md");
-	await writeFile(decisionFile, `# Participant decision\n\n- Classification: ${classification}\n- Observable evidence: ${evidence}\n- Selected mechanism: ${mechanism}\n\nThe participant selected this mechanism after reviewing the sanitized baseline trace.\n`);
+	const attribution = source === "participant"
+		? "The participant selected this mechanism after reviewing the sanitized baseline trace."
+		: "This mechanism was selected for an author simulation. It is validation evidence, not an attendee decision.";
+	await writeFile(decisionFile, `# Workshop decision\n\n- Source: ${source}\n- Classification: ${classification}\n- Observable evidence: ${evidence}\n- Selected mechanism: ${mechanism}\n\n${attribution}\n`);
 	session.stage = "decision_recorded";
 	await saveSession(session);
 	console.log(`Decision recorded: ${decisionFile}`);
@@ -234,7 +242,11 @@ async function compare(): Promise<void> {
 	session.stage = "comparison_ready";
 	await saveSession(session);
 	console.log(await readFile(resolve("runs", session.pairId, "comparison-summary.md"), "utf8"));
-	console.log("HUMAN DECISION REQUIRED: the operator must challenge overclaiming and wait for the participant to approve a limited claim and one uncertainty.");
+	if (session.decision?.source === "author-simulation") {
+		console.log("AUTHOR SIMULATION REVIEW REQUIRED: write a limited validation claim and uncertainty. Do not present either as an attendee decision.");
+	} else {
+		console.log("HUMAN DECISION REQUIRED: the operator must challenge overclaiming and wait for the participant to approve a limited claim and one uncertainty.");
+	}
 	printStatus(session);
 }
 
@@ -245,7 +257,7 @@ function fenced(value: string): string {
 export function buildExperimentCard(input: {
 	pairId: string;
 	fixedControlCount: number;
-	decision: { classification: string; evidence: string; mechanism: string };
+	decision: { classification: string; evidence: string; mechanism: string; source: "participant" | "author-simulation" };
 	baselineStatus: string;
 	baselineReward: unknown;
 	changedStatus: string;
@@ -255,7 +267,8 @@ export function buildExperimentCard(input: {
 	claim: string;
 	uncertainty: string;
 }): string {
-	return `# Harness Experiment Card\n\n## Experiment\n\n- Pair: \`${input.pairId}\`\n- Taskset: \`retry-http-v1\`\n- Controlled difference: participant policy text only\n- Fixed controls: ${input.fixedControlCount} rows matched\n- Prime upload: disabled\n\n## Participant decision\n\n- Classification: ${input.decision.classification}\n- Observable evidence: ${input.decision.evidence}\n- Selected mechanism: ${input.decision.mechanism}\n\n## Results\n\n- Baseline: ${input.baselineStatus}; rewards ${fenced(JSON.stringify(input.baselineReward ?? {}))}\n- Changed: ${input.changedStatus}; rewards ${fenced(JSON.stringify(input.changedReward ?? {}))}\n\n## Sanitized trajectory summaries\n\n### Baseline\n\n\`\`\`text\n${fenced(input.baselineSummary.trim())}\n\`\`\`\n\n### Changed\n\n\`\`\`text\n${fenced(input.changedSummary.trim())}\n\`\`\`\n\n## Participant interpretation\n\n- Limited claim: ${input.claim}\n- Remaining uncertainty: ${input.uncertainty}\n\n## Evidence boundary\n\nThis controlled pair shows observed trajectory and deterministic scorer outcomes for one task and two runs. It does not prove that either harness, policy, agent, or model is generally better. Raw traces remain private local data.\n`;
+	const decisionHeading = input.decision.source === "participant" ? "Participant decision" : "Author-simulation decision";
+	return `# Harness Experiment Card\n\n## Experiment\n\n- Pair: \`${input.pairId}\`\n- Taskset: \`retry-http-v1\`\n- Controlled difference: participant policy text only\n- Fixed controls: ${input.fixedControlCount} rows matched\n- Prime upload: disabled\n\n## ${decisionHeading}\n\n- Source: ${input.decision.source}\n- Classification: ${input.decision.classification}\n- Observable evidence: ${input.decision.evidence}\n- Selected mechanism: ${input.decision.mechanism}\n\n## Results\n\n- Baseline: ${input.baselineStatus}; rewards ${fenced(JSON.stringify(input.baselineReward ?? {}))}\n- Changed: ${input.changedStatus}; rewards ${fenced(JSON.stringify(input.changedReward ?? {}))}\n\n## Sanitized trajectory summaries\n\n### Baseline\n\n\`\`\`text\n${fenced(input.baselineSummary.trim())}\n\`\`\`\n\n### Changed\n\n\`\`\`text\n${fenced(input.changedSummary.trim())}\n\`\`\`\n\n## Interpretation\n\n- Limited claim: ${input.claim}\n- Remaining uncertainty: ${input.uncertainty}\n\n## Evidence boundary\n\nThis controlled pair shows observed trajectory and deterministic scorer outcomes for one task and two runs. It does not prove that either harness, policy, agent, or model is generally better. Raw traces remain private local data. An author simulation is not evidence that an attendee completed the workshop.\n`;
 }
 
 async function finish(): Promise<void> {

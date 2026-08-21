@@ -21,7 +21,7 @@ for (const unsafe of [
 const card = buildExperimentCard({
 	pairId: "pair-fixture",
 	fixedControlCount: 24,
-	decision: { classification: "missing-context", evidence: "The public contract was not read first.", mechanism: "Require the public contract before editing." },
+	decision: { classification: "missing-context", evidence: "The public contract was not read first.", mechanism: "Require the public contract before editing.", source: "author-simulation" },
 	baselineStatus: "COMPLETE",
 	baselineReward: { gate: { score: 1, weight: 1 } },
 	changedStatus: "COMPLETE",
@@ -32,6 +32,8 @@ const card = buildExperimentCard({
 	uncertainty: "One pair does not establish general benefit.",
 });
 assert.match(card, /Fixed controls: 24 rows matched/);
+assert.match(card, /Author-simulation decision/);
+assert.match(card, /not evidence that an attendee completed/);
 assert.match(card, /Raw traces remain private local data/);
 assert.doesNotMatch(card, /\/Users\//);
 console.log("agent-native workshop privacy and auth fixture tests passed");
