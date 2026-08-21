@@ -197,8 +197,8 @@ controls to force a pass.
 
 - Use only the synthetic public fixture. Never add client code or attendee data.
 - `runner/runs/` contains local raw traces and must not be shared or committed.
-- The OAuth adapter uses localhost and a random run key. The real credential
-  stays in Pi's store.
+- The OAuth adapter uses an operating-system-assigned localhost port and a
+  random run key for each evaluation. The real credential stays in Pi's store.
 - The subprocess Runtime uses a disposable workspace and HOME, but it is not an
   operating-system sandbox.
 - Prime upload is disabled in every config.

@@ -67,7 +67,7 @@ async function main(): Promise<void> {
 	let exitCode = 1;
 	let primeLog = "";
 	try {
-		const result = await run("uvx", ["--from", "uv==0.11.1", "uv", "run", "--project", "prime", "eval", "@", `configs/${candidate}.toml`, "--output-dir", outputDir, "--run.name", runId, "--run.dir", runId], { ...process.env, WORKSHOP_PROXY_KEY: proxyKey });
+		const result = await run("uvx", ["--from", "uv==0.11.1", "uv", "run", "--project", "prime", "eval", "@", `configs/${candidate}.toml`, "--client.base-url", proxy.url, "--output-dir", outputDir, "--run.name", runId, "--run.dir", runId], { ...process.env, WORKSHOP_PROXY_KEY: proxyKey });
 		exitCode = result.code;
 		primeLog = result.log;
 	} finally {
@@ -102,7 +102,7 @@ async function main(): Promise<void> {
 		num_rollouts: config.num_rollouts,
 		max_concurrent: config.max_concurrent,
 		tools: (trace.tools ?? []).map((tool: Record<string, any>) => tool.name),
-		client: config.client,
+		client: { type: config.client?.type, route: "per-run localhost Pi OAuth adapter", api_key_var: config.client?.api_key_var },
 		evaluator: evaluation.evaluator_version,
 		evaluator_sha256: await sha256(resolve("../candidates/retry-http/verifier/evaluate.ts")),
 		fixture_lock_sha256: await sha256(resolve("../candidates/retry-http/package-lock.json")),

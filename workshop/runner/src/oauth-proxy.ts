@@ -83,7 +83,7 @@ function writeJson(response: ServerResponse, status: number, body: JsonObject): 
 	response.end(JSON.stringify(body));
 }
 
-export async function startOAuthProxy(expectedKey: string, port = 8787): Promise<{ close: () => Promise<void>; url: string }> {
+export async function startOAuthProxy(expectedKey: string, port = 0): Promise<{ close: () => Promise<void>; url: string }> {
 	const runtime = await ModelRuntime.create();
 	const model = runtime.getModel("openai-codex", "gpt-5.5");
 	if (!model || !runtime.hasConfiguredAuth("openai-codex") || !runtime.isUsingSubscription("openai-codex")) {
