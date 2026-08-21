@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#090d12" />
     <title>Intro to Harness Engineering</title>
-    <script type="module" crossorigin src="./assets/index-DM8AuclT.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-DibIpZXX.css">
+    <script type="module" crossorigin src="./assets/index-B9l5wUvx.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-CR1gtUeS.css">
   </head>
   <body>
     <div class="reveal">
@@ -1002,26 +1002,29 @@ pi.setActiveTools([
         <section class="slide slide--workshop-roles" data-slide-id="HE-09">
           <header class="workshop-roles__header">
             <h2>You make the decisions.<br /><span>The agents run the machinery.</span></h2>
-            <p>I’ll keep time and help with recovery. I won’t choose your mechanism or conclusion.</p>
+            <p>Four roles keep execution, evaluation, facilitation, and human judgment separate.</p>
           </header>
 
-          <div class="workshop-roles__system" aria-label="Participant, Codex, and Pi roles in the workshop">
+          <div class="workshop-roles__system" aria-label="Attendee, Codex, Pi, and facilitator roles in the workshop">
             <article class="is-participant">
-              <span>YOU</span>
-              <strong>Engineer H4</strong>
-              <p>Choose one added rule. Decide what the five runs support.</p>
+              <span>ATTENDEE</span>
+              <strong>Make two decisions</strong>
+              <p>Choose H4. Approve a limited claim and one uncertainty.</p>
             </article>
-            <i aria-hidden="true">→</i>
             <article>
-              <span>CODEX</span>
-              <strong>Operate the ladder</strong>
-              <p>Run H0–H4, preserve state, and summarize safe evidence.</p>
+              <span>CODEX · OPERATOR</span>
+              <strong>Run the ladder</strong>
+              <p>Preflight, run H0–H4, recover state, and summarize safe evidence.</p>
             </article>
-            <i aria-hidden="true">→</i>
             <article>
-              <span>PI INSIDE PRIME</span>
+              <span>PI · EVALUATION AGENT</span>
               <strong>Attempt the task</strong>
-              <p>Work in a fresh runtime and produce each recorded episode.</p>
+              <p>Use the same model, Taskset, Runtime, tools, limits, and scorer.</p>
+            </article>
+            <article>
+              <span>FACILITATOR</span>
+              <strong>Keep the room moving</strong>
+              <p>Teach the method, keep time, and help with recovery.</p>
             </article>
           </div>
 
@@ -1032,39 +1035,69 @@ pi.setActiveTools([
           </aside>
         </section>
 
-        <section class="slide slide--workshop-open" data-slide-id="HE-10">
+        <section class="slide slide--workshop-prereqs" data-slide-id="HE-10">
+          <header class="workshop-prereqs__header">
+            <h2>Bring Codex.<br /><span>Keep credentials private.</span></h2>
+            <p>The workshop uses stored OpenAI Codex OAuth subscription compute.</p>
+          </header>
+
+          <div class="workshop-prereqs__grid" aria-label="Workshop prerequisites and credential boundaries">
+            <article>
+              <span>ACCESS</span>
+              <strong>ChatGPT Plus or Pro</strong>
+              <p>Your plan must include eligible Codex access.</p>
+            </article>
+            <article>
+              <span>COMPUTER</span>
+              <strong>macOS, Linux, or WSL2</strong>
+              <p>Git · Node 22.19+ · npm · <code>uvx</code> · internet</p>
+            </article>
+            <article class="is-cost">
+              <span>COST ROUTE</span>
+              <strong>Subscription compute</strong>
+              <p>No Prime Intellect account. No OpenAI API key.</p>
+            </article>
+            <article class="is-private">
+              <span>PRIVATE LOGIN</span>
+              <strong>Take the keyboard</strong>
+              <p>Never print, paste, share, or screen-share credentials.</p>
+            </article>
+          </div>
+
+          <p class="workshop-prereqs__footer">Pi uses the stored OpenAI Codex OAuth session. The public repository contains no credentials.</p>
+          <aside class="notes">
+            Confirm prerequisites before the hands-on clock starts. The route is OpenAI only: an eligible ChatGPT Plus or Pro plan, Codex, and Pi's stored OpenAI Codex OAuth session. The workshop does not require a Prime Intellect account or an OpenAI API key. If private Pi login is needed, the participant takes the keyboard and the screen share stops. Never ask anyone to print, paste, or share credentials.
+            [Sources] https://github.com/danialhasan/intro-to-harness-engineering-workshop/blob/main/workshop/README.md; research/PARTICIPANT_SIMULATION_12.md.
+          </aside>
+        </section>
+
+        <section class="slide slide--workshop-open" data-slide-id="HE-11">
           <header class="workshop-open__header">
-            <h2>Open the<br /><span>public workshop.</span></h2>
-            <p>Use the synthetic repository. Do not open a private work repository for this exercise.</p>
+            <h2>Clone the<br /><span>public workshop.</span></h2>
+            <p>The QR and visible URL both open the attendee entry page.</p>
           </header>
 
           <div class="workshop-open__body">
-            <a class="workshop-open__qr" href="https://github.com/danialhasan/intro-to-harness-engineering-workshop" target="_blank" rel="noreferrer" aria-label="Open the public workshop repository">
-              <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAAAAIAAQMAAADOtka5AAAABlBMVEX///8AAABVwtN+AAAACXBIWXMAAA7EAAAOxAGVKw4bAAACt0lEQVR4nO3cMW7DMAyFYQYdOvYIOUqPZh8tR/ERMnYIwiYURVFOC7QAU3T435LEsb6NkC3KFiGEEELmaMpJ5EXP96P+ccj/riKv+TcAAEAxcPEv8nYDbsfP8q63g2/trA/JedWtf10AAADqATv3YsCtjr1SjbtaAa/3qt5kuRqwaPsFAADwVEBbOXfnYOXcRwIAAPwh0Ov4kstZ73PssV3qAgAAPBPwpJFjjr1n0VzVcRAAAKAYSBl1nMp5mybXFAAAgFrgywzAEjeePw4AAMDvgV6cfsXrVd0+/MZTojdiV7yHfuELAABQDXhTRNr6T2pYWjkf1T/WaJE0DgAAoBawc9+jKeJcig/xyfUYVS0AAAC1gA2RKOAW40bB+hw79S0FAACgGohZ1Ua+jIblqY30yo061t0OHwAAgEogPmTfsNxf6urgAAAAagFp8+i8DNSrep5OfRN6cAAAAKXAqGNpd5zn3UEZ23cs67T7HAAAoAzoaRe3fVadssaeuo9pqgUAAPh3wLyc+7iqZOeOHsvBb2ABAACKAV8ySg9zqXau7f9ZNK/q5sUlAACAWuDbHktfR1LVPrla5mtlAACAGkDTw1yj1ZmesIzl3F7cj+tIAAAAJYAXcLQ6z0PV6xj57aUuAABAFeALuL4MpJp6LF7AEstA96z7fesAAABlgE+naRmo9z/TjeexvaDHs4kAAADUA8npv1okvZlnpKsAAAC1wBz9qkVi2frzzov/AgAAKAbySafoW/pmdi9n/zveWrd/pgsAAKAEmDasj76l/TcN0amcBQAAoB6Ifesn8Tr24s4tki1V9WOPBQAA4AlAbLST6W3nllTVAgAA8EdADJG445we7VoBAADqAU+MPHXVDh+706da3+8KAABQDaREOcv+XSDWIvFZdb99AAAA4J8AhBBCSM8nh6eZ2MwOV1sAAAAASUVORK5CYII=" alt="QR code for the public Intro to Harness Engineering workshop repository" />
+            <a class="workshop-open__qr" href="https://github.com/danialhasan/intro-to-harness-engineering-workshop/blob/main/workshop/README.md" target="_blank" rel="noreferrer" aria-label="Open the public workshop attendee entry page">
+              <img src="./assets/workshop-repo-qr-CygP38AQ.png" alt="QR code for the public workshop README at github.com/danialhasan/intro-to-harness-engineering-workshop" />
             </a>
 
             <div class="workshop-open__instructions">
-              <a href="https://github.com/danialhasan/intro-to-harness-engineering-workshop" target="_blank" rel="noreferrer">github.com/danialhasan/<br />intro-to-harness-engineering-workshop ↗</a>
-              <ol>
-                <li><span>01</span><p><strong>Use your prepared clone.</strong> Git, Node 22.19+, <code>uv</code>, and packages should already be ready.</p></li>
-                <li><span>02</span><p><strong>Open <code>workshop/</code> in Codex.</strong> Codex will operate the experiment from there.</p></li>
-                <li><span>03</span><p><strong>Open <code>WORKSHOP_AGENT.md</code>.</strong> Copy the start prompt on the next slide.</p></li>
-              </ol>
+              <a href="https://github.com/danialhasan/intro-to-harness-engineering-workshop/blob/main/workshop/README.md" target="_blank" rel="noreferrer">https://github.com/danialhasan/intro-to-harness-engineering-workshop/blob/main/workshop/README.md ↗</a>
+              <pre aria-label="Commands to clone the workshop and enter its workshop folder"><code>git clone https://github.com/danialhasan/intro-to-harness-engineering-workshop.git
+cd intro-to-harness-engineering-workshop/workshop</code></pre>
+              <p class="workshop-open__next"><span>THEN</span>Open this <code>workshop/</code> folder in Codex. Open <code>WORKSHOP_AGENT.md</code>.</p>
             </div>
           </div>
 
-          <div class="workshop-open__states" aria-label="Workshop recovery states">
-            <p><span>READY</span>run your own ladder</p>
-            <p><span>PAIR</span>join a ready machine</p>
-            <p><span>EXAMPLE</span>review the packaged evidence</p>
-          </div>
+          <p class="workshop-open__footer">Use this synthetic repository. Do not open a private work repository for this exercise.</p>
           <aside class="notes">
-            Leave this slide up while the room opens the public repository. Setup should already be complete. Do not troubleshoot package installation or interactive login for more than two minutes during the hands-on block. Move a blocked participant to a ready pair or the labeled example-review path. If Pi authentication is required, the participant takes the keyboard and completes login privately. Do not screen-share the interactive login.
+            The QR encodes the exact public workshop README URL shown on the slide. It contains no tracking, credentials, or attendee data. Participants can select and copy both commands. After entering the workshop folder, they open that folder in Codex and then open WORKSHOP_AGENT.md.
             [Sources] https://github.com/danialhasan/intro-to-harness-engineering-workshop/blob/main/workshop/README.md; https://github.com/danialhasan/intro-to-harness-engineering-workshop/blob/main/workshop/EXPECTED_OUTPUT.md.
           </aside>
         </section>
 
-        <section class="slide slide--workshop-start" data-slide-id="HE-11">
+        <section class="slide slide--workshop-start" data-slide-id="HE-12">
           <header class="workshop-start__header">
             <h2>Paste one prompt.<br /><span>Then make two decisions.</span></h2>
             <p>Codex handles the mechanics. It must stop when your judgment is required.</p>
@@ -1091,6 +1124,100 @@ pi.setActiveTools([
           <aside class="notes">
             This is the final slide before I switch to the live workshop. Participants paste this prompt after opening the workshop folder in Codex. Codex runs preflight and the pre-populated H0-H3 ladder, then stops. The first participant decision adds one H4 mechanism. After H4 and the adjacent fixed-control comparisons, Codex stops again. The second participant decision approves only what these five observed runs support. The conductor writes HARNESS_LADDER_EXPERIMENT_CARD.md and then offers the optional continuation menu.
             [Sources] https://github.com/danialhasan/intro-to-harness-engineering-workshop/blob/main/workshop/WORKSHOP_AGENT.md; https://github.com/danialhasan/intro-to-harness-engineering-workshop/blob/main/workshop/README.md.
+          </aside>
+        </section>
+
+        <section class="slide slide--workshop-evidence" data-slide-id="HE-13">
+          <header class="workshop-evidence__header">
+            <h2>Read evidence.<br /><span>Do not grade yourself.</span></h2>
+            <p>Progression, regression, or no visible change are all valid results.</p>
+          </header>
+
+          <div class="workshop-evidence__body">
+            <div class="workshop-evidence__runs" aria-label="Evidence produced for H0 through H4">
+              <article><span>H0–H4</span><strong>Five safe run summaries</strong><p>Status · reward · gates · actions · turns</p></article>
+              <article><span>FOUR PAIRS</span><strong>Adjacent comparisons</strong><p>H0→H1 · H1→H2 · H2→H3 · H3→H4</p></article>
+              <article><span>FIXED CONTROLS</span><strong>24 of 24 must match</strong><p>Only the selected policy may differ.</p></article>
+            </div>
+
+            <article class="workshop-evidence__card">
+              <span>FINAL OUTPUT</span>
+              <strong>HARNESS_LADDER_<br />EXPERIMENT_CARD.md</strong>
+              <p>Your H4 mechanism, observed evidence, limited claim, and remaining uncertainty.</p>
+            </article>
+          </div>
+
+          <p class="workshop-evidence__footer">One ladder shows what happened in five runs. It does not prove that one harness is generally better.</p>
+          <aside class="notes">
+            Codex exposes only privacy-safe evidence: completion status, reward, four evaluator gates, action order, and turn counts. The conductor compares each adjacent pair. A valid comparison reports 24 fixed controls matched and only the policy differed. The attendee's final artifact is HARNESS_LADDER_EXPERIMENT_CARD.md. A progression, regression, or unchanged result can all teach us something. One ladder is not a general harness ranking.
+            [Sources] https://github.com/danialhasan/intro-to-harness-engineering-workshop/blob/main/workshop/EXPECTED_OUTPUT.md; research/PARTICIPANT_SIMULATION_12.md.
+          </aside>
+        </section>
+
+        <section class="slide slide--workshop-recovery" data-slide-id="HE-14">
+          <header class="workshop-recovery__header">
+            <h2>Resume safely.<br /><span>Keep traces private.</span></h2>
+            <p>The conductor preserves completed runs and reports the next safe step.</p>
+          </header>
+
+          <div class="workshop-recovery__grid">
+            <article>
+              <span>CHECK STATE</span>
+              <pre><code>cd intro-to-harness-engineering-workshop/workshop/runner
+npm run workshop:status</code></pre>
+              <p>See what completed and what Codex should do next.</p>
+            </article>
+            <article>
+              <span>RESUME</span>
+              <pre><code>npm run workshop:ladder</code></pre>
+              <p>Skip completed variants. Do not repeat a finished model call.</p>
+            </article>
+            <article class="is-privacy">
+              <span>PRIVACY</span>
+              <strong>Synthetic task only</strong>
+              <p>Keep <code>runner/runs/</code> local. Prime upload stays off. Do not share raw traces or credentials.</p>
+            </article>
+            <article class="is-limit">
+              <span>EVIDENCE LIMIT</span>
+              <strong>Observed ladder only</strong>
+              <p>Do not claim general improvement from one task and one run per policy.</p>
+            </article>
+          </div>
+
+          <p class="workshop-recovery__footer">After the experiment card, private trace analysis and other public Tasksets are optional—not part of the required path.</p>
+          <aside class="notes">
+            If the process stops, run workshop:status, then workshop:ladder. The conductor skips completed H0-H3 variants and can recover a completed but unclaimed H4 run. The exercise uses a synthetic task. The local runner directory is private, Prime upload is false, and raw traces must not be shared. Optional trace analysis or another public Taskset begins only after the experiment card exists.
+            [Sources] https://github.com/danialhasan/intro-to-harness-engineering-workshop/blob/main/workshop/README.md; https://github.com/danialhasan/intro-to-harness-engineering-workshop/blob/main/workshop/WORKSHOP_AGENT.md.
+          </aside>
+        </section>
+
+        <section class="slide slide--workshop-now" data-slide-id="HE-15">
+          <header class="workshop-now__header">
+            <h2>Start now.</h2>
+            <p>45 minutes hands-on · 10 minutes to interpret and close</p>
+          </header>
+
+          <div class="workshop-now__body">
+            <a class="workshop-now__qr" href="https://github.com/danialhasan/intro-to-harness-engineering-workshop/blob/main/workshop/README.md" target="_blank" rel="noreferrer" aria-label="Open the public workshop attendee entry page">
+              <img src="./assets/workshop-repo-qr-CygP38AQ.png" alt="QR code for the public workshop README at github.com/danialhasan/intro-to-harness-engineering-workshop" />
+            </a>
+            <div class="workshop-now__steps">
+              <a href="https://github.com/danialhasan/intro-to-harness-engineering-workshop/blob/main/workshop/README.md" target="_blank" rel="noreferrer">https://github.com/danialhasan/intro-to-harness-engineering-workshop/blob/main/workshop/README.md ↗</a>
+              <ol>
+                <li><span>01</span><strong>Clone the repository and open <code>workshop/</code> in Codex.</strong></li>
+                <li><span>02</span><strong>Open <code>WORKSHOP_AGENT.md</code> and paste its start prompt.</strong></li>
+                <li><span>03</span><strong>Stop at both human decision gates.</strong></li>
+              </ol>
+            </div>
+          </div>
+
+          <div class="workshop-now__help" aria-label="Workshop help and privacy reminders">
+            <p><span>BLOCKED?</span>Run <code>npm run workshop:status</code>, then ask for help.</p>
+            <p><span>LOGIN?</span>Take the keyboard. Do not share your screen or credentials.</p>
+          </div>
+          <aside class="notes">
+            Leave this slide on screen while the room begins. The full URL is selectable and the QR opens the same attendee README. Participants clone the repository, open workshop in Codex, and paste the prompt from WORKSHOP_AGENT.md. I will help with recovery, but each participant must make both decisions. The independent author simulation completed the full path in about six minutes and twenty-two seconds; the remaining time is for teaching, inspection, and judgment.
+            [Sources] https://github.com/danialhasan/intro-to-harness-engineering-workshop/blob/main/workshop/README.md; research/PARTICIPANT_SIMULATION_12.md.
           </aside>
         </section>
       </div>
