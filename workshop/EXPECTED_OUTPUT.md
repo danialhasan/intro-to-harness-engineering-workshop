@@ -1,42 +1,45 @@
-# Sanitized Prime workshop example
+# Sanitized agent-native workshop example
 
 This is an example-review fallback. It is not a fresh participant experiment.
 
-## Run summaries
+## Conductor stages
 
-```json
+```text
+Workshop pair: pair-example
+Stage: baseline_complete
+Baseline: COMPLETE
+Next: Review the safe baseline summary. Ask the participant to choose one
+evidence-linked mechanism, then record it.
+```
+
+After the participant decision and changed run:
+
+```text
 {
-  "runId": "pair-example-baseline-11111111",
-  "runDir": "<local-run-root>/pair-example/baseline/pair-example-baseline-11111111",
-  "candidate": "baseline",
-  "completionStatus": "COMPLETE",
-  "primeExitCode": 0
+  "comparison": "pair-example",
+  "valid": true,
+  "fixedControls": 24,
+  "baselineStatus": "COMPLETE",
+  "changedStatus": "COMPLETE"
 }
 ```
 
-```json
-{
-  "runId": "pair-example-changed-22222222",
-  "runDir": "<local-run-root>/pair-example/changed/pair-example-changed-22222222",
-  "candidate": "changed",
-  "completionStatus": "COMPLETE",
-  "primeExitCode": 0
-}
-```
+Every fixed-control row reports `MATCH`, and the policy difference reports
+`DIFFERENT`.
 
-Each native Prime trace recorded:
+## Sanitized trace summaries
 
-- model `openai-codex/gpt-5.5`;
-- intercepted model calls linked to assistant nodes;
-- tool calls and tool results;
-- four rewards with score `1.0` and weight `0.25`;
-- metric `evaluator_gates_passed = 4.0`;
-- metric `evaluator_complete = 1.0`;
-- stop condition `agent_completed`.
+Each summary contains:
 
-`npm run prime:inspect -- --run-dir "<runDir>"` prints the ordered tool calls,
-rewards, metrics, and stop condition. It omits tool results, raw message
-content, and absolute paths.
+- task ID;
+- evaluator completion state;
+- stop condition;
+- rewards and metrics;
+- an ordered list of observable tool calls with safe repository paths or
+  command categories.
+
+It omits raw messages, tool results, command output, credentials, and absolute
+paths.
 
 ## Deterministic scorer
 
@@ -48,38 +51,29 @@ PASS safe HTTP 500 is surfaced without retry
 RESULT PASS target=participant
 ```
 
-## Controlled difference
+## Participant decision
 
-Example participant mechanism statement:
+Example classification: `missing-context`.
 
-```text
-I changed this harness policy so the agent is asked to read TASK.md and the API
-contract before its first edit.
-```
-
-In the example changed trace, the first turn requested `TASK.md`, `docs/api-contract.md`, and a file inventory before the first edit. The baseline used a different observable sequence. Both traces reached the same deterministic score.
-
-## Comparator
-
-```json
-{
-  "comparison": "pair-example",
-  "valid": true,
-  "fixedControls": 24,
-  "baselineStatus": "COMPLETE",
-  "changedStatus": "COMPLETE"
-}
-```
-
-Every fixed-control row reported `MATCH`. The two policy hashes were `DIFFERENT`.
-
-## Correct interpretation
+Example mechanism:
 
 ```text
-In this pair, the Taskset, model, subscription route, Runtime, tools, limits,
-and deterministic scorer matched. We changed one required pre-edit read. The
-Prime traces showed different observable tool sequences. Both scorers reported
-COMPLETE. This one pair does not prove that either harness is generally better.
+Require the evaluation agent to read TASK.md and docs/api-contract.md before
+its first implementation edit.
 ```
 
-Do not interpret one pair as a general framework, model, prompt, or harness ranking.
+The participant, not Codex, selects this mechanism after reading the sanitized
+baseline evidence.
+
+## Example experiment-card interpretation
+
+```text
+In this pair, all fixed controls matched. We added one required pre-edit read.
+The Prime traces showed different observable tool sequences. Both scorers
+reported COMPLETE. The experiment does not establish whether this mechanism
+helps other tasks, models, or runs.
+```
+
+The final `HARNESS_EXPERIMENT_CARD.md` also includes the participant's remaining
+uncertainty and the fixed evidence boundary. It does not include raw traces or
+private local paths.

@@ -1,4 +1,5 @@
 runner/.smoke-runs/
+runner/.workshop-session.json
 runner/backups/
 runner/outputs/
 runner/prime/.venv/

@@ -1,51 +1,78 @@
-# Hands-on workshop: change one harness policy
+# Hands-on workshop: conduct one harness experiment with Codex
 
-In 45 minutes, you will run one fixed coding task twice through Prime Verifiers v1. You will change one bounded harness policy, compare the two Prime traces, and interpret a deterministic score.
+In 45 minutes, you will use Codex as your operator to run one fixed coding task
+twice through Prime Verifiers v1. You will inspect the baseline, choose one
+bounded policy mechanism, and interpret a deterministic comparison.
 
-You will use these standard parts:
+The workshop has three clear roles:
 
-```text
-Taskset -> Harness -> Runtime -> Trace -> rewards and metrics
-```
+| Role | Owner | Responsibility |
+| --- | --- | --- |
+| Participant | You | Choose the mechanism and approve the evidence-limited claim. |
+| Operator agent | OpenAI Codex | Run commands, preserve state, summarize safe evidence, recover, and produce the experiment card. |
+| Evaluation agent | Pi inside Prime | Attempt the fixed coding task under the baseline or changed policy. |
 
-- **Taskset:** one public retry-safe HTTP task and its deterministic scorer.
-- **Harness:** Prime's Pi coding-agent harness plus the selected policy.
-- **Runtime:** a fresh disposable local workspace for each run.
-- **Trace:** Prime's record of model calls, messages, tool calls, timing, rewards, and metrics.
-- **Rewards and metrics:** four fixed evaluator gates, each worth `0.25`, plus gate-count and completion metrics.
-
-The runner sets Prime `push = false`. Nothing is uploaded to Prime. A localhost-only adapter uses Pi's stored OpenAI Codex OAuth login. It does not print or save the credential and does not use OpenAI API billing.
-
-## What you will complete
+Codex does not replace the evaluation agent. Prime still records the evaluation
+agent's native Taskset, Harness, Runtime, Trace, rewards, and metrics.
 
 ```text
-preflight -> baseline -> inspect -> edit one policy -> changed run -> compare -> limited claim
+orient -> preflight -> baseline -> HUMAN DECISION -> changed run
+       -> compare -> HUMAN DECISION -> experiment card
 ```
 
-Completion means that you have two fresh Prime run directories and a comparison whose fixed-control rows all say `MATCH`. A run can finish as `COMPLETE`, `FAILED`, or an error. Keep the observed result. Do not change the fixed task or scorer to force a pass.
+## Credentials and cost
 
-## Prerequisites
+The primary path is OpenAI-only.
 
-Complete this section before the 45-minute workshop. Allow 10 to 15 minutes.
+- You need access to Codex and a ChatGPT Plus or Pro subscription with Codex
+  access.
+- You do **not** need a Prime Intellect account. Prime upload is disabled, and
+  the pinned open-source framework runs locally.
+- You do **not** need an OpenAI API key. Pi uses a stored OpenAI Codex OAuth
+  login and subscription compute.
+- If your subscription already includes Codex, the workshop adds no separate
+  API charge.
 
-- macOS or Linux with a terminal. Windows participants should use WSL 2.
+You may see two OpenAI sign-in surfaces: your normal Codex sign-in and Pi's
+local `/login` for the evaluation agent. Both use OpenAI access. Neither step
+requires you to copy a credential.
+
+Do not print, copy, paste, send, or save a bearer token or API key. Do not
+screen-share the interactive Pi login because it can show local resource names.
+
+### Organizer-managed API fallback
+
+The published experiment does not enable an API-key route. An OpenAI API key is
+a separately billed secret, and one shared long-lived key is not a safe
+attendee credential.
+
+If an event must support attendees without an eligible subscription, the host
+should prepare and test a separate event route in advance. Use a dedicated
+OpenAI API project, limited event credentials, spend alerts, usage monitoring,
+and immediate revocation after the event. Inject each secret outside the
+repository and chat. Changing from OAuth subscription compute to API compute
+creates a different fixed-control route, so both runs in a pair must use that
+same route and it needs its own participant simulation.
+
+## Complete setup before the workshop
+
+Allow 10 to 15 minutes before the 45-minute session.
+
+- macOS or Linux. Windows participants should use WSL 2.
 - Git.
 - Node.js `22.19.0` or later and npm.
-- `uv`/`uvx`. Install it from the [official uv instructions](https://docs.astral.sh/uv/getting-started/installation/) if `uvx --version` fails.
+- `uv`/`uvx`. Use the [official uv installation instructions](https://docs.astral.sh/uv/getting-started/installation/).
+- OpenAI Codex, signed in with the account you will use during the workshop.
 - Internet access for the clone, first package sync, and two model runs.
-- A ChatGPT Plus or Pro subscription with Codex access.
-- A text editor.
 
-The workshop pins:
+The workshop pins Prime Verifiers v1 to commit
+`4bcb48e55a35c199d9d2f9722060fda627306aa3`, `uv` to `0.11.1`, Pi to `0.84.2`,
+and the evaluation model to `openai-codex/gpt-5.5` with medium reasoning.
 
-- Prime Verifiers v1 to official commit `4bcb48e55a35c199d9d2f9722060fda627306aa3`;
-- `uv` to `0.11.1` for Prime's runtime scripts;
-- Pi to `0.84.2`;
-- model to `openai-codex/gpt-5.5` with medium reasoning.
+## 1. Clone and install
 
-## 1. Clone and run the model-free preflight
-
-Use only this public synthetic repository. Do not use a private work repository.
+Use only this public synthetic repository. Do not open a private work
+repository for this exercise.
 
 ```sh
 git clone https://github.com/danialhasan/intro-to-harness-engineering-workshop.git
@@ -53,62 +80,120 @@ cd intro-to-harness-engineering-workshop/workshop/runner
 node --version
 uvx --version
 npm ci
-npm run check:types
-npm run check:policy
-npm run prime:sync
-uvx --from uv==0.11.1 uv run --project prime eval @ configs/baseline.toml --dry-run
 ```
 
-`node --version` must report `v22.19.0` or later. The first Prime sync downloads Python and the pinned framework, so it can take several minutes. The last command must report that it wrote a resolved config. These commands do not call a model.
+`node --version` must report `v22.19.0` or later.
 
-Prime prints a general warning because this workshop uses its subprocess runtime. The task still runs in a new temporary directory with a disposable `HOME`; this blocks inherited project instructions and user-level Pi resources. It is not an operating-system sandbox, so use only the included public task.
+## 2. Put Codex in the operator seat
 
-## 2. Sign in to Pi with subscription compute
+Open the cloned `workshop/` directory in Codex. If you use the Codex CLI, run it
+from that directory. Then paste the start prompt from [WORKSHOP_AGENT.md](WORKSHOP_AGENT.md).
 
-From `workshop/runner`, check the stored route without printing a token:
+Codex will read [AGENTS.md](AGENTS.md), create a generated pair ID, and run the
+model-free checks. The first Prime sync can take several minutes.
+
+The conductor stores progress in `runner/.workshop-session.json`. That file and
+all run data are local and ignored by Git. If Codex restarts, use the resume
+prompt in `WORKSHOP_AGENT.md`.
+
+## 3. Private OpenAI sign-in, only when required
+
+Codex runs this safe check as part of `npm run workshop:doctor`:
 
 ```sh
 npx --no-install pi auth check --provider openai-codex --model gpt-5.5 --json
 ```
 
-If the response says `"status":"ready"` and `"authType":"oauth"`, continue.
-
-Otherwise, start Pi:
+If it reports `ready` and `oauth`, continue. If it reports `AUTH_REQUIRED`, you
+must take the keyboard. From `workshop/runner`, run:
 
 ```sh
 npx --no-install pi
 ```
 
-Enter `/login`, select `OpenAI Codex`, and complete the browser sign-in. Exit Pi, then run the safe auth check again.
+Enter `/login`, select `OpenAI Codex`, complete the browser sign-in, and exit
+Pi. Tell Codex to rerun `npm run workshop:doctor`. Never use a token-printing
+command.
 
-Do not print, copy, paste, send, or save a bearer token. Do not create an API key. The interactive login screen can show local resource names, so do not screen-share the login step.
+## 4. Understand the fixed experiment
 
-## Fixed experiment contract
-
-Both runs keep these controls fixed:
-
-- Taskset and task: `retry-http-v1` and `retry-http/v1`.
-- Initial public fixture: `workshop/candidates/retry-http`.
-- Model and compute: `openai-codex/gpt-5.5` through stored Pi OAuth subscription access.
-- Reasoning: medium.
-- Harness: the pinned Prime Pi harness adapter.
-- Runtime: one fresh disposable subprocess workspace.
-- Tools, 24-turn limit, seven-minute rollout timeout, package locks, evaluator, one task, and one rollout.
-- Prime upload: disabled.
-
-The comparator fails closed if a fixed control is absent or different.
-
-The task implements this contract:
+The included task implements this contract:
 
 - a safe catalog `GET` can retry `503` with bounded fake-clock backoff;
 - a job-creating `POST` must not retry after a lost response;
 - every physical request must create one attempt trace.
 
-Read [TASK.md](candidates/retry-http/TASK.md) and [the API contract](candidates/retry-http/docs/api-contract.md). Do not edit them.
+Read [TASK.md](candidates/retry-http/TASK.md) and
+[the API contract](candidates/retry-http/docs/api-contract.md). Do not edit them.
 
-## Your only editable surface
+Both runs keep these controls fixed:
 
-Edit only the text between the two marker comments in [policies/participant.md](runner/policies/participant.md):
+- Taskset and task: `retry-http-v1` and `retry-http/v1`.
+- Initial public fixture: `candidates/retry-http`.
+- Model and compute: `openai-codex/gpt-5.5` through stored Pi OAuth subscription access.
+- Reasoning: medium.
+- Harness: the pinned Prime Pi harness adapter.
+- Runtime: one fresh disposable subprocess workspace.
+- Tools, 24-turn limit, seven-minute timeout, locks, evaluator, one task, and one rollout.
+- Prime upload: disabled.
+
+The comparator fails closed if any fixed control is absent or different.
+
+## 5. Run the baseline
+
+Codex runs:
+
+```sh
+npm run workshop:baseline
+```
+
+The conductor discovers and stores the run ID. It creates a sanitized summary
+that lists ordered tool calls, rewards, metrics, and the stop condition. It
+omits raw messages, tool results, credentials, and absolute paths.
+
+The evaluation can finish as `COMPLETE`, `FAILED`, or an error. Keep the real
+result. Do not change the fixed task or scorer to force a pass.
+
+## 6. Make the first human decision
+
+Codex must stop after the baseline. It will present two or three options tied to
+observable evidence. Use these classifications:
+
+| Classification | Question |
+| --- | --- |
+| Missing context | What public repository fact should the evaluation agent have read? |
+| Missing verification | What result should it have checked before stop? |
+| Unsafe action | What action occurred without enough evidence? |
+| Poor stopping | What requirement remained unresolved at stop? |
+| No clear weakness | What trace evidence shows a reasonable path? |
+
+`No clear weakness` is valid. Select one mechanism or write your own. Codex
+records your decision before it can continue.
+
+Your mechanism should fit this statement:
+
+```text
+I changed this harness policy so the evaluation agent is asked to obtain or
+verify <evidence> before <consequential action or stop>.
+```
+
+The conductor command is explicit and recoverable:
+
+```sh
+npm run workshop:record-decision -- \
+  --classification "missing-context" \
+  --evidence "The baseline did not read the public task contract before its first edit." \
+  --mechanism "Require the public task and API contract before the first edit."
+```
+
+Codex must replace this example with your selected classification and wording.
+Do not put names, email addresses, links, credentials, private data, or local
+paths in these fields.
+
+## 7. Change one bounded harness policy
+
+After you choose, Codex edits only the text between the two marker comments in
+[`runner/policies/participant.md`](runner/policies/participant.md):
 
 ```md
 <!-- PARTICIPANT EDIT START -->
@@ -116,116 +201,72 @@ Change only this instruction text.
 <!-- PARTICIPANT EDIT END -->
 ```
 
-Do not edit the baseline policy, Prime configs, Taskset, harness code, OAuth adapter, task fixture, scorer, model controls, or lock files.
+It must run `npm run check:policy`. Do not add a new provider, agent loop,
+framework, task, scorer, or broad policy bundle.
 
-Before you edit, write this mechanism statement in your notes:
+## 8. Run and compare
+
+Codex runs:
+
+```sh
+npm run workshop:changed
+npm run workshop:compare
+```
+
+The conductor rejects an unchanged or out-of-bounds policy. It uses the stored
+run IDs, so you do not copy paths or environment variables. The pair is valid
+only when the policy is `DIFFERENT`, `valid` is `true`, and every fixed-control
+row is `MATCH`.
+
+## 9. Make the second human decision
+
+Codex must stop again. Review:
+
+1. scorer status and reward for each trace;
+2. what each evaluation agent inspected before its first edit;
+3. what verification appeared before stop;
+4. which observable tool sequence changed;
+5. whether the change addressed your classification;
+6. what remains uncertain after one pair.
+
+Approve a claim that follows this boundary:
 
 ```text
-I changed this harness policy so the agent is asked to obtain or verify <evidence>
-before <consequential action or stop>.
+In this pair, the fixed controls matched. We changed <policy mechanism>. The
+Prime traces differed in <observable actions>. The scorer reported <results>.
+This one pair does not prove that either harness is generally better.
 ```
 
-## 0 to 5 minutes: name the pair
+Codex then creates a local, public-safe `HARNESS_EXPERIMENT_CARD.md` containing
+the decision, fixed-control result, sanitized trajectories, limited claim, and
+remaining uncertainty. Review it before sharing it.
 
-Use a local ID with no personal or client information:
+The final conductor command is:
 
 ```sh
-export PAIR_ID="pair-$(date +%Y%m%d-%H%M%S)"
+npm run workshop:finish -- \
+  --claim "In this pair, the selected policy mechanism changed the observable trajectory while all fixed controls matched." \
+  --uncertainty "One pair does not show whether the mechanism helps other tasks or runs."
 ```
 
-## 5 to 15 minutes: run the baseline
+Codex must replace the example with the claim and uncertainty that you approve.
+
+See [EXPECTED_OUTPUT.md](EXPECTED_OUTPUT.md) if you cannot complete two live
+model runs. State that you reviewed an example; do not call it a fresh
+experiment.
+
+## Recovery
+
+### Resume after an interruption
+
+From `workshop/runner`, run:
 
 ```sh
-npm run prime:baseline -- --comparison "$PAIR_ID"
+npm run workshop:status
 ```
 
-The command prints `runId`, `runDir`, `completionStatus`, and `primeExitCode`. Copy the exact first two values:
-
-```sh
-export BASELINE_RUN_ID="<baseline runId>"
-export BASELINE_RUN="<baseline runDir>"
-cat "$BASELINE_RUN/evaluation-report.json"
-npm run prime:inspect -- --run-dir "$BASELINE_RUN"
-```
-
-`traces.jsonl` is the native Prime trace. `evaluation-report.json` is a convenient copy of its deterministic scorer result. The inspection command lists ordered tool calls, rewards, metrics, and the stop condition. It omits tool results, raw message content, and absolute paths.
-
-## 15 to 23 minutes: classify one observable weakness
-
-Use the task, API contract, and trace. Do not guess hidden model reasoning.
-
-| Classification | Question |
-| --- | --- |
-| Missing context | What public repository fact should the agent have read? |
-| Missing verification | What result should the agent have checked before stop? |
-| Unsafe action | What action occurred without enough evidence? |
-| Poor stopping | What requirement was unresolved when the agent stopped? |
-| No clear weakness | What trace evidence shows a reasonable path? |
-
-`No clear weakness` is valid. One run does not need to fail for this exercise to work.
-
-## 23 to 31 minutes: change one policy instruction
-
-Edit only the marked section of `policies/participant.md`. Make one small change that responds to your classification. Then run:
-
-```sh
-npm run check:policy
-```
-
-Examples include one required pre-edit read, one task-specific verification, or one observable stop condition. Do not add a second framework, a new agent loop, a provider, a network service, or a broad policy bundle.
-
-## 31 to 41 minutes: run the changed policy
-
-```sh
-npm run prime:changed -- --comparison "$PAIR_ID"
-```
-
-The command rejects an unchanged policy or an edit outside the marked boundary. Copy the exact output values:
-
-```sh
-export CHANGED_RUN_ID="<changed runId>"
-export CHANGED_RUN="<changed runDir>"
-cat "$CHANGED_RUN/evaluation-report.json"
-npm run prime:inspect -- --run-dir "$CHANGED_RUN"
-```
-
-## 41 to 45 minutes: compare and interpret
-
-Use the two explicit run IDs:
-
-```sh
-npm run prime:compare -- \
-  --comparison "$PAIR_ID" \
-  --baseline-run-id "$BASELINE_RUN_ID" \
-  --changed-run-id "$CHANGED_RUN_ID"
-
-cat "runs/$PAIR_ID/fixed-control-ledger.json"
-cat "runs/$PAIR_ID/comparison-summary.md"
-```
-
-The pair is valid only when `valid` is `true`, the policy difference is `DIFFERENT`, and every fixed-control row is `MATCH`.
-
-Answer these questions:
-
-1. What scorer status and reward did each trace record?
-2. What did each agent inspect before its first edit?
-3. What verification action appears before stop?
-4. What observable tool sequence changed?
-5. Did the change address your classification?
-6. What remains uncertain after one pair?
-
-Use this evidence statement:
-
-```text
-In this pair, the Taskset, model, subscription route, Runtime, tools, limits,
-and deterministic scorer matched. We changed <policy mechanism>. The Prime
-traces differed in <observable actions>. The scorer reported <results>. This
-one pair does not prove that either harness is generally better.
-```
-
-See [the sanitized expected output](EXPECTED_OUTPUT.md) for an example.
-
-## Reset and recovery
+The command reports the current stage and exact next action. It does not rerun
+a completed model call.
 
 ### Restore the starter policy
 
@@ -234,55 +275,59 @@ npm run reset:policy
 npm run check:policy
 ```
 
-Reset creates a timestamped local backup in `runner/backups/`, then restores only `policies/participant.md`.
+Reset creates a timestamped local backup and restores only the participant
+policy. It does not delete runs or the experiment card.
 
-### A run directory already exists
+### Start another experiment
 
-The runner never overwrites a run. Create a new pair ID and rerun both candidates.
+After a completed experiment:
 
-### Auth is not ready
+```sh
+npm run workshop:start -- --new
+```
 
-Repeat the `/login` step, then use the safe JSON auth check. Never use a token-printing command.
+An incomplete session is never replaced silently. Use `--discard-incomplete`
+only after the participant approves discarding that session.
 
-### Prime fails before scoring
+### A command or model run fails
 
-Read `prime-eval.log` and `traces.jsonl` in the printed run directory. Keep the exact error. Do not change the model, task, scorer, timeout, or package pins to hide it.
+Preserve the output and run `npm run workshop:status`. Do not change the model,
+Taskset, scorer, timeout, package pins, or controls. A scorer result of `FAILED`
+is valid evidence. If authentication expired, repeat the private `/login`
+handoff and resume.
 
-### A scorer reports `FAILED`
+### The comparison is invalid
 
-Keep the trace as evidence and continue. A failed task result is valid workshop data.
-
-### The changed run rejects the policy
-
-Run `npm run check:policy`. If text outside the markers changed, run `npm run reset:policy` and make the bounded edit again.
-
-### The comparison rejects the pair
-
-Read `fixed-control-ledger.json`. Use a new pair ID and run both candidates again without extra flags.
-
-### You cannot complete two model runs
-
-Pair with a preflight-ready participant or use [EXPECTED_OUTPUT.md](EXPECTED_OUTPUT.md). State that you reviewed an example; do not call it a fresh experiment.
+Read `runs/<pair>/fixed-control-ledger.json`. Preserve the pair. Start a new
+experiment and run both candidates without extra flags.
 
 ## Privacy, authority, and accessibility
 
-- Use only the included synthetic task. Do not add client code, attendee data, credentials, private work, or personal identifiers.
-- The OAuth adapter listens only on `127.0.0.1`, requires a random per-run key, and keeps the real OAuth credential inside Pi's credential store.
-- Each Prime runtime uses a temporary directory and disposable `HOME`. It does not inherit parent `AGENTS.md` files, Pi skills, prompts, extensions, themes, or stored credentials.
-- The subprocess runtime is not an operating-system sandbox. The written policy forbids network use, but Bash can still start network commands. Use this disposable public clone only.
-- Prime traces can contain prompts, tool arguments, tool results, command output, and local temporary paths. They do not contain hidden model reasoning. Treat `runner/runs/` as private local data. Review it before sharing any derived claim. Do not commit or publish raw traces.
+- Use only the included synthetic task. Do not add attendee data, client code,
+  credentials, private work, or personal identifiers.
+- The OAuth adapter listens only on `127.0.0.1`, uses a random per-run key, and
+  leaves the real OAuth credential inside Pi's credential store.
+- Each Prime run uses a temporary workspace and disposable `HOME`. It does not
+  inherit parent agent instructions or stored credentials.
+- The subprocess Runtime is not an operating-system sandbox. Use only this
+  disposable public clone.
+- Raw Prime traces can contain prompts, tool arguments, tool results, command
+  output, and temporary paths. Treat `runner/runs/` as private local data. Use
+  only the generated safe summaries for discussion.
 - Prime upload is disabled in both configs.
-- Every instruction and result state is available as text. No step depends on color, images, audio, hover state, or slide order.
+- Every instruction and result is available as text. No step depends on color,
+  images, audio, hover state, or slide order.
 
 ## Continue after the workshop
 
-Use the same Prime vocabulary and loop:
+Use the completed experiment card as the input to a second, safer iteration:
 
-1. Choose one safe Taskset with a deterministic reward.
+1. Choose one public Taskset with a deterministic reward.
 2. Keep the Harness, model, Runtime, and scorer fixed.
-3. Identify one observable trace bottleneck.
-4. Change one policy or harness mechanism.
+3. Identify one observable trajectory bottleneck.
+4. Let the human choose one policy or harness mechanism.
 5. Run a fresh pair and compare fixed controls.
 6. State only what the traces, rewards, and metrics support.
 
-Do not treat one successful pair as a general ranking of agents, models, prompts, or harnesses.
+Do not turn one successful pair into a general ranking of agents, models,
+prompts, or harnesses.
