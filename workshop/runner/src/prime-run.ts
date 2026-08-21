@@ -110,8 +110,13 @@ async function main(): Promise<void> {
 	};
 	await writeFile(resolve(runDir, "evaluation-report.json"), `${JSON.stringify(evaluation, null, 2)}\n`);
 	await writeFile(resolve(runDir, "workshop-run.json"), `${JSON.stringify({ schema_version: "prime-workshop-run/v1", comparison_id: comparisonId, candidate, run_id: runId, policy_sha256: await sha256(resolve(policy)), fixed_controls: fixedControls, prime_exit_code: exitCode, trace_id: trace.id ?? null, reward: trace.rewards ?? null, metrics: trace.metrics ?? null, completion_status: evaluation?.completion_status ?? "UNKNOWN" }, null, 2)}\n`);
-	console.log(JSON.stringify({ runId, runDir, candidate, completionStatus: evaluation?.completion_status ?? "UNKNOWN", primeExitCode: exitCode }, null, 2));
-	process.exitCode = exitCode;
+	await new Promise<void>((done) => process.stdout.write(`${JSON.stringify({ runId, runDir, candidate, completionStatus: evaluation?.completion_status ?? "UNKNOWN", primeExitCode: exitCode }, null, 2)}\n`, () => done()));
+	// ModelRuntime can retain a non-workshop Node handle after the final response.
+	// All artifacts and stdout are complete here, so end this command explicitly.
+	process.exit(exitCode);
 }
 
-void main().catch((error) => { console.error(error instanceof Error ? error.message : String(error)); process.exitCode = 1; });
+void main().catch((error) => {
+	console.error(error instanceof Error ? error.message : String(error));
+	process.exit(1);
+});
