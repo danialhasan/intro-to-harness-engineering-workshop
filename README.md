@@ -2,6 +2,10 @@
 
 Public materials for the 75-minute Intro to Harness Engineering lecture and workshop.
 
+## View the lecture slides
+
+Open the [live slide deck](https://danialhasan.github.io/intro-to-harness-engineering-workshop/slides/).
+
 ## Start the hands-on workshop
 
 Go to the [complete participant workshop](workshop/README.md). It contains the prerequisites, subscription-based Pi sign-in, fixed task, commands, editable boundary, expected results, recovery steps, privacy rules, and continuation path.
@@ -14,7 +18,7 @@ Allow 10 to 15 minutes before the event for setup. The controlled participant lo
 - 45 minutes: run a baseline, change one harness configuration, run again, and compare.
 - 10 minutes: interpret the observed trajectories, state the evidence limit, and close.
 
-The separate [`lecture/`](lecture/) area is maintained by the lecture owner.
+The separate [`lecture/`](lecture/) area documents the lecture release.
 
 ## Evidence and privacy boundary
 
@@ -24,4 +28,4 @@ This repository does not include attendee information, private transcripts, cred
 
 ## Status
 
-The hands-on workshop is runnable from this public repository. The lecture materials follow their own release path.
+The hands-on workshop is runnable from this public repository. The current lecture deck is published through GitHub Pages.

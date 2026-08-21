@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#090d12" />
+    <title>Intro to Harness Engineering</title>
+    <script type="module" crossorigin src="./assets/index-DsVn1pMY.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-DxVSigdo.css">
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section class="slide slide--title" data-slide-id="HE-00">
+          <div class="title-lockup">
+            <h1>Intro to<br /><span>Harness Engineering</span></h1>
+            <p class="title-deck">How to turn models into effective agents for specific outcomes.</p>
+          </div>
+          <aside class="notes">
+            Open on the path, not the framework. The lecture gives the room one object that will survive every abstraction level: a recorded engineering trajectory.
+            [Sources] Editorial framing: README.md; PRESENTATION_PRODUCTION_HANDOFF.md.
+          </aside>
+        </section>
+
+        <section class="slide slide--speaker" data-slide-id="HE-00A">
+          <div class="speaker__identity">
+            <h2>Danial Hasan</h2>
+            <p>AI consultant and product engineer</p>
+          </div>
+
+          <div class="speaker__firm">
+            <span>remedys.ai</span>
+            <strong>We help teams build and use AI systems. We train engineers to work effectively with AI.</strong>
+            <p>Consulting · education · training</p>
+          </div>
+          <aside class="notes">
+            Keep this introduction brief. I am Danial Hasan, an AI consultant and product engineer. Through Remedys.ai, we help teams build and use AI systems, and we train engineers to work effectively with AI. This workshop reflects the same practical focus: understand the system, change it, and inspect the result.
+            [Sources] Presenter-provided biography and Remedys.ai positioning.
+          </aside>
+        </section>
+
+        <section class="slide slide--concept-map" data-slide-id="HE-01">
+          <header class="concept-map__header">
+            <p class="eyebrow">The conceptual map</p>
+            <h2>Four ideas.<br /><span>One system.</span></h2>
+          </header>
+
+          <ol class="concept-map__sequence">
+            <li>
+              <span class="concept-map__number">01</span>
+              <div>
+                <strong>Capability</strong>
+                <p>What the model could do.</p>
+              </div>
+            </li>
+            <li>
+              <span class="concept-map__number">02</span>
+              <div>
+                <strong>Trajectories</strong>
+                <p>The path the agent takes.</p>
+              </div>
+            </li>
+            <li>
+              <span class="concept-map__number">03</span>
+              <div>
+                <strong>Observation + uncertainty</strong>
+                <p>What it can see before it acts.</p>
+              </div>
+            </li>
+            <li>
+              <span class="concept-map__number">04</span>
+              <div>
+                <strong>Feedback + verification</strong>
+                <p>What moves—or stops—the path.</p>
+              </div>
+            </li>
+          </ol>
+
+          <p class="concept-map__footer">Together: how the system around a model shapes the work it does.</p>
+          <aside class="notes">
+            This is the map, not the lecture. Name the four ideas without unpacking the implementation details yet. The audience should recognize the same ideas later in the visual, formal, code, and trace views.
+            [Sources] Editorial direction from the Danial–ChatGPT opening-sequence conversation; research/TRANSCRIPT_WORKSHOP_EVIDENCE.md sections 1–3.
+          </aside>
+        </section>
+
+        <section class="slide slide--four-views" data-slide-id="HE-02">
+          <header class="four-views__header">
+            <h2>One object.<br /><span>Four views.</span></h2>
+            <p>We’re going to view each concept from four different angles.</p>
+          </header>
+
+          <div class="four-views__line" aria-label="Four views of the same system">
+            <div>
+              <span>01</span>
+              <strong>Math</strong>
+              <p>State relationships precisely.</p>
+            </div>
+            <div>
+              <span>02</span>
+              <strong>Visual</strong>
+              <p>Build intuition.</p>
+            </div>
+            <div>
+              <span>03</span>
+              <strong>Code</strong>
+              <p>Expose the mechanism.</p>
+            </div>
+            <div>
+              <span>04</span>
+              <strong>Trace</strong>
+              <p>Inspect what happened.</p>
+            </div>
+          </div>
+
+          <p class="four-views__footer">Same system. Four representations.</p>
+          <aside class="notes">
+            These are not four separate explanations. Math removes implementation detail and states the relationships precisely. Visuals build intuition. Code shows the mechanism. Traces show what the mechanism did in an actual run.
+            [Sources] Editorial direction from the Danial–ChatGPT opening-sequence conversation; research/TRANSCRIPT_WORKSHOP_EVIDENCE.md section 3.
+          </aside>
+        </section>
+
+        <section class="slide slide--why" data-slide-id="HE-04">
+          <div class="why__statement">
+            <p>We analyzed your<br /><span>signup data.</span></p>
+          </div>
+          <aside class="notes">
+            This is the pivot. The concepts were not selected because they form a fashionable taxonomy. They map to the failures and interests reported in the signup form.
+            [Sources] research/AUDIENCE_EVIDENCE.md.
+          </aside>
+        </section>
+
+        <section class="slide slide--failure-data" data-slide-id="HE-05">
+          <header class="failure-data__header">
+            <h2>We analyzed all<br /><span>47 registrations.</span></h2>
+            <p>Twenty-four people answered the optional coding-agent failure question.</p>
+          </header>
+
+          <div class="failure-data__body">
+            <div class="failure-data__sample">
+              <strong>24</strong>
+              <p>answers about a difficult<br />coding-agent task</p>
+            </div>
+            <ul>
+              <li><strong>10</strong><span>Ongoing supervision, autonomy, or stopping</span></li>
+              <li><strong>8</strong><span>Integration, dependencies, or toolchain complexity</span></li>
+              <li><strong>7</strong><span>Incorrect or poor-fit output</span></li>
+              <li><strong>6</strong><span>Missing context, requirements, or codebase grounding</span></li>
+              <li><strong>5</strong><span>Architecture, design, or scalability quality</span></li>
+            </ul>
+          </div>
+
+          <p class="failure-data__footer">Mentions in 24 optional answers · multi-label themes can overlap · 5 answers did not state a specific failure</p>
+          <aside class="notes">
+            The 47 is the total registration export. The 24 is the number of people who answered the optional failure question. The values beside the themes are coded mentions, not list numbers and not mutually exclusive groups. Five answers named a task without identifying a failure mechanism. We will select three themes to examine later, after the conceptual foundation is in place.
+            [Sources] research/AUDIENCE_EVIDENCE.md; research/AUDIENCE_RESPONSE_SEGMENTATION.md.
+          </aside>
+        </section>
+
+        <section class="slide slide--harness-definition" data-slide-id="HE-06">
+          <header class="harness-definition__header">
+            <h2>What is<br /><span>harness engineering?</span></h2>
+          </header>
+
+          <div class="harness-definition__body">
+            <p class="harness-definition__statement">
+              The practice of designing the system around a model so it can pursue a specific outcome reliably.
+            </p>
+
+            <div class="harness-definition__controls" aria-label="Harness control surfaces">
+              <p><strong>What it sees</strong><span>Context and observations</span></p>
+              <p><strong>What it can do</strong><span>Tools and authority</span></p>
+              <p><strong>What persists</strong><span>State</span></p>
+              <p><strong>What evidence returns</strong><span>Feedback and verification</span></p>
+              <p><strong>When stopping is justified</strong><span>Completion rules</span></p>
+            </div>
+          </div>
+
+          <p class="harness-definition__footer">The model is one component of the agent system.</p>
+          <aside class="notes">
+            A model provides capability. The harness turns that capability into an operating system for a task. It assembles context, exposes tools and authority, carries state, returns observations and feedback, invokes verification, and decides whether to continue, stop, or escalate. These controls can change the trajectory, but a harness change does not automatically improve the outcome.
+            [Sources] research/FORMAL_FOUNDATIONS.md; research/HARNESS_CODE_PROVENANCE.md.
+          </aside>
+        </section>
+      </div>
+    </div>
+  </body>
+</html>

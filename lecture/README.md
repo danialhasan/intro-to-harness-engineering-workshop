@@ -1,8 +1,16 @@
 # Lecture
 
-This folder will contain the public lecture materials for Intro to Harness Engineering.
+This folder tracks the public lecture materials for Intro to Harness Engineering.
 
-Planned contents:
+## Current deck
+
+Open the [published slide deck](https://danialhasan.github.io/intro-to-harness-engineering-workshop/slides/).
+
+The rendered static files are published from `docs/slides/`. The editable deck
+source remains in the lecture production workspace while the slides are being
+developed.
+
+Planned supporting contents:
 
 - slide deck
 - diagrams and visual explanations
