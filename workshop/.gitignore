@@ -1,3 +1,6 @@
 runner/.smoke-runs/
 runner/backups/
+runner/outputs/
+runner/prime/.venv/
+runner/prime/**/__pycache__/
 runner/runs/

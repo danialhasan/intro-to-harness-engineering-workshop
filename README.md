@@ -8,14 +8,14 @@ Open the [live slide deck](https://danialhasan.github.io/intro-to-harness-engine
 
 ## Start the hands-on workshop
 
-Go to the [complete participant workshop](workshop/README.md). It contains the prerequisites, subscription-based Pi sign-in, fixed task, commands, editable boundary, expected results, recovery steps, privacy rules, and continuation path.
+Go to the [complete participant workshop](workshop/README.md). It uses the Prime Verifiers v1 Taskset, Harness, Runtime, Trace, reward, and metric contracts with subscription-based Pi OAuth. The guide contains the fixed task, one bounded policy edit, expected results, recovery steps, privacy rules, and continuation path.
 
 Allow 10 to 15 minutes before the event for setup. The controlled participant loop is designed for the 45-minute hands-on period.
 
 ## Event shape
 
 - 20 minutes: build a shared mental model of a coding-agent harness.
-- 45 minutes: run a baseline, change one harness configuration, run again, and compare.
+- 45 minutes: run a Prime baseline, change one harness policy, run again, and compare native traces and deterministic scores.
 - 10 minutes: interpret the observed trajectories, state the evidence limit, and close.
 
 The separate [`lecture/`](lecture/) area documents the lecture release.

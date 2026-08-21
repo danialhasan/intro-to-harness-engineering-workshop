@@ -1,71 +1,81 @@
-# Expected output and worked interpretation
+# Sanitized Prime workshop example
 
-Model trajectories are not deterministic. Your action counts and evaluator status can differ from this example. The stable expectations are the artifact shapes, fixed-control checks, and evidence limit.
+This is an example-review fallback. It is not a fresh participant experiment.
 
-## Local preflight
-
-The no-model checks end with text similar to:
-
-```text
-trace fixture tests passed
-resource isolation integration test passed
-compare fixture test passed
-retry integration smoke passed: ...
-```
-
-The retry smoke intentionally evaluates the starter as `FAILED`. The smoke command itself succeeds after it confirms that this evaluator result and the trace files exist.
-
-The basic smoke command prints a JSON object with `runId`, `runDir`, `runnerError`, and `evaluation`. It does not print a fixed completion sentence.
-
-## Model run
-
-Each model command prints a JSON object with generated values:
+## Run summaries
 
 ```json
 {
-  "runId": "pair-...-baseline-...",
-  "runDir": ".../runner/runs/pair-.../baseline/pair-...-baseline-..."
+  "runId": "pair-example-baseline-11111111",
+  "runDir": "<local-run-root>/pair-example/baseline/pair-example-baseline-11111111",
+  "candidate": "baseline",
+  "completionStatus": "COMPLETE",
+  "primeExitCode": 0
 }
 ```
 
-The run directory contains at least:
-
-```text
-comparison-manifest.json
-evaluation-report.json
-normalized-actions.jsonl
-raw-events.jsonl
-run.json
-worktree/
+```json
+{
+  "runId": "pair-example-changed-22222222",
+  "runDir": "<local-run-root>/pair-example/changed/pair-example-changed-22222222",
+  "candidate": "changed",
+  "completionStatus": "COMPLETE",
+  "primeExitCode": 0
+}
 ```
 
-The deterministic evaluator report uses `completion_status: "COMPLETE"` when all four hard gates pass. Otherwise it uses `completion_status: "FAILED"` and identifies the failed gates.
+Each native Prime trace recorded:
 
-## Sanitized example pair
+- model `openai-codex/gpt-5.5`;
+- intercepted model calls linked to assistant nodes;
+- tool calls and tool results;
+- four rewards with score `1.0` and weight `0.25`;
+- metric `evaluator_gates_passed = 4.0`;
+- metric `evaluator_complete = 1.0`;
+- stop condition `agent_completed`.
 
-In one prior controlled pair, both evaluator reports were `COMPLETE`. The baseline first edited `src/http/request.ts` at observable action 14. The changed harness first edited the same file at action 19. Both ran `npm test` before stopping.
-
-The recorded action classes were:
-
-| Action class | Baseline | Changed harness |
-| --- | ---: | ---: |
-| Read | 13 | 14 |
-| Search | 2 | 4 |
-| Edit | 2 | 1 |
-| Execute | 2 | 1 |
-| Test | 4 | 2 |
-
-Both runs passed these deterministic evaluator gates:
+## Deterministic scorer
 
 ```text
-safe_get_retry: PASS
-unsafe_post_no_duplicate: PASS
-attempt_trace_per_physical_request: PASS
-safe_http_500_no_retry: PASS
+PASS safe GET retries with bounded backoff
+PASS unsafe POST does not duplicate a committed job
+PASS trace records physical attempt outcomes
+PASS safe HTTP 500 is surfaced without retry
+RESULT PASS target=participant
 ```
 
-## What this example supports
+## Controlled difference
 
-The changed harness coincided with more observable repository inspection before the first edit and a different action sequence in this pair. Both final implementations passed the same evaluator.
+Example participant mechanism statement:
 
-The example does not establish that the changed harness caused the difference, that it is generally better, or that it is more correct, faster, or cheaper across tasks. Model sampling is not fully controlled. Use the fixed-control ledger and visible trace to describe this pair only.
+```text
+I changed this harness policy so the agent is asked to read TASK.md and the API
+contract before its first edit.
+```
+
+In the example changed trace, the first turn requested `TASK.md`, `docs/api-contract.md`, and a file inventory before the first edit. The baseline used a different observable sequence. Both traces reached the same deterministic score.
+
+## Comparator
+
+```json
+{
+  "comparison": "pair-example",
+  "valid": true,
+  "fixedControls": 24,
+  "baselineStatus": "COMPLETE",
+  "changedStatus": "COMPLETE"
+}
+```
+
+Every fixed-control row reported `MATCH`. The two policy hashes were `DIFFERENT`.
+
+## Correct interpretation
+
+```text
+In this pair, the Taskset, model, subscription route, Runtime, tools, limits,
+and deterministic scorer matched. We changed one required pre-edit read. The
+Prime traces showed different observable tool sequences. Both scorers reported
+COMPLETE. This one pair does not prove that either harness is generally better.
+```
+
+Do not interpret one pair as a general framework, model, prompt, or harness ranking.

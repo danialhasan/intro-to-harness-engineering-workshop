@@ -4,6 +4,13 @@
   "type": "module",
   "scripts": {
     "check:types": "tsc --noEmit",
+    "check:policy": "tsx src/validate-policy.ts",
+    "prime:sync": "uvx --from uv==0.11.1 uv sync --project prime --locked",
+    "prime:baseline": "tsx src/prime-run.ts baseline",
+    "prime:changed": "tsx src/prime-run.ts changed",
+    "prime:compare": "tsx src/prime-compare.ts",
+    "test:prime-controls": "tsx src/fixed-controls-fixture-test.ts",
+    "reset:policy": "tsx src/reset-policy.ts",
     "run": "tsx src/cli.ts",
     "smoke": "tsx src/cli.ts --mode fixture --fixture fixtures/hello-task --task hello-task --candidate baseline --run-root .smoke-runs",
     "smoke:retry": "tsx src/integration-smoke-retry.ts",

@@ -1,0 +1,13 @@
+[project]
+name = "intro-harness-engineering-prime-workshop"
+version = "1.0.0"
+description = "Prime Verifiers v1 workshop environment for a fixed retry-safe HTTP task."
+requires-python = ">=3.11,<3.14"
+dependencies = [
+  "retry-http-v1",
+  "verifiers",
+]
+
+[tool.uv.sources]
+retry-http-v1 = { path = "retry_http_v1", editable = true }
+verifiers = { git = "https://github.com/PrimeIntellect-ai/verifiers.git", rev = "4bcb48e55a35c199d9d2f9722060fda627306aa3" }

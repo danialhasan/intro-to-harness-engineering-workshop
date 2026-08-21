@@ -1,7 +1,15 @@
-# Workshop runner
+# Prime Verifiers v1 workshop runner
 
-This is the real Pi-based runner used by the participant guide. Start at the parent [hands-on workshop README](../README.md).
+Start with [the participant workshop guide](../README.md).
 
-The runner creates a fresh candidate worktree, runs the pinned Pi coding-agent runtime, records observable lifecycle and tool evidence, and always invokes the task's deterministic evaluator when possible. It does not implement another model loop and does not save hidden model reasoning.
+This folder contains:
 
-The only participant-editable area is the instruction-string array marked `PARTICIPANT EDIT START` and `PARTICIPANT EDIT END` in [`src/participant-harness.ts`](src/participant-harness.ts). All commands, fixed controls, privacy rules, and recovery steps are in the parent guide.
+- `prime/`: the pinned Prime v1 project and `retry-http-v1` Taskset package;
+- `configs/`: fixed baseline and changed Prime configs;
+- `policies/`: the baseline policy and bounded participant policy;
+- `src/oauth-proxy.ts`: the localhost Pi OAuth subscription adapter;
+- `src/prime-run.ts`: the baseline and changed run wrapper;
+- `src/prime-compare.ts`: the fixed-control comparator;
+- `runs/`: local private Prime traces, ignored by Git.
+
+Prime upload is disabled. Do not commit or publish `runs/`.
