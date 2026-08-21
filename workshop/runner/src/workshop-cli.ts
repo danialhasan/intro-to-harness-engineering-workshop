@@ -158,7 +158,13 @@ async function ladderTable(session: WorkshopSession, variants: Variant[]): Promi
 
 async function ladder(): Promise<void> {
 	const session = await readSession(); assertStage(session, "ready");
-	for (const variant of REFERENCE_VARIANTS) { session.runs[variant] = await executeVariant(session, variant); await saveSession(session); console.log(`\nSafe ${variant.toUpperCase()} summary: ${session.runs[variant]?.summaryFile}`); console.log(await readFile(session.runs[variant]?.summaryFile ?? "", "utf8")); }
+	const throughOption = option("through");
+	if (throughOption && !REFERENCE_VARIANTS.includes(throughOption as Variant)) throw new Error("--through must be h0, h1, h2, or h3");
+	for (const variant of REFERENCE_VARIANTS) {
+		session.runs[variant] = await executeVariant(session, variant); await saveSession(session);
+		console.log(`\nSafe ${variant.toUpperCase()} summary: ${session.runs[variant]?.summaryFile}`); console.log(await readFile(session.runs[variant]?.summaryFile ?? "", "utf8"));
+		if (throughOption === variant) { console.log(`Stopped cleanly after ${variant.toUpperCase()}. Run npm run workshop:ladder to resume; completed variants will be skipped.`); printStatus(session); return; }
+	}
 	session.stage = "reference_complete"; await saveSession(session);
 	const report = `# H0-H3 Reference Ladder\n\n${await ladderTable(session, REFERENCE_VARIANTS)}\n\nThese are observed trajectories from one run per variant. A YES means the declared behavior appeared in the sanitized action order. It does not prove causality or general superiority.\n`;
 	const reportFile = resolve("runs", session.ladderId, "REFERENCE_LADDER.md"); await writeFile(reportFile, report);

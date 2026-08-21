@@ -166,6 +166,15 @@ npm run workshop:ladder
 `workshop:ladder` skips each stored completed H0-H3 run. `workshop:h4` also
 recovers one completed but unclaimed H4 run.
 
+To pause at a clean variant boundary, Codex can use:
+
+```sh
+npm run workshop:ladder -- --through h0
+```
+
+`--through` accepts `h0`, `h1`, `h2`, or `h3`. A later plain
+`npm run workshop:ladder` resumes at the first missing variant.
+
 Restore only H4 while preserving runs and reports:
 
 ```sh
